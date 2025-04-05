@@ -82,7 +82,7 @@ export default function SearchResults() {
       ) : query ? (
         <div className={styles.noResults}>
           <FiMeh size={48} />
-          <p>Nenhuma receita encontrada para "{query}"</p>
+          <p>Nenhuma receita encontrada para {query}</p>
           <Link href="/" className={styles.backLink}>
             Voltar para a página inicial
           </Link>
