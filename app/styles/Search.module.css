@@ -1,0 +1,65 @@
+
+/* Adicione ao seu Header.module.css */
+.searchResultsContainer{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .resultsGrid {
+    padding: 10px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    transition: background-color 0.3s;
+  }
+  
+  .resultsGrid:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  .imageContainer{
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    position: relative;    
+  }
+  .recipeImage{
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;    
+  }
+  .recipeDetails{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .noResults {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+  }
+  
+  .noResults svg {
+    margin-bottom: 1rem;
+    color: #ccc;
+  }
+  
+  .backLink {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #4a6cf7;
+    text-decoration: none;
+  }
+  
+  .recipeDetails span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-right: 0.8rem;
+    font-size: 0.9rem;
+    color: #555;
+  }

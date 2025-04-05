@@ -1,0 +1,439 @@
+.header {
+  background-color: var(--color-white);
+  border: 1px solid var(--border-grey);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 1rem; /* Espaço entre os elementos */
+}
+
+.logoContainer {
+  justify-self: start; /* Alinha à esquerda */
+  min-width: 196px; /* Largura mínima baseada no logo */
+}
+
+.logo {
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* button category*/
+.categoryContainer {
+  justify-self: center;
+}
+
+
+/* Toggle Button Styles */
+.toggleButton {
+  background-color: var(--background-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggleButton:hover {
+  background-color: var(--background-green-ligth);
+}
+
+/* Estilos dos "risquinhos" (hamburger icon) */
+.hamburger {
+  width: 20px;
+  height: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburgerLine {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+/* Animação quando o menu está aberto */
+.toggleButton.active .hamburgerLine:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.toggleButton.active .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.toggleButton.active .hamburgerLine:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Texto do botão */
+.toggleText {
+  font-size: 1rem;
+}
+
+/* Search Container Styles */
+.searchContainer {
+  justify-self: end;
+  min-width: 250px; /* Largura mínima para o campo de busca */
+  max-width: 400px;
+  width: 100%;
+}
+
+.searchWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.searchInput {
+  padding: 0.5rem 1rem;
+  padding-right: 40px; /* Espaço para o ícone */
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.searchButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Navigation Styles */
+.nav {
+  grid-column: 1 / -1; /* Ocupa todas as colunas */
+  margin-top: 1rem;
+}
+.navList {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--color-dark);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navLink:hover {
+  color: var(--background-orange);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navIcon {
+  object-fit: contain;
+}
+
+
+/* Category Menu Styles */
+.categoryMenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: absolute;
+  left: 0;
+  z-index: 99;
+}
+
+.categoryMenu.show {
+  max-height: 500px; /* Ajuste conforme necessário */
+}
+
+.menuContent {
+  padding: 1rem 2rem;
+}
+
+.categoryList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  text-align: center;
+}
+
+.categoryList li a {
+  color: var(--color-dark);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  display: block;
+  transition: color 0.3s;
+}
+
+.categoryList li a:hover {
+  color: var(--background-orange);
+}
+
+/* Ajuste para o header quando o menu está aberto */
+.header {
+  position: relative;
+  z-index: 100;
+}
+
+/* Banner Container Styles - Atualizado */
+.bannerContainer {
+  width: 100%;
+  position: relative;
+  height: 500px; /* Altura fixa para o banner */
+  overflow: hidden;
+}
+
+.bannerContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.5s ease;
+}
+
+/* Banner Navigation Buttons */
+.bannerNavButton {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background-color: var(--background-orange);
+  color: white;
+  border: none;
+  width: 45px; /* Alterado para igualar altura */
+  height: 45px; /* Tornar altura igual à largura */
+  border-radius: 50%; /* Isso cria o formato redondo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s ease; /* Adicionado all para animar todas propriedades */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra opcional para melhor visibilidade */
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.bannerNavButton:hover {
+  background-color: var(--background-orange-ligth);
+  transform: translateY(-50%) scale(1.1); /* Efeito de zoom no hover */
+}
+
+/* Ícones dentro dos botões */
+.bannerNavButton::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-width: 2px 2px 0 0;
+}
+
+.bannerNavButton.prev::before {
+  transform: rotate(-135deg);
+  margin-left: 5px;
+}
+
+.bannerNavButton.next::before {
+  transform: rotate(45deg);
+  margin-right: 5px;
+}
+
+/* Ajuste de posicionamento para os botões redondos */
+.bannerNavButton.prev {
+  left: 30px;
+}
+
+.bannerNavButton.next {
+  right: 30px;
+}
+
+/* Banner Text Overlay */
+.bannerText {
+  position: absolute;
+  bottom: 80px;
+  left: 50px;
+  color: white;
+  z-index: 2;
+  max-width: 50%;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.bannerTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.bannerDescription {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.bannerCta {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--background-orange);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.bannerCta:hover {
+  background-color: var(--background-orange-ligth);
+}
+
+
+
+/* Banner Indicators */
+.bannerIndicators {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 1;
+}
+
+.bannerIndicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bannerIndicator.active {
+  background-color: var(--background-orange);
+  transform: scale(1.2);
+}
+
+.bannerIndicator:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+/*focus*/
+
+.searchInput:focus,
+.searchButton:focus,
+.logoContainer:focus,
+.categoryContainer:focus,
+.searchInput:focus,
+.searchButton:focus,
+.navLink:focus {
+  border: 2px solid var(--border-grey);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .logoContainer,
+  .searchContainer,
+  .categoryContainer,
+  .nav {
+    width: 100%;
+  }
+  
+  .navList {
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .searchWrapper {
+    max-width: 100%;
+  }
+  .bannerContainer {
+    margin-top: 10px;
+  }
+  
+  .bannerIndicators {
+    bottom: 10px;
+  }
+  
+  .bannerIndicator {
+    width: 10px;
+    height: 10px;
+  }
+  .bannerContainer {
+    height: 300px;
+  }
+  
+  .bannerText {
+    left: 20px;
+    bottom: 60px;
+    max-width: 80%;
+  }
+  
+  .bannerTitle {
+    font-size: 1.8rem;
+  }
+  
+  .bannerDescription {
+    font-size: 1rem;
+  }
+  
+  .bannerNavButton {
+    width: 30px;
+    height: 50px;
+  }
+}
