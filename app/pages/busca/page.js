@@ -39,7 +39,7 @@ export default function SearchResults() {
 
   return (
     <div className={styles.searchResultsContainer}>
-      <h1><FiSearch size={24} /> Você buscou por: "{query}"</h1>
+      <h1><FiSearch size={24} /> Você buscou por: {query}</h1>
       
       {results.length > 0 ? (
         <div className={styles.resultsGrid}>
