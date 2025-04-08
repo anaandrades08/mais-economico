@@ -1,0 +1,269 @@
+.header {
+  background-color: var(--color-white);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 1rem; /* Espaço entre os elementos */
+}
+
+.logoContainer {
+  justify-self: start; /* Alinha à esquerda */
+  min-width: 196px; /* Largura mínima baseada no logo */
+}
+
+.logo {
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* button category*/
+.categoryContainer {
+  justify-self: center;
+}
+
+
+/* Toggle Button Styles */
+.toggleButton {
+  background-color: var(--background-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggleButton:hover {
+  background-color: var(--background-green-ligth);
+}
+
+/* Estilos dos "risquinhos" (hamburger icon) */
+.hamburger {
+  width: 20px;
+  height: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburgerLine {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+/* Animação quando o menu está aberto */
+.toggleButton.active .hamburgerLine:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.toggleButton.active .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.toggleButton.active .hamburgerLine:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Texto do botão */
+.toggleText {
+  font-size: 1rem;
+}
+
+/* Search Container Styles */
+.searchContainer {
+  justify-self: end;
+  min-width: 250px; /* Largura mínima para o campo de busca */
+  max-width: 400px;
+  width: 100%;
+}
+
+.searchWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.searchInput {
+  padding: 0.5rem 1rem;
+  padding-right: 40px; /* Espaço para o ícone */
+  border: 1px solid var(--border-grey);
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.searchButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.shearchIcon{  
+  color: var(--background-grey);
+}
+
+/* Navigation Styles */
+.nav {
+  grid-column: 1 / -1; /* Ocupa todas as colunas */
+  margin-top: 1rem;
+}
+.navList {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--color-dark);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navLink:hover {
+  color: var(--background-orange);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navIcon {
+  object-fit: contain;
+}
+.navIcon:hover {
+  color: var(--background-orange);
+}
+
+
+/* Category Menu Styles */
+.categoryMenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: var(--bacground-verde-claro);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: absolute;
+  left: 0;
+  z-index: 99;
+}
+
+.categoryMenu.show {
+  max-height: 500px; /* Ajuste conforme necessário */
+}
+
+.menuContent {
+  padding: 1rem 2rem;
+}
+
+.categoryList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  text-align: center;
+}
+
+.categoryList li a {
+  color: var(--color-dark);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  display: block;
+  transition: color 0.3s;
+}
+
+.categoryList li a:hover {
+  color: var(--background-orange);
+}
+
+/* Ajuste para o header quando o menu está aberto */
+.header {
+  position: relative;
+  z-index: 100;
+}
+
+
+/*focus*/
+
+.searchInput:focus,
+.searchButton:focus,
+.logoContainer:focus,
+.categoryContainer:focus,
+.searchInput:focus,
+.navLink:focus {
+  border: 2px solid var(--border-grey);
+}
+
+.searchButton:focus{
+  border: 0px solid var(--border-grey);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .logoContainer,
+  .searchContainer,
+  .categoryContainer,
+  .nav {
+    width: 100%;
+  }
+  
+  .navList {
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .searchWrapper {
+    max-width: 100%;
+  }
+  
+}

@@ -1,0 +1,11 @@
+/* ========= Conteúdo Principal ========= */
+.admin-main {
+    flex: 1;
+    padding: 2rem;
+    background-color: #ffffff;
+  }
+  
+  .admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }

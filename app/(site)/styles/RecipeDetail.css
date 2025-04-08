@@ -1,0 +1,419 @@
+.recipeContainer {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .recipeContainer p {
+    text-align: left;
+  }
+  
+  .recipeContentTwoColumns {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .column {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .sectionTitle {
+    color: #28a745; /* verde receita */
+    font-size: 1.5rem;
+    margin-bottom: 1rem; /* aumenta o espaçamento inferior */
+  }
+  
+  h3 {
+    color: #333;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .recipeDescription,
+  ul,
+  ol,
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .loading,
+  .notFound {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  /*Linha do Custo*/
+
+  .custoInline {
+    display: flex;
+    align-items: center; 
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .custoIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef8e30; 
+    height: 24px;
+  }
+  
+  .custoLabel,
+  .custoValor {
+    margin: 0; 
+    line-height: 1.5;
+    display: flex;
+    align-items: center; 
+  }
+  
+  .custoValor{
+    font-weight: 500;
+    color: #2c3e50; 
+  }
+  
+  .custoLabel {
+    font-weight: bold;
+  }
+  
+
+  /* Substituições*/
+
+  .substituicoesContainer {
+    margin-top: 1rem;
+  }
+  
+  .substituicoesContainer select {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    color: #333; 
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 1rem;
+  }
+  
+  .substituicoesContainer select:first-of-type {
+    background-color: #A4D6A1; /* verde claro */
+    transition: background-color 0.3s ease;
+  }
+  
+  .substituicoesContainer select:first-of-type:hover {
+    background-color: #8FC98B; /* um verde mais escuro */
+  }
+  
+  .substituicoesContainer select:last-of-type {
+    background-color: #F7C58A; /* laranja claro */
+    transition: background-color 0.3s ease;
+  }
+  
+  .substituicoesContainer select:last-of-type:hover {
+    background-color: #eebd78; /* laranja mais escura */
+  }
+
+  .substituicoesContainer select:hover {
+    filter: brightness(0.95);
+    cursor: pointer;
+  }
+  
+  .substituicoesContainer select:focus {
+    outline: 2px solid #999;
+  }
+  
+  .substituicoesContainer .swap-icon {
+    font-size: 1.25rem;
+  }
+  
+  .substituicoesContainer .valor {
+    display: flex;
+    flex-direction: column; /* coloca um em cima do outro */
+    align-items: center;
+    gap: 0.25rem;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .substituicoesContainer .valor .icon {
+    color: #ef8e30;
+    font-size: 1.25rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ValorText{
+    color: #2c3e50;
+    font-weight: bold; 
+  }
+  
+  .substituicoesContainer p {
+    font-size: 0.875rem;
+    color: #333;
+    margin-top: 0.5rem;
+  }
+
+.SwapIcon{
+    color: #333;
+  }
+  
+
+  /*Recomendações*/
+  .reciperecommendations {
+    background-image: url('/images/layout/recipe/background-feedback.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 2rem;
+    border-radius: 8px;
+    color: #333;
+  }
+   .reciperecommendations h3{
+    text-align: center;
+   }
+   .reciperecommendations p{
+    text-align: center;
+   }
+
+
+   .reciperecommendations a,
+   .reciperecommendationsLink{
+    font-weight: 600;
+    text-decoration: underline;
+   }
+  
+   .recommendations-columns {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-start; 
+  }
+  
+  .recommendation-form,
+  .recommendation-feedbacks {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 8px;
+    height: 100%;
+  }
+  
+  .recommendation-form textarea {
+    flex-grow: 1;
+    height: 150px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  
+  .recommendation-form button {
+    align-self: flex-start;
+    padding: 0.6rem 1.2rem;
+    background-color: #2e7d32; 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .recommendation-feedbacks-users {
+    margin-bottom: 0.8rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.6rem;
+    border-radius: 6px;
+    text-align: left; /* Alinha tudo dentro à esquerda */
+  }
+  
+  .recommendation-feedbacks-usuario {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+
+  .recommendation-feedbacks-text {
+    text-align: left !important;
+     display: block;
+     margin: 0;
+  }
+
+  .iconUserfeedback{
+    color: #2e7d32; 
+  }
+  
+
+  .rating-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* espaço entre estrela e texto */
+    margin-bottom: 0.8rem;
+  }
+
+
+  .recommendation-form-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .recommendation-form-text textarea {
+    flex-grow: 1;
+    height: 150px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  
+  .recommendation-form-text p {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: left;
+    margin: 0;
+  }
+  
+  .recommendation-form-button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .recommendation-form-button button {
+    padding: 0.6rem 1.5rem;
+    background-color: var(--color-icon-receita, #28a745); /* substitua por sua cor */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 296px;
+  }
+
+  .recommendation-form-button button:focus,
+  .recommendation-form-text textarea  {
+    outline: 2px solid #999;
+  }
+
+  /*More Recipes*/
+
+  .more-recipes-container {
+    margin-top: 2rem;
+  }
+  
+  .more-recipes-container h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .recipe-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;         
+  }
+  
+  .recipe-more-img {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;            
+  }
+  .recipe-more-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    color: #333;    
+    text-align: left;
+  }
+  
+  .recipe-more-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    align-items: flex-start;
+    text-align: left;    
+  }
+  
+  .detail-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  
+  .recipe-more-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .timeline-icon,
+  .coin-icon {
+    color: #28a745;
+  }
+
+  .recipe-item a {
+    display: inline-block;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .recipe-item a:focus,
+  .recipe-item a:hover {
+    box-shadow: 0 0 0 4px #A4D6A1; /* borda de foco/hover */
+  }
+  
+  .recipe-more-img {
+    border-radius: 0.5rem;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .recipe-item a:hover .recipe-more-img,
+  .recipe-item a:focus .recipe-more-img {
+    transform: scale(1.03); /* zoom leve ao passar o mouse ou focar */
+  }
+  
+  
+
+  /*Responsividade*/
+  
+  @media (max-width: 768px) {
+    .recipeContent {
+      grid-template-columns: 1fr;
+    }
+    
+    .recipeTitle {
+      font-size: 2rem;
+    }
+    
+    .recipeMeta {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }

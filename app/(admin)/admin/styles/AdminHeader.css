@@ -1,0 +1,90 @@
+/* ========= Header ========= */
+.admin-header {
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-logo {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  
+  .admin-header-content a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .admin-nav {
+    display: flex;
+    gap: 0.8rem;
+  }
+  
+  .admin-nav-link-btn {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    gap: 1rem;
+    padding: auto 0.5rem;
+  }
+  
+  .admin-nav-link-btn:hover {
+    color: #FFD700;     
+  }
+   
+  .admin-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  
+  
+  .admin-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .admin-dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .admin-dropdown:hover .admin-dropdown-content {
+    display: block;
+  }
+
+
+/* ========= Botões ========= */
+.admin-info-button {
+  transition: transform 0.2s ease;
+}
+.admin-info-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* ========= Responsividade ========= */
+@media (max-width: 768px) {
+    .admin-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  
+    .admin-nav {
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  }

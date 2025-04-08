@@ -1,0 +1,184 @@
+/* Banner Container Styles - Atualizado */
+.bannerContainer {
+    width: 100%;
+    position: relative;
+    height: 500px; /* Altura fixa para o banner */
+    overflow: hidden;
+  }
+  .bannerContent {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .bannerImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: opacity 0.5s ease;
+  }
+  
+  /* Banner Navigation Buttons */
+  .bannerNavButton {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background-color: var(--background-orange);
+    color: white;
+    border: none;
+    width: 45px; /* Alterado para igualar altura */
+    height: 45px; /* Tornar altura igual à largura */
+    border-radius: 50%; /* Isso cria o formato redondo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease; /* Adicionado all para animar todas propriedades */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra opcional para melhor visibilidade */
+    font-size: 1rem;
+    line-height: 1;
+  }
+  
+  .bannerNavButton:hover {
+    background-color: var(--background-orange-ligth);
+    transform: translateY(-50%) scale(1.1); /* Efeito de zoom no hover */
+  }
+  
+  /* Ícones dentro dos botões */
+  .bannerNavButton::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    border-width: 2px 2px 0 0;
+  }
+  
+  .bannerNavButton.prev::before {
+    transform: rotate(-135deg);
+    margin-left: 5px;
+  }
+  
+  .bannerNavButton.next::before {
+    transform: rotate(45deg);
+    margin-right: 5px;
+  }
+  
+  /* Ajuste de posicionamento para os botões redondos */
+  .bannerNavButton.prev {
+    left: 30px;
+  }
+  
+  .bannerNavButton.next {
+    right: 30px;
+  }
+  
+  /* Banner Text Overlay */
+  .bannerText {
+    position: absolute;
+    bottom: 80px;
+    left: 50px;
+    color: white;
+    z-index: 2;
+    max-width: 50%;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  }
+  
+  .bannerTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .bannerDescription {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .bannerCta {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--background-orange);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .bannerCta:hover {
+    background-color: var(--background-orange-ligth);
+  }
+  
+  
+  
+  /* Banner Indicators */
+  .bannerIndicators {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 1;
+  }
+  
+  .bannerIndicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .bannerIndicator.active {
+    background-color: var(--background-orange);
+    transform: scale(1.2);
+  }
+  
+  .bannerIndicator:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Responsive Styles */
+@media (max-width: 768px) {
+    .bannerContainer {
+      margin-top: 10px;
+    }
+    
+    .bannerIndicators {
+      bottom: 10px;
+    }
+    
+    .bannerIndicator {
+      width: 10px;
+      height: 10px;
+    }
+    .bannerContainer {
+      height: 300px;
+    }
+    
+    .bannerText {
+      left: 20px;
+      bottom: 60px;
+      max-width: 80%;
+    }
+    
+    .bannerTitle {
+      font-size: 1.8rem;
+    }
+    
+    .bannerDescription {
+      font-size: 1rem;
+    }
+    
+    .bannerNavButton {
+      width: 30px;
+      height: 50px;
+    }
+  }

@@ -1,0 +1,138 @@
+/* styles/RecipeBanner.module.css */
+
+.bannerContainer {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);    
+    font-family: 'Montserrat';
+  }
+  
+  .bannerContent {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .bannerImage {
+    object-fit: cover;
+    object-position: center center; /* pode ajustar isso */
+    filter: brightness(0.5);
+    z-index: 1;
+  }
+  
+  .bannerText {
+    position: absolute;
+    top: 50%;
+    left: 5%; /* alinhado à esquerda */
+    transform: translateY(-50%);
+    z-index: 2;
+    color: #fff;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .bannerInfo {
+    display: flex;
+    flex-wrap: wrap; /* para quebrar linha se faltar espaço */
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .bannerInfo span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+  }
+  .icon{    
+    color: var(--background-orange);
+  }
+  
+  .bannerTitle {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bannerDescription {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  
+  /* Ícones e texto em linha */
+  .bannerText span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Dica com estilo especial */
+  .tip {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-style: italic;
+  }
+
+  .bannerbtngroup {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .bannerbtnsalvar,
+  .bannerbtncompartilhar {
+    background-color: var(--color-icon-receita); /* Corrigido: era 'var(color-icon-receita)' */
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bannerbtnsalvar:hover,
+  .bannerbtncompartilhar:hover {
+    background-color: var(--color-icon-receita);
+  }
+  
+  .bannerbtnsalvar svg,
+  .bannerbtncompartilhar svg {
+    margin-right: 0.5rem;
+  }
+
+  .iconBtn{
+    color: #fff;
+  }
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .bannerContainer {
+      height: 250px;
+    }
+  
+    .bannerTitle {
+      font-size: 1.8rem;
+    }
+  
+    .bannerDescription {
+      font-size: 0.95rem;
+    }
+  
+    .bannerText {
+      left: 1rem;
+      padding: 0.5rem;
+    }
+  }
+  
