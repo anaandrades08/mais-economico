@@ -9,7 +9,9 @@
   --background-orange: #ef8e30;
   --background-orange-ligth: #e4752b;
   --background-clear: #f8f9fa;  
-  --bacground-verde-claro: #C7E6C5;
+  --background-verde-claro: #C7E6C5;
+
+  --background-principal: #E9E9E9;
 
   /*Cor das bordas*/
   --border-grey: #7b7b7b;
@@ -39,6 +41,7 @@ body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
   line-height: 1.6;
+  background-color: var(--background-verde-claro);
 }
 
 a {

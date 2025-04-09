@@ -5,10 +5,12 @@ import Image from "next/image";
 import Link from 'next/link'
 import '../../../styles/RecipeDetail.css'
 
+
+
 //importa dados
 import { Recipes, moreRecipes } from '../../../data/RecipesData'
 import { FeedBacks } from '../../../data/FeedbackData'
-import { listaIngredientes } from '../../../data/IngredientesData'
+import { listaIngredientesaSubstituicoes } from '../../../data/IngredientesData'
 
 //componentes
 import RecipeBanner from '@/app/(site)/components/RecipeBanner'
@@ -24,6 +26,22 @@ export default function RecipeDetail() {
   const params = useParams()
   const [recipe, setRecipe] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [original, setOriginal] = useState('')
+  const [substituto, setSubstituto] = useState('')
+  const [valorOriginal, setValorOriginal] = useState(0)
+  const [valorSubstituto, setValorSubstituto] = useState(0)
+  const [diferenca, setDiferenca] = useState(null)
+
+  const handleCalcular = () => {
+    const itemOriginal = listaIngredientesaSubstituicoes.find(item => item.titulo === original)
+    const itemSubstituto = listaIngredientesaSubstituicoes.find(item => item.titulo === substituto)
+
+    if (itemOriginal && itemSubstituto) {
+      setValorOriginal(itemOriginal.valor)
+      setValorSubstituto(itemSubstituto.valor)
+      setDiferenca(itemOriginal.valor - itemSubstituto.valor)
+    }
+  }
 
   useEffect(() => {
     // Encontra a receita pelo ID
@@ -32,7 +50,9 @@ export default function RecipeDetail() {
     )
     setRecipe(foundRecipe)
     setLoading(false)
-  }, [params.id])
+    setDiferenca(null)
+    setValorSubstituto(0)
+  }, [params.id, original, substituto])
 
   if (loading) {
     return <div className="loading">Carregando...</div>
@@ -60,41 +80,48 @@ export default function RecipeDetail() {
       <div className="recipeContainer">
 
         <div className="recipeContentTwoColumns">
-          {/* Primeira Coluna */}
+          {/*---------------------------------------- Primeira Coluna --------------------------------------*/}
           <div className="column">
             {/* Descrição */}
-            {recipe.descricao && (
-              <>
-                <h2 className="sectionTitle">DESCRIÇÃO</h2>
-                <div className="recipeDescription">
-                  <p>{recipe.descricao}</p>
-                </div>
-              </>
-            )}
-            {/* Rendimento */}
-            {recipe.rendimento && (
-              <>
-                <h2 className="sectionTitle">RENDIMENTO</h2>
-                <p>{recipe.rendimento}</p>
-              </>
-            )}
-            {/* Ingredientes */}
-            {(recipe.ingredientes || recipe.ingredients?.length > 0) && (
-              <>
-                <h2 className="sectionTitle">INGREDIENTES</h2>
-                {recipe.ingredientes.map((grupo, index) => (
-                  <div key={index}>
-                    <h3>{grupo.titulo}</h3>
-                    <ul>
-                      {grupo.itens.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </>
-            )}
 
+            <div className="descricaoContainer">
+              {recipe.descricao && (
+                <>
+                  <h2 className="sectionTitle">DESCRIÇÃO</h2>
+                  <div className="recipeDescription">
+                    <p>{recipe.descricao}</p>
+                  </div>
+                </>
+              )}
+            </div>
+            {/* Rendimento */}
+            <div className="rendimentoContainer">
+              {recipe.rendimento && (
+                <>
+                  <h2 className="sectionTitle">RENDIMENTO</h2>
+                  <p>{recipe.rendimento}</p>
+                </>
+              )}
+            </div>
+
+            {/* Ingredientes */}
+            <div className="ingredientesContainer">
+              {(recipe.ingredientes || recipe.ingredients?.length > 0) && (
+                <>
+                  <h2 className="sectionTitle">INGREDIENTES</h2>
+                  {recipe.ingredientes.map((grupo, index) => (
+                    <div key={index}>
+                      <h3>{grupo.titulo}</h3>
+                      <ul>
+                        {grupo.itens.map((item, idx) => (
+                          <li key={idx}>• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
           </div>
 
           {/* ----------------------Segunda Coluna------------------------- */}
@@ -102,96 +129,127 @@ export default function RecipeDetail() {
           <div className="column">
 
             {/* Custo */}
-            {recipe.custo && (
-              <>
-                <h2 className="sectionTitle">CUSTO DA RECEITA</h2>
-                {/* Bloco em linha */}
-                <div className="custoInline">
-                  <p className="custoIcon">
-                    <TbCoin size={23} className="IconContainer" alt="Custo" />
-                  </p>
-                  <p className="custoLabel">Custo:</p>
-                  <p className="custoValor">{recipe.custo}</p>
-                </div>
-              </>
-            )}
-
+            <div className="custoContainer">
+              {recipe.custo && (
+                <>
+                  <h2 className="sectionTitle">CUSTO DA RECEITA</h2>
+                  {/* Bloco em linha */}
+                  <div className="detailInline">
+                    <p className="detailIcon">
+                      <TbCoin size={23} className="IconContainer" alt="Custo" />
+                    </p>
+                    <p className="custoLabel">Custo:</p>
+                    <p className="custoValor">{recipe.custo}</p>
+                  </div>
+                </>
+              )}
+            </div>
 
             {/* Substituições */}
             <div className="substituicoesContainer">
               <h2 className="sectionTitle">SUBSTITUIÇÃO</h2>
-              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+              <div>
 
-                <select className="SelectAlimento">
-                  <option value="">🍴 Alimento 1</option> {/* ou "Selecione um ingrediente..." */} 
-                  {listaIngredientes.map((item) => (
-                    <option key={item.id}>🍴 {item.titulo}</option>
-                  ))}
+                <select className="SelectAlimento" onChange={e => setOriginal(e.target.value)}>
+                  <option value="">🍴 Alimento</option>
+                  {[...listaIngredientesaSubstituicoes]
+                    .sort((a, b) => a.titulo.localeCompare(b.titulo))
+                    .map((item) => (
+                      <option key={item.id} value={item.titulo}>
+                        🍴 {item.titulo}
+                      </option>
+                    ))}
                 </select>
 
-                <span>
-                  <TbReplaceFilled size={24} className="SwapIcon" alt="Substituir" />
-                </span>
+                <button className='btnRplace' onClick={handleCalcular}>
+                  <TbReplaceFilled size={24} alt="Substitui ingrediente" />
+                </button>
 
-                <select className="SelectSubtistuicao">
-                  <option value="">🍴 Alimento 1</option> {/* ou "Selecione um ingrediente..." */}
-                  {listaIngredientes.map((item) => (
-                    <option key={item.id}>🍴 {item.titulo}</option>
-                  ))}
+                <select className="SelectSubtistuicao" onChange={e => setSubstituto(e.target.value)}>
+                  <option value="">🍴 Substituto</option>
+                  {[...listaIngredientesaSubstituicoes]
+                    .sort((a, b) => a.titulo.localeCompare(b.titulo))
+                    .map((item) => (
+                      <option key={item.id} value={item.titulo}>
+                        🍴 {item.titulo}
+                      </option>
+                    ))}
                 </select>
 
                 <span className='Icon'>
-                  <FaEquals size={18} />
-                </span>
-
-                <div className="valor">
+                  <FaEquals size={18} alt="retorna resultado " />
+                </span>                
+              </div>
+              <div className="valor">
                   <p className="icon">
                     <TbCoin size={23} className="IconContainer" alt="Custo" />
                   </p>
                   <p className='ValorText'>Valor:</p>
-                  <p> R$10,00</p>
+                  <p>R${valorSubstituto.toFixed(2)}</p>
                 </div>
-              </div>
 
-              <p>Produto 10% mais barato que o original da receita.</p>
+              {diferenca !== null && (
+                <p>
+                  {diferenca > 0
+                    ? `Produto R$${diferenca.toFixed(2)} mais barato que o original da receita.`
+                    : diferenca < 0
+                      ? `Produto R$${Math.abs(diferenca).toFixed(2)} mais caro que o original da receita.`
+                      : 'Produto com mesmo valor do original.'}
+                </p>
+              )}
             </div>
 
 
             {/* Substituições Realizadas*/}
-            {recipe.substituicoes?.length > 0 && (
-              <>
-                <h2 className="sectionTitle">SUBSTITUIÇÕES REALIZADAS</h2>
-                <ul>
-                  {recipe.substituicoes.map((item, index) => (
-                    <li key={index}>
-                      <strong>{item.ingrediente}:</strong> {item.substituicoes.join(", ")}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
+            <div className="substituicoesContainer">
+              {recipe.substituicoes?.length > 0 && (
+                <>
+                  <h2 className="sectionTitle">SUBSTITUIÇÕES REALIZADAS</h2>
+                  <ul>
+                    {recipe.substituicoes.map((item, index) => (
+                      <li key={index}>
+                        <p>{item.ingrediente} por: {item.substituicoes.join(", ")}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
 
 
             {/* Modo de Preparo */}
-            {(recipe.mododepreparo || recipe.mododepreparo?.length > 0) && (
-              <>
-                <h2 className="sectionTitle">Modo de Preparo</h2>
-                {recipe.mododepreparo.map((grupo, index) => (
-                  <div key={index}>
-                    <h3>{grupo.titulo}</h3>
-                    <ul>
-                      {grupo.passos.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
+            <div className="preparoContainer">
+              {(recipe.mododepreparo || recipe.mododepreparo?.length > 0) && (
+                <>
+                  <h2 className="sectionTitle">MODO DE PREPARO</h2>
+                  {/* Bloco em linha */}
+                  <div className="detailInline">
+                    <p className="detailIcon">
+                      <FaRegClock size={20} className="IconContainer" alt="Custo" />
+                    </p>
+                    <p className="custoLabel">Tempo de Preparo:</p>
+                    <p className="custoValor">{recipe.preparo}</p>
                   </div>
-                ))}
-              </>
-            )}
+                  {recipe.mododepreparo.map((grupo, index) => (
+                    <div key={index}>
+                      <h3>{grupo.titulo}</h3>
+                      <ul>
+                        {grupo.passos.map((item, idx) => (
+                          <li key={idx}>
+                            <span>{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}. </span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Recomendações */}
+        {/* Recomendações---------------------------------------- */}
         <div className="reciperecommendations">
           <h3>Recomendações dos Usuários</h3>
           <p>Você possui alguma recomendação de substituição de ingredientes? <Link href="/login" className="reciperecommendationsLink">Faça login</Link> e escreva para gente.</p>
@@ -227,7 +285,7 @@ export default function RecipeDetail() {
           </div>
         </div>
 
-        {/* Mais Receitas */}
+        {/* Mais Receitas----------------------------------------------------------------------------- */}
         <div className="more-recipes-container">
           <h3>Mais Receitas</h3>
           <div className="recipes-grid">

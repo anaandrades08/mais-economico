@@ -1,8 +1,8 @@
 .mainContainer {
-    max-width: 1200px;
+    max-width: 90%;
     margin: 2rem auto;
     padding: 0 1rem;
-    background-color: var(--background-clear);
+    background-color: var(--background-ligth);
     align-items: center;
   }
   
@@ -38,6 +38,7 @@
     font-size: 1.5rem;
     color: var(--color-title);
     margin-bottom: 1rem;
+    overflow: hidden;
   }
   
   .recipeDetails {
@@ -166,6 +167,7 @@
     color: var(--color-title);
     margin-bottom: 1rem;
     font-weight: bold;
+    overflow: hidden;
   }
 
 
@@ -202,14 +204,15 @@
   .CoinIcon,
   .TimeLineIcon,
   .dateTimeIcon,
-  .userIcon  {
+  .userIcon,
+  .Icon  {
     color: var(--color-icon-receita);
   }
-
   .CoinIcon:hover,
   .TimeLineIcon:hover,
   .dateTimeIcon:hover,
-  .userIcon:hover  {
+  .userIcon:hover,
+  .Icon  {
     color: var(--background-green);
   }
 

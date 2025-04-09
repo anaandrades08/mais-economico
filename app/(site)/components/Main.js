@@ -8,11 +8,21 @@ import {
 } from "../data/RecipesData.js";
 
 
-
 import { TbCoin } from "react-icons/tb";
 import { FaRegClock } from "react-icons/fa";
 import { TbCalendarTime } from "react-icons/tb";
 import { PiUserCircleFill } from "react-icons/pi";
+import { FiClock, FiBookmark, FiSearch, FiMeh } from 'react-icons/fi';
+import { GiCookingPot, GiSaucepan, GiCampCookingPot } from 'react-icons/gi';
+
+const getDifficultyIcon = (level) => {
+  switch(level?.toLowerCase()) {
+    case 'fácil': return <GiCookingPot size={22} alt="Fácil" className={styles.Icon}  />;
+    case 'médio': return <GiSaucepan size={22} alt="Médio"  className={styles.Icon}/>;
+    case 'difícil': return <GiCampCookingPot size={22} alt="Difícil" className={styles.Icon}  />;
+    default: return <GiCookingPot size={22}  className={styles.Icon} />;
+  }
+};
 
 export default function MainContent() {
   return (
@@ -28,7 +38,7 @@ export default function MainContent() {
                   <Image
                     src={recipe.image}
                     alt={recipe.nome}
-                    width={293}
+                    width={350}
                     height={240}
                     className={styles.recipeImg}
                     priority={recipe.id < 4}
@@ -46,13 +56,23 @@ export default function MainContent() {
                   {recipe.tempo || "00:00h"}
                 </span>
                 <span>
-                  <FaRegClock size={22} className={styles.TimeLineIcon} alt="Tempo cozinhando" />
+                  <FaRegClock size={20} className={styles.TimeLineIcon} alt="Tempo cozinhando" />
                   {recipe.preparo || "00:00h"}
                 </span>
                 <span>
                   <TbCoin size={24} className={styles.CoinIcon} alt="Custo" />
                   {recipe.custo || "R$00,00"}
                 </span>
+                <span>
+                    <FiBookmark size={20} className={styles.Icon} />
+                    {recipe.categoryTitle || 'Geral'}
+                  </span>
+                  {recipe.dificuldade && (
+                    <span>
+                      {getDifficultyIcon(recipe.dificuldade)}
+                      {recipe.dificuldade}
+                    </span>
+                  )}
               </div>
             </div>
           ))}
@@ -70,7 +90,7 @@ export default function MainContent() {
                   <Image
                     src={recipe.image}
                     alt={recipe.nome}
-                    width={293}
+                    width={350}
                     height={240}
                     className={styles.recipeImg}
                     priority={recipe.id < 4}
@@ -88,13 +108,23 @@ export default function MainContent() {
                   {recipe.tempo || "00:00h"}
                 </span>
                 <span>
-                  <FaRegClock size={22} className={styles.TimeLineIcon} alt="Tempo cozinhando" />
+                  <FaRegClock size={20} className={styles.TimeLineIcon} alt="Tempo cozinhando" />
                   {recipe.preparo || "00:00h"}
                 </span>
                 <span>
                   <TbCoin size={24} className={styles.CoinIcon} alt="Custo" />
                   {recipe.custo || "R$00,00"}
                 </span>
+                <span>
+                    <FiBookmark size={20} className={styles.Icon} />
+                    {recipe.categoryTitle || 'Geral'}
+                  </span>
+                  {recipe.dificuldade && (
+                    <span>
+                      {getDifficultyIcon(recipe.dificuldade)}
+                      {recipe.dificuldade}
+                    </span>
+                  )}
               </div>
             </div>
           ))}
@@ -112,8 +142,8 @@ export default function MainContent() {
                   <Image
                     src={recipe.image}
                     alt={recipe.nome}
-                    width={200}
-                    height={150}
+                    width={250}
+                    height={200}
                     className={styles.recipeMoreImg}
                     priority={recipe.id < 4}
                   />

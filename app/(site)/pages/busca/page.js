@@ -4,23 +4,33 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
-import styles from '../../styles/Search.module.css';
-import { Recipes } from "../../data/RecipesData.js";
+import { Recipes, moreRecipes } from "../../data/RecipesData.js";
 import { FiClock, FiBookmark, FiSearch, FiMeh } from 'react-icons/fi';
 import { GiCookingPot, GiSaucepan, GiCampCookingPot } from 'react-icons/gi';
+import { TbCoin } from "react-icons/tb";
+import { FaRegClock } from "react-icons/fa";
+import { TbCalendarTime } from "react-icons/tb";
+import { PiUserCircleFill } from "react-icons/pi";
+import '../../styles/Search.css';
 
-// Componente principal que será envolvido pelo Suspense
+
 function SearchContent() {
   const searchParams = useSearchParams();
+  const busca = searchParams.get('q');
   const query = searchParams.get('q')?.toLowerCase() || '';
   const [results, setResults] = useState([]);
 
   useEffect(() => {
     if (query) {
-      const filtered = Recipes.filter(recipe => 
-        recipe.name.toLowerCase().includes(query) ||
-        (recipe.ingredientes && recipe.ingredientes.some(ing => ing.toLowerCase().includes(query))) ||
-        (recipe.category && recipe.category.toLowerCase().includes(query))
+      const filtered = Recipes.filter(recipe =>
+        recipe.nome?.toLowerCase().includes(query) ||
+        (Array.isArray(recipe.ingredientes) &&
+          recipe.ingredientes.some(ing =>
+            (typeof ing === 'string' && ing.toLowerCase().includes(query)) ||
+            (ing?.nome && ing.nome.toLowerCase().includes(query))
+          )
+        ) ||
+        recipe.category?.toLowerCase().includes(query)
       );
       setResults(filtered);
     } else {
@@ -29,76 +39,90 @@ function SearchContent() {
   }, [query]);
 
   const getDifficultyIcon = (level) => {
-    switch(level?.toLowerCase()) {
-      case 'fácil': return <GiCookingPot size={16} title="Fácil" />;
-      case 'médio': return <GiSaucepan size={16} title="Médio" />;
-      case 'difícil': return <GiCampCookingPot size={16} title="Difícil" />;
-      default: return <GiCookingPot size={16} />;
+    switch (level?.toLowerCase()) {
+      case 'fácil': return <GiCookingPot size={20} title="Fácil" className='Icon' />;
+      case 'médio': return <GiSaucepan size={20} title="Médio" className='Icon' />;
+      case 'difícil': return <GiCampCookingPot size={20} title="Difícil" className='Icon' />;
+      default: return <GiCookingPot size={20} className='Icon' />;
     }
   };
 
   return (
-    <div className={styles.searchResultsContainer}>
-      <h1><FiSearch size={24} /> Você buscou por: "{query}"</h1>
-      
-      {results.length > 0 ? (
-        <div className={styles.resultsGrid}>
-          {results.map((recipe) => (
-            <div key={recipe.id} className={styles.recipeCard}>
-              <Link href={`./receita/${recipe.id}`}>
-                {recipe.image && (
-                  <div className={styles.imageContainer}>
-                    <Image
-                      src={recipe.image}
-                      alt={recipe.name}
-                      width={300}
-                      height={200}
-                      className={styles.recipeImage}
-                      priority={results.length <= 3}
-                    />
-                  </div>
-                )}
-                <h2>{recipe.name}</h2>
-                <div className={styles.recipeDetails}>
-                  <span>
-                    <FiClock size={16} /> 
-                    {recipe.tempo || 'Não especificado'}
-                  </span>
-                  <span>
-                    <FiBookmark size={16} />
-                    {recipe.categoryTitle || 'Geral'}
-                  </span>
-                  {recipe.dificuldade && (
-                    <span>
-                      {getDifficultyIcon(recipe.dificuldade)}
-                      {recipe.dificuldade}
-                    </span>
-                  )}
+    <>
+      <div className="searchResultsContainer">
+        <p className='searchfrase'>Resultados de busca por: <strong>{busca}</strong></p>
+
+        <div className="ResultsContainer">
+          {results.length > 0 ? (
+            <div className="resultsGrid">
+              {results.map((recipe) => (
+                <div key={recipe.id} className="recipeCard">
+                  <Link href={`/pages/receita/${recipe.id}`}>
+                    {recipe.image && (
+                      <Image
+                        src={recipe.image}
+                        alt={recipe.nome}
+                        width={350}
+                        height={240}
+                        className="recipeImage"
+                        priority={results.length <= 3}
+                      />
+                    )}
+                    <h2>{recipe.nome}</h2>
+                    <div className="recipeDetails">
+                      <span>
+                        <PiUserCircleFill size={24} className='Icon' alt="Nome do usuário" />
+                        {recipe.usuario || "Nome do usuário"}
+                      </span>
+                      <span>
+                        <TbCalendarTime size={24} className='Icon' alt="Tempo de preparo" />{" "}
+                        {recipe.tempo || "00:00h"}
+                      </span>
+                      <span>
+                        <FiClock size={20} className='Icon' alt="Tempo cozinhando" />
+                        {recipe.preparo || 'Não especificado'}
+                      </span>
+                      <span>
+                        <TbCoin size={24} className='Icon' alt="Custo" />
+                        {recipe.custo || "R$00,00"}
+                      </span>
+                      <span>
+                        <FiBookmark size={20} className='Icon' />
+                        {recipe.categoryTitle || 'Geral'}
+                      </span>
+                      {recipe.dificuldade && (
+                        <span>
+                          {getDifficultyIcon(recipe.dificuldade)}
+                          {recipe.dificuldade}
+                        </span>
+                      )}
+                    </div>
+                  </Link>
                 </div>
+              ))}
+            </div>
+          ) : query ? (
+            <div className="noResults">
+              <FiMeh size={48} className='Icon' />
+              <p>Nenhuma receita encontrada para {busca}</p>
+              <Link href="/" className="backLink">
+                Voltar para a página inicial
               </Link>
             </div>
-          ))}
+
+          ) : (
+            <p>Digite um termo para buscar receitas</p>
+          )}
         </div>
-      ) : query ? (
-        <div className={styles.noResults}>
-          <FiMeh size={48} />
-          <p>Nenhuma receita encontrada para "{query}"</p>
-          <Link href="/" className={styles.backLink}>
-            Voltar para a página inicial
-          </Link>
-        </div>
-      ) : (
-        <p>Digite um termo para buscar receitas</p>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
 
-// Componente pai que envolve com Suspense
 export default function SearchResults() {
   return (
     <Suspense fallback={
-      <div className={styles.searchResultsContainer}>
+      <div className="searchResultsContainer">
         <p>Carregando resultados...</p>
       </div>
     }>

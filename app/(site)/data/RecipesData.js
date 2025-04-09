@@ -2,7 +2,7 @@ export const Recipes = [
   {
     id: 1,
     nome: "Bolo de Creme",
-    descricao: "Lorem ipsum dolor sit amet consectetur. Mauris et tellus ac arcu pellentesque diam diam. Arcu integer accumsan ipsum turpis cursus rhoncus tincidunt ultricies platea. Dignissim amet et sagittis urna ac egestas. Sem viverra pellentesque massa pulvinar at at.",
+    descricao: "Bolo de chocolate fofinho com recheio cremoso de leite ninho. Massa leve e úmida, combinando o sabor intenso do cacau com a doçura suave do leite em pó. Camadas equilibradas que derretem na boca e trazem conforto a cada fatia. Ideal para festas, cafés ou um mimo no fim do dia. Uma explosão de sabor que une tradição e indulgência na medida certa.",
     image: "/images/receitas/bolosetortas/bolosetortas1.png",    
     width: "293",
     height: "240",
@@ -103,7 +103,7 @@ export const Recipes = [
   {
     id: 2,
     nome: "Bolo de Chocolate com Leite Ninho",
-    descricao: "Lorem ipsum dolor sit amet consectetur. Mauris et tellus ac arcu pellentesque diam diam. Arcu integer accumsan ipsum turpis cursus rhoncus tincidunt ultricies platea. Dignissim amet et sagittis urna ac egestas. Sem viverra pellentesque massa pulvinar at at.",
+    descricao: "Bolo de chocolate fofinho com recheio cremoso de leite ninho. Massa leve e úmida, combinando o sabor intenso do cacau com a doçura suave do leite em pó. Camadas equilibradas que derretem na boca e trazem conforto a cada fatia. Ideal para festas, cafés ou um mimo no fim do dia. Uma explosão de sabor que une tradição e indulgência na medida certa.",
     image: "/images/receitas/bolosetortas/bolosetortas2.png",     
     width: "293",
     height: "240",
@@ -204,6 +204,7 @@ export const Recipes = [
   {
     id: 3,
     nome: "Bolo de Baunilha",
+    descricao: "Bolo de chocolate fofinho com recheio cremoso de leite ninho. Massa leve e úmida, combinando o sabor intenso do cacau com a doçura suave do leite em pó. Camadas equilibradas que derretem na boca e trazem conforto a cada fatia. Ideal para festas, cafés ou um mimo no fim do dia. Uma explosão de sabor que une tradição e indulgência na medida certa.",
     image: "/images/receitas/bolosetortas/bolosetortas3.png",    
     width: "293",
     height: "240",
@@ -304,6 +305,7 @@ export const Recipes = [
   {
     id: 4,
     nome: "Macarrão alho e óleo",
+    descricao: "Macarrão al dente envolvido em um molho cremoso e saboroso. Massa leve e bem cozida, combinando o toque clássico do trigo com o tempero caseiro marcante. Camadas de sabor que abraçam o paladar e trazem conforto a cada garfada. Ideal para almoços especiais, jantares em família ou momentos de puro prazer. Uma explosão de sabor que une tradição e simplicidade na medida certa.",
     image: "/images/receitas/massas/massas1.png",    
     width: "293",
     height: "240",
@@ -331,6 +333,7 @@ export const Recipes = [
   {
     id: 5,
     nome: "Macarronada",
+    descricao: "Macarrão al dente envolvido em um molho cremoso e saboroso. Massa leve e bem cozida, combinando o toque clássico do trigo com o tempero caseiro marcante. Camadas de sabor que abraçam o paladar e trazem conforto a cada garfada. Ideal para almoços especiais, jantares em família ou momentos de puro prazer. Uma explosão de sabor que une tradição e simplicidade na medida certa.",
     image: "/images/receitas/massas/massas2.png",   
     width: "293",
     height: "240",
@@ -358,6 +361,7 @@ export const Recipes = [
   {
     id: 6,
     nome: "Pasta Italiana",
+    descricao: "Macarrão al dente envolvido em um molho cremoso e saboroso. Massa leve e bem cozida, combinando o toque clássico do trigo com o tempero caseiro marcante. Camadas de sabor que abraçam o paladar e trazem conforto a cada garfada. Ideal para almoços especiais, jantares em família ou momentos de puro prazer. Uma explosão de sabor que une tradição e simplicidade na medida certa.",
     image: "/images/receitas/massas/massas3.png",    
     width: "293",
     height: "240",
