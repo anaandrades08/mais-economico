@@ -88,3 +88,11 @@
 .backLink:hover {
   text-decoration: underline;
 }
+
+.loading, .notFound {
+  max-width: 90%;
+  text-align: center;
+  margin: 2rem auto;
+  padding: 1rem;   
+  background-color: var(--background-ligth);
+}

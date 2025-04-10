@@ -6,6 +6,7 @@ import {
   Recipes,
   recipesByCategory,
 } from "../data/RecipesData.js";
+import RecipeSection from "./RecipeSection.js";
 
 
 import { TbCoin } from "react-icons/tb";
@@ -17,16 +18,19 @@ import { GiCookingPot, GiSaucepan, GiCampCookingPot } from 'react-icons/gi';
 
 const getDifficultyIcon = (level) => {
   switch(level?.toLowerCase()) {
-    case 'fácil': return <GiCookingPot size={22} alt="Fácil" className={styles.Icon}  />;
-    case 'médio': return <GiSaucepan size={22} alt="Médio"  className={styles.Icon}/>;
-    case 'difícil': return <GiCampCookingPot size={22} alt="Difícil" className={styles.Icon}  />;
-    default: return <GiCookingPot size={22}  className={styles.Icon} />;
+    case 'fácil': return <GiCookingPot size={22} alt="Fácil" className={styles.Icon} aria-hidden="true" />;
+    case 'médio': return <GiSaucepan size={22} alt="Médio"  className={styles.Icon} aria-hidden="true" />;
+    case 'difícil': return <GiCampCookingPot size={22} alt="Difícil" className={styles.Icon} aria-hidden="true" />;
+    default: return <GiCookingPot size={22}  className={styles.Icon} aria-hidden="true" />;
   }
 };
 
 export default function MainContent() {
   return (
+
+    
     <div className={styles.mainContainer}>
+
       {/* Seção Category Bolos e tortas */}
       <section className={styles.recipesSection}>
         <h1 className={styles.categoryTitle}>Bolos e Tortas</h1>
@@ -48,23 +52,23 @@ export default function MainContent() {
               <h2 className={styles.recipeTitle}>{recipe.nome}</h2>
               <div className={styles.recipeDetails}>
                 <span>
-                  <PiUserCircleFill size={24} className={styles.userIcon} alt="Nome do usuário" />
+                <PiUserCircleFill size={24} className={styles.userIcon} aria-hidden="true" />
                   {recipe.usuario || "Nome do usuário"}
                 </span>
                 <span>
-                  <TbCalendarTime size={24} className={styles.dateTimeIcon} alt="Tempo de preparo" />{" "}
+                  <TbCalendarTime size={24} className={styles.dateTimeIcon} aria-hidden="true" />{" "}
                   {recipe.tempo || "00:00h"}
                 </span>
                 <span>
-                  <FaRegClock size={20} className={styles.TimeLineIcon} alt="Tempo cozinhando" />
+                  <FaRegClock size={20} className={styles.TimeLineIcon} aria-hidden="true" />
                   {recipe.preparo || "00:00h"}
                 </span>
                 <span>
-                  <TbCoin size={24} className={styles.CoinIcon} alt="Custo" />
+                  <TbCoin size={24} className={styles.CoinIcon} aria-hidden="true" />
                   {recipe.custo || "R$00,00"}
                 </span>
                 <span>
-                    <FiBookmark size={20} className={styles.Icon} />
+                    <FiBookmark size={20} className={styles.Icon} aria-hidden="true" />
                     {recipe.categoryTitle || 'Geral'}
                   </span>
                   {recipe.dificuldade && (
@@ -100,23 +104,23 @@ export default function MainContent() {
               <h2 className={styles.recipeTitle}>{recipe.nome}</h2>
               <div className={styles.recipeDetails}>
               <span>
-                  <PiUserCircleFill size={24} className={styles.userIcon} alt="Nome do usuário" />
+                  <PiUserCircleFill size={24} className={styles.userIcon} aria-hidden="true" />
                   {recipe.usuario || "Nome do usuário"}
                 </span>
                 <span>
-                  <TbCalendarTime size={24} className={styles.dateTimeIcon} alt="Tempo de preparo" />{" "}
+                  <TbCalendarTime size={24} className={styles.dateTimeIcon} aria-hidden="true" />{" "}
                   {recipe.tempo || "00:00h"}
                 </span>
                 <span>
-                  <FaRegClock size={20} className={styles.TimeLineIcon} alt="Tempo cozinhando" />
+                  <FaRegClock size={20} className={styles.TimeLineIcon} aria-hidden="true" />
                   {recipe.preparo || "00:00h"}
                 </span>
                 <span>
-                  <TbCoin size={24} className={styles.CoinIcon} alt="Custo" />
+                  <TbCoin size={24} className={styles.CoinIcon} aria-hidden="true" />
                   {recipe.custo || "R$00,00"}
                 </span>
                 <span>
-                    <FiBookmark size={20} className={styles.Icon} />
+                    <FiBookmark size={20} className={styles.Icon} aria-hidden="true" />
                     {recipe.categoryTitle || 'Geral'}
                   </span>
                   {recipe.dificuldade && (
@@ -134,9 +138,9 @@ export default function MainContent() {
       {/* Seção Mais Receitas */}
       <section className={styles.recipesMoreSection}>
         <h1 className={styles.categoryTitle}>Mais Receitas</h1>
-        <div className={styles.recipesList}>
+        <div className={styles.recipeMoreList}>
           {moreRecipes.map((recipe) => (
-            <div key={recipe.id} className={styles.recipeItem}>
+            <div key={recipe.id} className={styles.recipeMoreItem}>
               <Link href={`/pages/receita/${recipe.id}`} passHref legacyBehavior>
                 <a>
                   <Image
@@ -153,12 +157,12 @@ export default function MainContent() {
               <div className={styles.recipeMoreDetails}>
                 <p className={styles.recipeMoreIncos}>
                   {" "}
-                  <FaRegClock size={20} className={styles.TimeLineIcon} alt="Tempo cozinhando" />
+                  <FaRegClock size={20} className={styles.TimeLineIcon} aria-hidden="true" />
                   {recipe.preparo || "00:00h"}
                 </p>
                 <p>
                   {" "}
-                  <TbCoin size={23} className={styles.CoinIcon} alt="Custo" />
+                  <TbCoin size={23} className={styles.CoinIcon} aria-hidden="true" />
                   {recipe.custo || "R$00,00"}
                 </p>
               </div>

@@ -1,0 +1,205 @@
+.login-container {
+  display: flex;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color:  var(--background-white);
+  flex-direction: row;
+  align-items: center;  
+}
+
+.login-container-form{
+display: flex;
+width: 636px;
+flex-direction: column;
+padding-left: 86px;
+padding-right: 86px;
+padding-top: 32px;
+padding-bottom: 24px;
+align-items: center;
+}
+
+.login-second-img {
+  width: auto;
+  height: auto;
+}
+
+
+.login-title {
+  display: flex;
+  position: relative;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-botao-cadastro);
+  justify-content: center;
+  text-align: center;
+}
+
+.login-description {
+  display: flex;
+  width: 390px;
+  position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-black);
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.login-img {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  width: 636px;
+  height: 580px;
+}
+
+/**********   form    ******/
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 38px;
+}
+
+.email {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-size: 16px;
+  color: var(--color-cinza-label);
+  text-align: left;
+}
+
+.input-email {
+  display: flex;
+  width: 464px;
+  padding: 14px;
+  border-radius: 6px;
+  border: 1.5px solid #555;
+  box-sizing: border-box;
+}
+
+.password {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-senha {
+  display: flex;
+  width: 464px;
+  padding: 14px;
+  border-radius: 6px;
+  border: 1.5px solid #555;
+  box-sizing: border-box;
+}
+
+.recuperar-senha {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.p-senha {
+  margin: 0;
+  padding: 0;
+  color:var(--color-black);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.recuperar-link {
+  text-decoration: none;
+  color:var(--color-cinza-login);
+  font-size: 14px;
+  font-weight: 400;
+}
+.recuperar-link:hover {
+  text-decoration: underline;
+  color:var(--color-botao-login-hover);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cadastro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 464px;
+  margin-top: 45px;
+}
+
+.cadastro-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 464px;
+  margin-bottom: 48px;
+}
+
+.linha {
+  flex: 1;
+  height: 2px;
+  background-color: var(--color-cinza-login);
+}
+
+.texto {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.group-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;   
+  margin-top: 20px;
+}
+/*botões**************************/
+
+.btn-entrar {
+  display: flex;
+  width: 298px;
+  background-color: var(--color-botao-login);
+  border: none;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-white);
+  justify-content: center;
+}
+.btn-entrar:hover{
+  background-color: var(--color-botao-login-hover);
+  cursor: pointer;
+}
+
+.btn-novo-cadastro {
+  display: flex;
+  width: 298px;
+  background-color:var(--color-botao-cadastro);
+  border: none;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-black);
+  justify-content: center;
+  align-items: center;
+}
+.btn-novo-cadastro:hover{
+  background-color: var(--color-botao-cadastro-hover);
+  cursor: pointer;
+}
+

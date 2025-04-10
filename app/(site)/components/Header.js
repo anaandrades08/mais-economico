@@ -4,21 +4,23 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Header.module.css";
-import { categorias } from "../data/CategoriaData.js"; 
+import { categorias } from "../data/CategoriaData.js";
 
 //Importando os icones do react-icon
+import { CiSearch } from "react-icons/ci";
+//usuario logado
 import { BsSendPlus } from "react-icons/bs";
 import { MdFavoriteBorder } from "react-icons/md";
 import { BiUserCircle } from "react-icons/bi";
-import { CiSearch } from "react-icons/ci";
+import { FiLogOut } from 'react-icons/fi';
+//usuario publico
+import { BiUserPlus, BiLogIn } from "react-icons/bi"
+import { AiFillStar } from "react-icons/ai";
 
-
-// Importando os dados de usuários
-import { Users } from "../auth/data/UserData";
-const userId = Users[0].id; 
-const userName = Users[0].name; 
 
 export default function Header() {
+  const [userId, setUserId] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
   //função Busca
   const [searchQuery, setSearchQuery] = useState("");
@@ -48,10 +50,21 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('usuarioId');
+    const storedEmail = localStorage.getItem('usuarioEmail');
+    if (storedUserId) {
+      setUserId(storedUserId);
+      setUserEmail(storedEmail);
+      console.log('Usuário logado com ID:', storedUserId, 'E-mail:', storedEmail);
+    }
+  }, []);
+
   return (
     <>
       <header className={styles.header}>
-        <div className={styles.logoContainer}>
+        <div className={styles.logoContainer} id="topo">
           <Link href="/" passHref legacyBehavior>
             <a>
               <Image
@@ -66,7 +79,7 @@ export default function Header() {
           </Link>
         </div>
         {/* Menu de Categorias Esconder ou Mostrar */}
-        <div className={styles.categoryContainer}>
+        <div className={styles.categoryContainer} id="categorias">
           <button
             className={`${styles.toggleButton} ${isMenuOpen ? styles.active : ""}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -83,7 +96,7 @@ export default function Header() {
           </button>
         </div>
         {/* Buscar receitas */}
-        <div className={styles.searchContainer}>
+        <div className={styles.searchContainer} id="busca">
           <form onSubmit={handleSearch} className={styles.searchWrapper}>
             <input
               type="text"
@@ -98,46 +111,104 @@ export default function Header() {
               className={styles.searchButton}
               aria-label="Buscar receitas"
             >
-            <CiSearch size={20} className={styles.shearchIcon} alt="Buscar" />
+              <CiSearch size={20} className={styles.shearchIcon} alt="Buscar" />
             </button>
           </form>
         </div>
-        {/* Menu de navegação do usuário */}
-        <nav className={styles.nav}>
+        {/* Menu de navegação do usuário logado */}
+        {userId ? (
+
+          <nav className={styles.nav}>
+                      <ul className={styles.navList}>
+                          <li className={styles.navItem}>
+                              <Link href={`/auth/envie-receita/${userId}`} passHref legacyBehavior>
+                                  <a className={styles.navLink}>
+                                      <div className={styles.iconContainer}>
+                                          <BsSendPlus size={24} className={styles.navIcon}  />
+                                      </div>
+                                      <span>Envie uma Receita</span>
+                                  </a>
+                              </Link>
+                          </li>
+                          <li className={styles.navItem}>
+                              <Link href={`/auth/meus-favoritos/${userId}`} passHref legacyBehavior>
+                                  <a className={styles.navLink}>
+                                      <div className={styles.iconContainer}>
+                                          <MdFavoriteBorder size={24} className={styles.navIcon} />
+          
+                                      </div>
+                                      <span>Favoritos</span>
+                                  </a>
+                              </Link>
+                          </li>
+                          <li className={styles.navItem}>
+                              <Link href={`/auth/perfil-usuario/${userId}`} passHref legacyBehavior>
+                                  <a className={styles.navLink}>
+                                      <div className={styles.iconContainer}>
+                                          <BiUserCircle size={24} className={styles.navIcon}  />
+                                      </div>
+                                      <span>Perfil do Usuário</span>
+                                  </a>
+                              </Link>
+                          </li>
+                          <li className={styles.navItem}>
+                              <Link href={`/auth/logout/${userId}`} passHref legacyBehavior>
+                                  <a className={styles.navLink}>
+                                      <div className={styles.iconContainer}>
+                                          <FiLogOut size={24} className={styles.navIcon} />
+                                      </div>
+                                      <span>Sair</span>
+                                  </a>
+                              </Link>
+                          </li>
+                      </ul>
+                  </nav>
+          
+
+        ): (
+
+          <nav className={styles.nav}>
           <ul className={styles.navList}>
-            <li className={styles.navItem}>
-              <Link href={`/auth/send-recipe/${userId}`} passHref legacyBehavior>
-                <a className={styles.navLink}>
-                  <div className={styles.iconContainer}>
-                  <BsSendPlus size={24} className={styles.navIcon} alt="Envie uma Receita" />
-                  </div>
-                  <span>Envie uma Receita</span>
-                </a>
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href={`/auth/my-favorit/${userId}`} passHref legacyBehavior>
-                <a className={styles.navLink}>
-                  <div className={styles.iconContainer}>
-                  <MdFavoriteBorder size={24} className={styles.navIcon} alt="Favoritos" />
-                    
-                  </div>
-                  <span>Favoritos</span>
-                </a>
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href={`/auth/user-profile/${userId}`} passHref legacyBehavior>
-                <a className={styles.navLink}>
-                  <div className={styles.iconContainer}>
-                  <BiUserCircle size={24} className={styles.navIcon} alt="Perfil do Usuário" />
-                  </div>
-                  <span>Perfil do Usuário</span>
-                </a>
-              </Link>
-            </li>
+
+              <li className={styles.navItem}>
+                  <Link href={`/pages/dicas/`} passHref legacyBehavior>
+                      <a className={styles.navLink}>
+                          <div className={styles.iconContainer}>
+                              <AiFillStar size={24} className={styles.navIcon} />
+                          </div>
+                          <span>Dicas Especiais</span>
+                      </a>
+                  </Link>
+              </li>
+              <li className={styles.navItem}>
+                  <Link href={`/cadastro/`} passHref legacyBehavior>
+                      <a className={styles.navLink}>
+                          <div className={styles.iconContainer}>
+                              <BiUserPlus size={24} className={styles.navIcon} />
+                          </div>
+                          <span>Cadastre-se</span>
+                      </a>
+                  </Link>
+              </li>
+              <li className={styles.navItem}>
+                  <Link href={`/login/`} passHref legacyBehavior>
+                      <a className={styles.navLink}>
+                          <div className={styles.iconContainer}>
+                              <BiLogIn size={24} className={styles.navIcon}  />
+
+                          </div>
+                          <span>Login</span>
+                      </a>
+                  </Link>
+              </li>
           </ul>
-        </nav>
+      </nav>
+
+          )}
+
+
+        {/* Menu de navegação do usuário logado */}
+
       </header>
 
       {/* Menu de Categorias Visivel */}
@@ -153,7 +224,7 @@ export default function Header() {
             ))}
           </ul>
         </div>
-      </div>     
+      </div>
     </>
   );
 }

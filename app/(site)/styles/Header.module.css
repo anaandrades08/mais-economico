@@ -233,8 +233,7 @@
 .searchButton:focus,
 .logoContainer:focus,
 .categoryContainer:focus,
-.searchInput:focus,
-.navLink:focus {
+.searchInput:focus {
   border: 2px solid var(--border-grey);
 }
 

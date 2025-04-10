@@ -12,6 +12,11 @@ const pwaConfig = withPWA({
 // Configuração principal
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // Adicione aqui os experimentos que quiser
+    optimizeCss: true,
+    scrollRestoration: true
+  },
   images: {
     remotePatterns: [
       {

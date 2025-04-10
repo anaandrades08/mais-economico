@@ -3,6 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiMail, FiPhone, FiBookOpen, FiGlobe } from 'react-icons/fi'
 
+
+// Importando os dados de usuários
+//import { Users } from "../auth/data/UserData";
+//const userId = Users[0].id; 
+//const userName = Users[0].name; 
+
+const userId = null;
+
 export default function Footer() {
   return (
     <footer className={styles.footer}>
@@ -29,9 +37,17 @@ export default function Footer() {
           <h3 className={styles.footerTitle}>Links Rápidos</h3>
           <ul className={styles.footerLinks}>
             <li><Link href="/" className={styles.footerLink}>Inicio</Link></li>
-            <li><Link href="/pages/sobrenos" className={styles.footerLink}>Sobre Nós</Link></li>
-            <li><Link href="/auth/envie-receita" className={styles.footerLink}>Envie sua Receita</Link></li>
-            <li><Link href="/pages/mais-receita" className={styles.footerLink}>Mais Receitas</Link></li>
+            <li><Link href="/pages/sobrenos/" className={styles.footerLink}>Sobre Nós</Link></li>
+            <li>{userId ? (
+              <Link href={`/auth/envie-receita/${userId}`} className={styles.footerLink}>
+                Envie sua Receita
+              </Link>
+            ) : (
+              <Link href="/cadastro/" className={styles.footerLink}>
+                Cadastre-se é gratuito
+              </Link>
+            )}</li>
+            <li><Link href="/#busca" className={styles.footerLink}>Buscar Receitas</Link></li>
           </ul>
         </div>
 

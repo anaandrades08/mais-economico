@@ -1,0 +1,145 @@
+.recuperar-container {
+    display: flex;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background-color:  var(--background-white);
+    flex-direction: row;
+    align-items: center;  
+  }
+
+  .recuperar-container-form{
+    display: flex;
+    width: 636px;
+    flex-direction: column;
+    padding-left: 86px;
+    padding-right: 86px;
+    padding-top: 32px;
+    padding-bottom: 24px;
+    align-items: center;
+    }
+    
+    .recuperar-second-img {
+      width: auto;
+      height: auto;
+    }
+
+    
+.recuperar-title {
+    display: flex;
+    position: relative;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-botao-cadastro);
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .recuperar-description {
+    display: flex;
+    width: 390px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-black);
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  
+  .recuperar-img {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    width: 636px;
+    height: 580px;
+  }
+  
+/**********   form    ******/
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 38px;
+  }
+  
+   
+  label {
+    font-size: 16px;
+    color: var(--color-cinza-label);
+    text-align: left;
+  }
+    
+  .recuperar-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .input-email {
+    display: flex;
+    width: 464px;
+    padding: 14px;
+    border-radius: 6px;
+    border: 1.5px solid #555;
+    box-sizing: border-box;
+  }
+  
+  .group-btn-enviar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+  }
+  .group-ou-voltar {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    gap: 10px;             
+  }
+  
+  .group-btn-voltar {
+    display: flex;
+    justify-content: center;      
+    margin-top: 20px;    
+  }
+
+
+
+  /*botões**************************/
+  
+  .btn-enviar{
+    display: flex;
+    width: 298px;
+    background-color: var(--color-botao-login);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-white);
+    justify-content: center;
+  }
+  .btn-enviar:hover{
+    background-color: var(--color-botao-login-hover);
+    cursor: pointer;
+  }
+
+  .btn-voltar{
+    display: flex;
+    width: 298px;
+    background-color: var(--color-botao-voltar);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-black);
+    justify-content: center;
+  }
+  .btn-voltar:hover{
+    background-color: var(--color-title-ligth);
+    border: none;
+    cursor: pointer;
+  }
