@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import '../../../styles/logout.css'; // importa o CSS
+import '../../../styles/Logout.css'; // importa o CSS
 
 export default function Sair() {
   const router = useRouter();

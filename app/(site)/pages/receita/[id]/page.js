@@ -13,8 +13,8 @@ import { FeedBacks } from '../../../data/FeedbackData'
 import { listaIngredientesaSubstituicoes } from '../../../data/IngredientesData'
 
 //componentes
-import RecipeBanner from '@/app/(site)/components/RecipeBanner'
-import StarRating from '@/app/(site)/components/StarRating'
+import RecipeBanner from '../../../components/RecipeBanner'
+import StarRating from '../../../components/StarRating'
 //react-icon
 import { PiUserCircleFill } from "react-icons/pi";
 import { TbCoin } from "react-icons/tb";

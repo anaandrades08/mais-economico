@@ -8,11 +8,10 @@ import { Recipes } from '../../../data/RecipesData'
 import { categorias } from '../../../data/CategoriaData'
 
 import { GiCookingPot, GiSaucepan, GiFireBowl } from 'react-icons/gi'
-import { FiClock, FiArrowLeft } from 'react-icons/fi'
+import { FiClock, FiArrowLeft, FiBookmark } from 'react-icons/fi'
 import { TbCoin } from "react-icons/tb";
 import { TbCalendarTime } from "react-icons/tb";
 import { PiUserCircleFill } from "react-icons/pi";
-import { FiClock, FiBookmark } from 'react-icons/fi';
 
 export default function CategoriaDetail() {
   const params = useParams()

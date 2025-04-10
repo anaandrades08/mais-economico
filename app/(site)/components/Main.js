@@ -6,7 +6,6 @@ import {
   Recipes,
   recipesByCategory,
 } from "../data/RecipesData.js";
-import RecipeSection from "./RecipeSection.js";
 
 
 import { TbCoin } from "react-icons/tb";
