@@ -65,17 +65,15 @@ export default function Header() {
     <>
       <header className={styles.header}>
         <div className={styles.logoContainer} id="topo">
-          <Link href="/" passHref legacyBehavior>
-            <a>
-              <Image
-                src="/images/layout/logo/logo-header.png"
-                alt="Logo do Site +Economico Receitas"
-                width={250}
-                height={75}
-                className={styles.logo}
-                priority
-              />
-            </a>
+          <Link href="/" passHref>
+            <Image
+              src="/images/layout/logo/logo-header.png"
+              alt="Logo do Site +Economico Receitas"
+              width={250}
+              height={75}
+              className={styles.logo}
+              priority
+            />
           </Link>
         </div>
         {/* Menu de Categorias Esconder ou Mostrar */}
@@ -119,92 +117,85 @@ export default function Header() {
         {userId ? (
 
           <nav className={styles.nav}>
-                      <ul className={styles.navList}>
-                          <li className={styles.navItem}>
-                              <Link href={`/auth/envie-receita/${userId}`} passHref legacyBehavior>
-                                  <a className={styles.navLink}>
-                                      <div className={styles.iconContainer}>
-                                          <BsSendPlus size={24} className={styles.navIcon}  />
-                                      </div>
-                                      <span>Envie uma Receita</span>
-                                  </a>
-                              </Link>
-                          </li>
-                          <li className={styles.navItem}>
-                              <Link href={`/auth/meus-favoritos/${userId}`} passHref legacyBehavior>
-                                  <a className={styles.navLink}>
-                                      <div className={styles.iconContainer}>
-                                          <MdFavoriteBorder size={24} className={styles.navIcon} />
-          
-                                      </div>
-                                      <span>Favoritos</span>
-                                  </a>
-                              </Link>
-                          </li>
-                          <li className={styles.navItem}>
-                              <Link href={`/auth/perfil-usuario/${userId}`} passHref legacyBehavior>
-                                  <a className={styles.navLink}>
-                                      <div className={styles.iconContainer}>
-                                          <BiUserCircle size={24} className={styles.navIcon}  />
-                                      </div>
-                                      <span>Perfil do Usuário</span>
-                                  </a>
-                              </Link>
-                          </li>
-                          <li className={styles.navItem}>
-                              <Link href={`/auth/logout/${userId}`} passHref legacyBehavior>
-                                  <a className={styles.navLink}>
-                                      <div className={styles.iconContainer}>
-                                          <FiLogOut size={24} className={styles.navIcon} />
-                                      </div>
-                                      <span>Sair</span>
-                                  </a>
-                              </Link>
-                          </li>
-                      </ul>
-                  </nav>
-          
+            <ul className={styles.navList}>
+              <li className={styles.navItem}>
+                <Link href={`/dashboard/envie-receita/${userId}`} a className={styles.navLink} passHref>
+                  <div className={styles.iconContainer}>
+                    <BsSendPlus size={24} className={styles.navIcon} />
+                  </div>
+                  <span>Envie uma Receita</span>
+                </Link>
+              </li>
+              <li className={styles.navItem}>
+                <Link href={`/dashboard/favoritos/${userId}`} className={styles.navLink} passHref>
+                  <div className={styles.iconContainer}>
+                    <MdFavoriteBorder size={24} className={styles.navIcon} />
 
-        ): (
+                  </div>
+                  <span>Favoritos</span>
+                </Link>
+              </li>
+              <li className={styles.navItem}>
+                <Link href={`/dashboard/perfil-usuario/${userId}`} className={styles.navLink} passHref>
+                  <div className={styles.iconContainer}>
+                    <BiUserCircle size={24} className={styles.navIcon} />
+                  </div>
+                  <span>Perfil do Usuário</span>
+                </Link>
+              </li>
+              <li className={styles.navItem}>
+                <Link href={`/dashboard/logout/${userId}`} className={styles.navLink} passHref>
+                  <div className={styles.iconContainer}>
+                    <FiLogOut size={24} className={styles.navIcon} />
+                  </div>
+                  <span>Sair</span>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+
+        ) : (
 
           <nav className={styles.nav}>
-          <ul className={styles.navList}>
+            <ul className={styles.navList}>
 
               <li className={styles.navItem}>
-                  <Link href={`/pages/dicas/`} passHref legacyBehavior>
-                      <a className={styles.navLink}>
-                          <div className={styles.iconContainer}>
-                              <AiFillStar size={24} className={styles.navIcon} />
-                          </div>
-                          <span>Dicas Especiais</span>
-                      </a>
-                  </Link>
+                <Link href="/pages/dicas/" passHref >
+                  <a className={styles.navLink}>
+                    <div className={styles.iconContainer}>
+                      <AiFillStar size={24} className={styles.navIcon} />
+                    </div>
+                    <span>Dicas Especiais</span>
+                  </a>
+                </Link>
               </li>
-              <li className={styles.navItem}>
-                  <Link href={`/cadastro/`} passHref legacyBehavior>
-                      <a className={styles.navLink}>
-                          <div className={styles.iconContainer}>
-                              <BiUserPlus size={24} className={styles.navIcon} />
-                          </div>
-                          <span>Cadastre-se</span>
-                      </a>
-                  </Link>
-              </li>
-              <li className={styles.navItem}>
-                  <Link href={`/login/`} passHref legacyBehavior>
-                      <a className={styles.navLink}>
-                          <div className={styles.iconContainer}>
-                              <BiLogIn size={24} className={styles.navIcon}  />
 
-                          </div>
-                          <span>Login</span>
-                      </a>
-                  </Link>
+              <li className={styles.navItem}>
+                <Link href="/cadastro/" passHref >
+                  <a className={styles.navLink}>
+                    <div className={styles.iconContainer}>
+                      <BiUserPlus size={24} className={styles.navIcon} />
+                    </div>
+                    <span>Cadastre-se</span>
+                  </a>
+                </Link>
               </li>
-          </ul>
-      </nav>
 
-          )}
+              <li className={styles.navItem}>
+                <Link href="/login/" passHref >
+                  <a className={styles.navLink}>
+                    <div className={styles.iconContainer}>
+                      <BiLogIn size={24} className={styles.navIcon} />
+                    </div>
+                    <span>Login</span>
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+        )}
 
 
         {/* Menu de navegação do usuário logado */}
@@ -219,9 +210,12 @@ export default function Header() {
           <ul className={styles.categoryList}>
             {categorias.map((categoria) => (
               <li key={categoria.id}>
-                <Link href={`/pages/categoria/${categoria.id}`} >{categoria.name}</Link>
+                <Link href={`/pages/categoria/${categoria.id}`} passHref>{categoria.name}</Link>
               </li>
             ))}
+            <li key="0">
+              <Link href={`/pages/categoria/0`} passHref>Todas as Receitas</Link>
+            </li>
           </ul>
         </div>
       </div>

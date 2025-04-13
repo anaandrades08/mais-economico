@@ -1,34 +1,282 @@
-.container{
-    max-width: 90%;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    background-color: var(--background-ligth);
+.cadastro-container {
+  display: flex;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color:  var(--background-white);
+  flex-direction: row;
+  align-items: center;  
+}
+
+.cadastro-container-form{
+  display: flex;
+  width: 700px;
+  flex-direction: column;
+  padding-left: 86px;
+  padding-right: 86px;
+  padding-top: 32px;
+  padding-bottom: 24px;
+  align-items: center;
+  }
+  
+  .cadastro-second-img {
+    width: auto;
+    height: auto;
+  }
+
+  
+.cadastro-title {
+  display: flex;
+  position: relative;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-botao-cadastro);
+  justify-content: center;
+  text-align: center;
+}
+
+.cadastro-img {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  width: 635px;
+  height: 474px;
+}
+
+/**********   form    ******/
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 38px;
+}
+
+.text-required {
+  color: red;
+}
+ 
+label {
+  font-size: 16px;
+  color: var(--color-cinza-label);
+  text-align: left;
+}
+  
+.cadastro-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cadastro-input-endereco {
+  display: flex;
+  gap: 16px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.input-group-endereco {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.cadastro-input-cidade {
+  display: flex;
+  gap: 16px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.input-group-cidade {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.input-text,
+.input-text-endereco,
+.input-text-cidade,
+.input-text-senha {
+  width: 100%;
+  padding: 14px;
+  border-radius: 6px;  
+  box-sizing: border-box;
+  border: 1.5px solid #555;
+}
+/* proporções diferentes para cidade e uf */
+
+.input-group-endereco.endereco {
+  flex: 3;
+}
+
+.input-group-endereco.numero {
+  flex: 1;
+}
+
+.input-group-cidade.cidade {
+  flex: 5;
+}
+
+.input-group-cidade.uf {
+  flex: 1;
+}
+
+.cadastro-input-senha {
+  display: flex;
+  gap: 16px;
+  max-width: 500px; 
+}
+
+.input-group-senha {
+  display: flex;
+  flex-direction: column; 
+  flex: 1;
+}
+
+.input-text-senha{
+  display: flex;
+  width: 100%;  
+  padding: 14px;
+  border-radius: 6px;
+  border: 1.5px solid #555;
+  box-sizing: border-box;
+}
+
+.group-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+
+/*botões**************************/
+
+.btn-enviar{
+  display: flex;
+  width: 100%;
+  max-width: 150px;
+  background-color: var(--color-botao-login);
+  border: none;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-white);
+  justify-content: center;
+}
+.btn-enviar:hover{
+  background-color: var(--color-botao-login-hover);
+  cursor: pointer;
+}
+
+
+.group-text-senha{
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 100%;
+  margin-top: 30px;
+  gap: 10px;
+
+  flex-direction: column; 
+}
+
+.icoSenha{  
+  color: var(--color-botao-login-hover);
+  gap: 16px;
+}
+
+.link-termo:hover {
+  color: var(--color-botao-login-hover);
+  text-decoration: underline; 
+
+}
+/* Estilos para o checkbox */
+.checkbox-termo {
+  display: none; 
+}
+
+/* Estilos para o checkbox personalizado */
+.checkbox-termo + .checkmark {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-botao-login-hover);;
+  border-radius: 4px;
+  background-color: white;
+  transition: all 0.3s ease;  
+  gap: 16px;  
+}
+
+/* Quando o checkbox estiver "checked" */
+.checkbox-termo:checked + .checkmark {
+  background-color: var(--color-botao-login-hover);/* Cor do fundo quando checked */
+  border-color: var(--color-botao-login-hover); /* Cor da borda quando checked */
+}
+
+/* Estilo da marca de check quando o checkbox é marcado */
+.checkbox-termo:checked + .checkmark:after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-botao-login-hover);/* Cor do "check" */
+  border-radius: 2px;
+}
+
+
+/****************  RESPONSIVIDADE   ***************************/
+
+@media (max-width: 768px) {
+  .cadastro-container {
+    max-width: 95%;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .cadastro-second-img {
+    display: none;
+  }
+
+  .cadastro-container-form {
+    padding: 0;
+    width: 100%;
+  }
+
+  .cadastro-input-endereco,
+  .cadastro-input-cidade,
+  .cadastro-input-senha {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;         /* garante que a div que contém os inputs ocupe tudo */
+  }
+
+  .input-text,
+  .input-text-endereco,
+  .input-text-cidade,
+  .input-text-senha {
+    width: 100%;         /* garante que os inputs se expandam */
+    box-sizing: border-box; /* importante para incluir padding na largura */
+  }
+
+  .group-btn {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
     align-items: center;
   }
 
-  .container h1 {
-    font-size: 2.5rem;
-    color: var(--color-title);
-    text-align: center;
+  .btn-enviar {
+    width: 100%;
+    max-width: 300px;
   }
-  
-  .loading, .notFound {
-    max-width: 90%;
-    text-align: center;
-    margin: 2rem auto;
-    padding: 1rem;   
-    background-color: var(--background-ligth);
-  }
-  
-
-  .backLink {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--background-green);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .backLink:hover {
-    text-decoration: underline;
-  }
+}

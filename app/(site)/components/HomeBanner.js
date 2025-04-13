@@ -52,7 +52,7 @@ export default function HomeBanner() {
                             {banners[currentBanner].description}
                         </p>
                         <Link
-                            href={banners[currentBanner].ctaLink}
+                            href={`pages/categoria/${banners[currentBanner].categoria_id}`}
                             className={styles.bannerCta}
                         >
                             {banners[currentBanner].ctaText}

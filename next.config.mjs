@@ -1,15 +1,4 @@
 /** @type {import('next').NextConfig} */
-import withPWA from 'next-pwa';
-
-// Configuração do PWA (único plugin ativo)
-const pwaConfig = withPWA({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-});
-
-// Configuração principal
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
@@ -37,4 +26,4 @@ const nextConfig = {
   },
 };
 
-export default pwaConfig(nextConfig); // Removido withAnalyzer
+export default nextConfig; // Agora exporta diretamente a configuração sem o PWA

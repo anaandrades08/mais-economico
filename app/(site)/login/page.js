@@ -97,7 +97,7 @@ export default function Login() {
 
         <div className="recuperar-senha">
           <p className="p-senha">Esqueceu a senha?</p>
-          <Link href={'/recuperar-senha/'} alt="recuperar senha" className="recuperar-link">Clique aqui!</Link>
+          <Link href={'/esqueceu-senha/'} alt="esqueceu senha" className="recuperar-link">Clique aqui!</Link>
         </div>
 
         <div className="cadastro">

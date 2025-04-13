@@ -1,0 +1,293 @@
+/*perfil do usuario abaixo do css do dashboard*/
+
+.container-cinza {
+  background-color: #E9E9E9;
+  width: 100%;
+  display: flex;
+  justify-content: center;  /* Alinha os containers ao centro */
+  gap: 5px; /* Espaço entre os dois blocos */
+  flex-wrap: wrap;  /* Quebra em telas pequenas */
+  padding: 20px;
+}
+
+.perfil-container,
+.form-container {
+  padding: 10px;
+  border-radius: 6px;
+  max-width: 50%; 
+  width: 40%; /* Ajuste para os dois containers ficarem próximos */
+  display: flex;
+  flex-direction: column; /* Conteúdo em coluna */
+  justify-content: center; /* Opcional: centraliza o conteúdo dentro de cada container */
+}
+
+.info-pessoais {
+  padding: 20px;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+  color: #333;
+}
+
+
+/*foto do perfil*/
+
+.foto-perfil {  
+  display: flex;
+  align-items: flex-start; /* alinha no topo */
+  gap: 16px; /* espaço entre imagem e texto */
+}
+
+.foto-perfil .foto {  
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.btn-upload {
+  background-color: transparent;
+  border: 1px solid var(--color-botao-cadastro);
+  color: var(--color-botao-cadastro);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+.btn-upload:hover, .btn-excluir:hover {
+  background-color: var(--color-botao-cadastro);
+  color: white;
+}
+.info-upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 4px;
+}
+.info-foto {
+  font-size: 11px;
+  color: #333;
+  margin: 0;
+}
+
+/*dados pessoais*/
+
+.dados-pessoais {
+  display: flex;
+  flex-direction: row; /* <-- muda de column para row */
+  gap: 20px;
+  flex-wrap: wrap; /* garante responsividade */
+
+}
+
+.dados-pessoais h3 {
+  color: var(--color-botao-login) !important;
+  margin-bottom: 10px;       
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-between; /* separa os lados */
+  gap: 40px; /* espaço entre as colunas */
+  flex-wrap: wrap;   
+  width: 100%;
+}
+
+.info-left,
+.info-rigth {
+  flex: 1;
+}
+
+.dados-pessoais p {
+  margin: 5px 0;
+  font-size: 14px;
+  width: 100%;
+}
+
+
+.dados-pessoais {
+  margin-top: 20px;  
+  width: 100%;
+}
+
+
+/*excluir conta*/
+
+.excluir-conta {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
+
+.excluir-conta h4 {
+  color: var(--color-botao-login);
+  margin-bottom: 5px;  
+  font-size: 20px;
+}
+
+.excluir-conta p {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.btn-excluir {
+  border: 1px solid var(--color-botao-cadastro);
+  color: var(--color-botao-cadastro);
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/*informacoes do form*/
+
+.edicao-informacoes {
+  padding: 20px;
+  width: 100%;
+  border-radius: 10px;
+  color: #333;
+  align-self: flex-start; 
+}
+
+.edicao-informacoes h2 {
+  width: 100%;
+  font-size: 20px;
+  margin-bottom: 10px;  
+  color: var(--color-botao-login);
+}
+
+.form-colunas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-info-left,
+.form-info-rigth {
+  flex: 1;
+}
+
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input {
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.senha-section {
+  display: block;
+}
+
+.senha-section .form-group {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.senha-requisitos {
+  width: 100%;
+  list-style: none;
+  color: #333;
+  margin-top: 20px; /* espaçamento acima da lista de requisitos */
+}
+
+.senha-requisitos li {
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.senha-requisitos .ok {
+  color: var(--color-botao-login);
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.group-btn{
+  display: flex;             
+  justify-content: center;  
+  gap: 1rem;                
+  margin-top: 2rem;          
+  align-items: center;   
+  max-width: 100%;  
+}
+
+.btn-salvar, .btn-reset  {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--color-botao-login);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;
+}
+
+.btn-salvar:hover,
+.btn-reset:hover {
+  background-color: #246d45;
+}
+
+
+  
+/*responsividade*/
+
+@media (max-width: 768px) {
+  .container-cinza {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .perfil-container,
+  .form-container {
+    width: 100%; /* Ocupa toda a largura em telas pequenas */
+    padding: 10px;
+  }
+
+  .dados-pessoais {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-colunas {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-info-left,
+  .form-info-rigth {
+    width: 100%;
+  }
+
+  .group-btn {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-salvar,
+  .btn-reset {
+    max-width: 100%;
+  }
+}

@@ -1,23 +1,31 @@
+"use client";
+import { useState, useEffect} from "react";
 import styles from '../styles/Footer.module.css';
 import Image from "next/image";
 import Link from "next/link";
 import { FiMail, FiPhone, FiBookOpen, FiGlobe } from 'react-icons/fi'
 
 
-// Importando os dados de usuários
-//import { Users } from "../auth/data/UserData";
-//const userId = Users[0].id; 
-//const userName = Users[0].name; 
-
-const userId = null;
-
 export default function Footer() {
+    //seta null para sem login
+    const [userId, setUserId] = useState(null);
+    const [userEmail, setUserEmail] = useState(null);
+     useEffect(() => {
+        const storedUserId = localStorage.getItem('usuarioId');
+        const storedEmail = localStorage.getItem('usuarioEmail');
+        if (storedUserId) {
+          setUserId(storedUserId);
+          setUserEmail(storedEmail);
+          console.log('Usuário logado com ID:', storedUserId, 'E-mail:', storedEmail);
+        }
+      }, []);
+
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.footerSection}>
-          <Link href="/" passHref legacyBehavior>
-            <a>
+          <Link href="/" passHref>
               <Image
                 src="/images/layout/logo/logo-footer.png"
                 alt="Logo do Site +Economico Receitas"
@@ -26,7 +34,6 @@ export default function Footer() {
                 className={styles.logo}
                 priority
               />
-            </a>
           </Link>
           <p className={styles.footerText}>
             O melhor site de receitas para todos os gostos e ocasiões.
@@ -36,18 +43,18 @@ export default function Footer() {
         <div className={styles.footerSection}>
           <h3 className={styles.footerTitle}>Links Rápidos</h3>
           <ul className={styles.footerLinks}>
-            <li><Link href="/" className={styles.footerLink}>Inicio</Link></li>
-            <li><Link href="/pages/sobrenos/" className={styles.footerLink}>Sobre Nós</Link></li>
+            <li><Link href="/" className={styles.footerLink} passHref>Inicio</Link></li>
+            <li><Link href="/pages/sobre/" className={styles.footerLink}>Sobre Nós</Link></li>
             <li>{userId ? (
-              <Link href={`/auth/envie-receita/${userId}`} className={styles.footerLink}>
+              <Link href={`/dashboard/envie-receita/${userId}`} className={styles.footerLink} passHref>
                 Envie sua Receita
               </Link>
             ) : (
-              <Link href="/cadastro/" className={styles.footerLink}>
+              <Link href="/cadastro/" className={styles.footerLink} passHref>
                 Cadastre-se é gratuito
               </Link>
             )}</li>
-            <li><Link href="/#busca" className={styles.footerLink}>Buscar Receitas</Link></li>
+            <li><Link href="/#busca" className={styles.footerLink} passHref>Buscar Receitas</Link></li>
           </ul>
         </div>
 

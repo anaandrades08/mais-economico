@@ -8,9 +8,13 @@
 .searchfrase {
   font-size: 1.6rem;
   font-weight: 500;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: #333;
   text-align: left;
+}
+.searchcount{
+  font-size: 1rem; 
+  margin-bottom: 1rem;
 }
 
 .resultsGrid {
@@ -41,26 +45,36 @@
 }
 
 .recipeImage {
-  object-fit: cover;
   width: 100%;
+  max-width: 350px;
   height: auto;
-  border-radius: 6px;
-  transition: transform 0.3s;
+  aspect-ratio: 350 / 240;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.recipeTitle {
+  font-size: 1.5rem;
+  color: var(--color-title);
+  margin-bottom: 1rem;
+  overflow: hidden;
 }
 
 .recipeDetails {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  grid-template-rows: repeat(2, 1fr);/* 2 linhas */
   gap: 1rem;
-  font-size: 1rem;
+  color: var(--color-title-ligth);
+  font-size: 1.1rem;
   margin-top: 1rem;
 }
-
+  
 .recipeDetails span {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  color: #555;
+  font-size: 0.9rem;
+  gap: 0.5rem;
 }
 
 .Icon {
@@ -95,4 +109,42 @@
   margin: 2rem auto;
   padding: 1rem;   
   background-color: var(--background-ligth);
+}
+
+/*paginacao*/
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.page-button {
+  background-color: #f8f9fa;
+  color: #328E2D;
+  border: 1px solid #d1d1d1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.page-button:hover {
+  background-color: #e2d6f3;
+  color: #328E2D;
+}
+
+.pagina-ativa {
+  background-color: #328E2D;
+  color: white;
+  border-color: #328E2D;
+  font-weight: bold;
+}
+
+.pagina-ativa {
+  background-color: #328E2D;
+  color: white;
+  font-weight: bold;
 }

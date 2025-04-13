@@ -1,0 +1,259 @@
+.cont-receitas{
+  color: #333;
+  font-size: 14px;  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.receita-container {
+    display: flex;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background-color:  var(--background-white);
+    flex-direction: column;
+    align-items: center;  
+}
+
+.receita-container-title {
+    color: var(--color-botao-cadastro);
+    margin-bottom: 1.5rem;
+    text-align: left;
+    font-size: 2rem;
+    font-weight: 700;
+    width: 100%;
+  }
+
+  .receita-container-cinza {
+    background-color: #E9E9E9;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .form-container {
+      width: 100%;
+      max-width: 1200px;
+      /* ou o que você desejar */
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: #E9E9E9;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Centraliza os elementos filhos */
+      justify-content: center;
+  }
+  
+  
+  .form-top {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .form-left, .form-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /*onde carrega imagem */
+  .image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: start;
+  }
+  
+  .image-placeholder {
+    width: 350px;
+    height: 240px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+  
+  .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .btn-img {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-botao-cadastro);
+    color: var(--color-botao-cadastro);
+    padding: 0.75rem 1rem;      /* aumenta a altura (vertical) e reduz largura (horizontal) */
+    height: auto; 
+    border-radius: 6px;
+    cursor: pointer;
+    max-width: 220px; 
+    transition: background-color 0.3s ease;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+    align-items: center;
+    font-size: 1rem; 
+  }
+  
+  .btn-img:hover {
+    background-color: var(--color-botao-cadastro);
+    color: #fff;
+  }
+  
+  /*outros campos do form*/
+  textarea, input[type="text"] {
+    padding: 0.75rem;
+    border: 1px solid #555;
+    border-radius: 6px;
+    resize: vertical;
+    font-size: 0.95rem;
+    max-width: 400px;
+  }
+
+  textarea {
+  min-height: 200px; /* novo valor aqui */
+}
+.form-left input{
+    max-width: 200px;
+}
+
+  .form-right label, 
+  .form-left h3,
+  .custo{
+    font-weight: 600;
+    color: var(--color-botao-login);
+  }
+  h4 {
+    color: var(--color-botao-login);
+  }
+  
+  .prepare-section h3 {
+    color: var(--color-botao-cadastro);
+    margin-bottom: 0.5rem;
+  }
+
+  
+  .steps {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  
+  .step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .checkbox-section {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    margin-top: 2rem; /* Espaço acima da checkbox-section */
+    max-width: 80%;
+    align-items: center;
+    margin-left: auto;  /* Centraliza a div */
+    margin-right: auto; /* Centraliza a div */
+  }
+  /* Esconde o checkbox padrão */
+  .checkbox-aceito {
+    display: none;
+  }
+  
+  /* Estiliza o checkbox personalizado */
+  .checkbox-section label::before {
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--color-botao-login); /* borda colorida */
+    border-radius: 50%; /* formato redondo */
+    background-color: #fff;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  /* Quando estiver marcado */
+  .checkbox-aceito:checked + label::before {
+    background-color: var(--color-botao-login); /* cor preenchida */
+    box-shadow: inset 0 0 0 4px white; /* efeito de "ponto branco" no meio */
+  }
+  
+  .group-btn {
+    display: flex;             
+    justify-content: center;  
+    gap: 1rem;                
+    margin-top: 2rem;          
+    align-items: center;   
+    max-width: 100%;    
+  }
+
+  .btn-button {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--color-botao-login);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    width: 100%;
+    max-width: 150px;
+  }
+  
+  .btn-button:hover {
+    background-color: var(--color-botao-login);
+  }
+  
+
+
+
+
+
+/*notfound*/
+  .loading,
+  .notFound {
+    text-align: center;
+    padding: 4rem 0;    
+    background-color: var(--background-ligth);
+  }
+.backLink {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--background-green);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .backLink:hover {
+    text-decoration: underline;
+  }

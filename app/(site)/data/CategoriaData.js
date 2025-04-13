@@ -64,11 +64,5 @@ export const categorias = [
       name: "Sopas",
       ctaText: "Ver Receitas de Sopas",
       ctaLink: "/categoria/sopas",
-    },
-    {
-      id: 0,
-      name: "Todas as Receitas",
-      ctaText: "Ver Todas as Receitas",
-      ctaLink: "/categoria/todas",
-    },
+    }
   ];

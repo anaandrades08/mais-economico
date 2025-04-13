@@ -1,8 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "../../styles/Categoria.module.css";
 import { categorias } from "../../data/CategoriaData";
 import { FiArrowLeft } from 'react-icons/fi'
@@ -17,9 +14,9 @@ export default function CategoriaDetail() {
         <h1>Todas as Categorias</h1>
         {categorias.length > 0 ? (
             categorias.map((categoria) => (
-            <div key={categoria.id} className={styles.categoriaTitle}>
-             <Link href={`/pages/categoria/${categoria.id}`}>
-                  <h3>{categoria.name}</h3>
+            <div key={categoria.id} className={styles.categoryTitle}>
+             <Link href={`/pages/categoria/${categoria.id}`} passHref>
+                  <h3>{categoria.name || "Não Especificado"}</h3>
                 </Link>
             </div>
             ))

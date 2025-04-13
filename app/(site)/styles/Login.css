@@ -203,3 +203,68 @@ label {
   cursor: pointer;
 }
 
+
+/*responsividade*/
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .login-container-form {
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .login-img,
+  .login-second-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  .login-title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .login-description {
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .input-email,
+  .input-senha {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cadastro {
+    width: 100%;
+  }
+
+  .cadastro-container {
+    max-width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .group-btn {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .btn-entrar,
+  .btn-novo-cadastro {
+    width: 100%;
+    max-width: 300px;
+  }
+}
