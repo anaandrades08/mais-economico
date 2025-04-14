@@ -334,7 +334,7 @@
   /* Responsividade */
   @media (max-width: 768px) {
     .categoriaTitle {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
     .recipeTitle {
       font-size: 1rem;

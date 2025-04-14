@@ -50,6 +50,7 @@ body {
   font-family: "Montserrat", sans serif;
   line-height: 1.6;
   background-color: var(--background-verde-claro);
+  color: #555;
 }
 
 a {
