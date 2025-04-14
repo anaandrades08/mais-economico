@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "../../../styles/UserDetail.module.css";
-import { Users } from "../../data/UserData.js"; // Importando os dados dos usuários
+import styles from "../../../../styles/UserDetail.module.css";
+import { Users } from "../../../data/UserData.js"; // Importando os dados dos usuários
 import { FiMail, FiPhone, FiCalendar, FiMapPin } from "react-icons/fi";
 
 export default function UserDetail() {

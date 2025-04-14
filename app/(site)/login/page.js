@@ -32,7 +32,7 @@ export default function Login() {
       setTimeout(() => {
       localStorage.setItem('usuarioId', usuarioId); // Grava o ID do usuário
       localStorage.setItem('usuarioEmail', email); 
-        window.location.href = '/';
+      window.location.href = `/dashboard/${usuarioId}`;
       }, 1000);
     } else {
       setErro('E-mail ou senha incorretos!');

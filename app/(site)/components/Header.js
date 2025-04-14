@@ -69,8 +69,8 @@ export default function Header() {
             <Image
               src="/images/layout/logo/logo-header.png"
               alt="Logo do Site +Economico Receitas"
-              width={250}
-              height={75}
+              width={196}
+              height={55}
               className={styles.logo}
               priority
             />
@@ -117,35 +117,34 @@ export default function Header() {
         {userId ? (
 
           <nav className={styles.nav}>
-            <ul className={styles.navList}>
-              <li className={styles.navItem}>
-                <Link href={`/dashboard/envie-receita/${userId}`} a className={styles.navLink} passHref>
+            <ul className={styles.navList}>              
+            <li className={`${styles.navItem} ${styles.navLink}`}>
+                <Link href={`/dashboard/envie-receita/${userId}`} passHref>
                   <div className={styles.iconContainer}>
                     <BsSendPlus size={24} className={styles.navIcon} />
                   </div>
                   <span>Envie uma Receita</span>
                 </Link>
-              </li>
-              <li className={styles.navItem}>
-                <Link href={`/dashboard/favoritos/${userId}`} className={styles.navLink} passHref>
+              </li>              
+              <li className={`${styles.navItem} ${styles.navLink}`}>
+                <Link href={`/dashboard/favoritos/${userId}`}  passHref>
                   <div className={styles.iconContainer}>
                     <MdFavoriteBorder size={24} className={styles.navIcon} />
-
                   </div>
                   <span>Favoritos</span>
                 </Link>
               </li>
-              <li className={styles.navItem}>
-                <Link href={`/dashboard/perfil-usuario/${userId}`} className={styles.navLink} passHref>
+              <li className={`${styles.navItem} ${styles.navLink}`}>
+                <Link href={`/dashboard/perfil-usuario/${userId}`}  passHref>
                   <div className={styles.iconContainer}>
                     <BiUserCircle size={24} className={styles.navIcon} />
                   </div>
                   <span>Perfil do Usuário</span>
                 </Link>
-              </li>
-              <li className={styles.navItem}>
-                <Link href={`/dashboard/logout/${userId}`} className={styles.navLink} passHref>
-                  <div className={styles.iconContainer}>
+              </li>              
+              <li className={`${styles.navItem} ${styles.navLink}`}>
+                <Link href={`/dashboard/logout/${userId}`} passHref>
+                  <div className={styles.iconContainer} >
                     <FiLogOut size={24} className={styles.navIcon} />
                   </div>
                   <span>Sair</span>
@@ -158,38 +157,29 @@ export default function Header() {
         ) : (
 
           <nav className={styles.nav}>
-            <ul className={styles.navList}>
-
-              <li className={styles.navItem}>
+            <ul className={styles.navList}>              
+              <li className={`${styles.navItem} ${styles.navLink}`}>
                 <Link href="/pages/dicas/" passHref >
-                  <a className={styles.navLink}>
                     <div className={styles.iconContainer}>
                       <AiFillStar size={24} className={styles.navIcon} />
                     </div>
                     <span>Dicas Especiais</span>
-                  </a>
                 </Link>
-              </li>
-
-              <li className={styles.navItem}>
+              </li>              
+              <li className={`${styles.navItem} ${styles.navLink}`}>
                 <Link href="/cadastro/" passHref >
-                  <a className={styles.navLink}>
                     <div className={styles.iconContainer}>
                       <BiUserPlus size={24} className={styles.navIcon} />
                     </div>
                     <span>Cadastre-se</span>
-                  </a>
                 </Link>
-              </li>
-
-              <li className={styles.navItem}>
+              </li>              
+              <li className={`${styles.navItem} ${styles.navLink}`}>
                 <Link href="/login/" passHref >
-                  <a className={styles.navLink}>
                     <div className={styles.iconContainer}>
                       <BiLogIn size={24} className={styles.navIcon} />
                     </div>
                     <span>Login</span>
-                  </a>
                 </Link>
               </li>
             </ul>

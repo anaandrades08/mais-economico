@@ -98,7 +98,7 @@
   padding: 0.5rem 1rem;
   padding-right: 40px; /* Espaço para o ícone */
   border: 1px solid var(--border-grey);
-  border-radius: 4px;
+  border-radius: 6px;
   outline: none;
   width: 100%;
   font-size: 1rem;
@@ -230,15 +230,14 @@
 /*focus*/
 
 .searchInput:focus,
-.searchButton:focus,
 .logoContainer:focus,
 .categoryContainer:focus,
-.searchInput:focus {
-  border: 2px solid var(--border-grey);
+.searchInput:focus,
+.toggleButton:focus {
+  border: 2px solid var(--background-orange);
 }
-
 .searchButton:focus{
-  border: 0px solid var(--border-grey);
+  border: 0px solid var(--background-orange);
 }
 
 /* Responsive Styles */
