@@ -200,8 +200,8 @@ export default function CadastroUser() {
                 Ao se cadastrar, você concorda com os nossos:
                 </label>
                 <p>
-                <Link href="/termos?q=termosecondicoes" className="link-termo" passHref>Termos e Condições. </Link>
-                E a nossa <Link href="/termos?q=politicadeprivacidade" className="link-termo" passHref>
+                <Link href="termos?#termosecondicoes" className="link-termo" passHref>Termos e Condições. </Link>
+                {" "}e a nossa{" "} <Link href="/termos?#politicadeprivacidade" className="link-termo" passHref>
                   Política de Privacidade.
                 </Link></p>
             </div>
