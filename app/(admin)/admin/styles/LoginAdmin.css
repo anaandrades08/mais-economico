@@ -1,0 +1,74 @@
+/* Container geral do login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+    padding: 20px;
+  }
+  
+  /* Container do formulário */
+  .login-container-form {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Estilização dos campos de input */
+  .login-container-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .input-email,
+  .input-senha {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-email:focus,
+  .input-senha:focus {
+    border-color: #6f42c1;
+    outline: none;
+  }
+  
+  /* Botão de entrar */
+  .group-btn {
+    text-align: center;
+  }
+  
+  .btn-entrar {
+    background-color: #6f42c1;
+    color: #fff;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-entrar:hover {
+    background-color: #5a33a8;
+  }
+  
+  /* Mensagem de erro */
+  .erro-msg {
+    color: #d63333;
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  

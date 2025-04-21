@@ -1,0 +1,118 @@
+.modal-aviso-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    box-shadow: 0px 4px 4px #00000025;
+    padding: 20px 24px;
+    width: 566px;
+    height: 286px;
+    align-items: center;
+  }
+  .modal-aviso-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .modal-aviso-tittle h2 {
+    font-size: 20px;
+    color: #d40909;
+  }
+  .modal-aviso-descricao p {
+    font-size: 16px;
+    color: #262626;
+    text-align: center;
+  }
+  
+  .fechar-icon {
+    position: absolute;
+    top: 20px;
+    left: 519px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+  }
+  
+  .modal-aviso-buttons {
+    gap: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+  .btn-cancelar {
+    width: 100px;
+    height: 44px;
+    border-radius: 6px;
+    border: 1px solid #262626;
+    box-sizing: border-box;
+    height: 44px;
+    padding: 12px 16px;
+  }
+  .btn-excluir {
+    width: 100px;
+    height: 44px;
+    border-radius: 6px;
+    background-color: #d40909;
+    height: 44px;
+    padding: 12px 16px;
+    color: #f5f5f5;
+    border: none;
+  }
+
+
+
+  /* excluir conta sucessso*/
+
+  .modal-sucesso-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    box-shadow: 0px 4px 4px #00000025;
+    padding: 20px 24px;
+    width: 566px;
+    height: 286px;
+    align-items: center;
+  }
+  .modal-sucesso-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .modal-sucesso-tittle h2{
+    font-size: 20px;
+    color: #267d23;
+  }
+  .modal-sucesso-descricao p {
+    font-size: 16px;
+    color: #262626;
+    text-align: center;
+  }
+  
+  
+  .modal-sucesso-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+  .btn-sucesso-voltar {
+    width: 160px;
+    height: 44px;
+    border-radius: 6px;
+    background-color: #267d23;
+    height: 44px;
+    padding: 12px 16px;
+    color: #f5f5f5;
+    border: none;
+  }
+  .btn-sucesso-voltar:hover {
+    background-color: #1f5e1c;
+    cursor: pointer;
+  }  
+
+
+  

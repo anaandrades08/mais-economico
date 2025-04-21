@@ -99,6 +99,9 @@ export const Recipes = [
     id_category: 1,
     category: "bolosetortas",
     categoryTitle: "Bolos e Tortas",
+    star: 4,
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 2,
@@ -200,6 +203,9 @@ export const Recipes = [
     id_category: 1,
     category: "bolosetortas",
     categoryTitle: "Bolos e Tortas",
+    star: 4,
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 3,
@@ -301,6 +307,9 @@ export const Recipes = [
     id_category: 1,
     category: "bolosetortas",
     categoryTitle: "Bolos e Tortas",
+    star: 5,
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 4,
@@ -349,6 +358,9 @@ export const Recipes = [
     id_category: 6,
     category: "massas",
     categoryTitle: "Massas",
+    star: 5,
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 5,
@@ -397,6 +409,9 @@ export const Recipes = [
     id_category: 6,
     category: "massas",
     categoryTitle: "Massas",
+    star: 5,
+    ativo: 1,
+    usuario_id: 3,
   },
   {
     id: 6,
@@ -446,6 +461,9 @@ export const Recipes = [
     id_category: 6,
     category: "massas",
     categoryTitle: "Massas",
+    star: 3,
+    ativo: 1,
+    usuario_id: 1,
   },
   {
     id: 7,
@@ -494,7 +512,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 7,
     category: "vegetarianoseveganos",
-    categoryTitle: "Vegetarianos e Veganos"
+    categoryTitle: "Vegetarianos e Veganos",
+    star: 4,   
+    ativo: 1,
+    usuario_id: 1,
   },
   {
     id: 8,
@@ -542,7 +563,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 8,
     category: "bebidas",
-    categoryTitle: "Bebidas"
+    categoryTitle: "Bebidas",
+    star: 5,    
+    ativo: 0,
+    usuario_id: 1,
   },
   {
     id: 9,
@@ -594,7 +618,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 9,
     category: "lanches",
-    categoryTitle: "Lanches"
+    categoryTitle: "Lanches",
+    star: 3,
+    ativo: 2,
+    usuario_id: 1,
   },
   {
     id: 10,
@@ -652,7 +679,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 10,
     category: "docesesobremesas",
-    categoryTitle: "Doces e Sobremesas"
+    categoryTitle: "Doces e Sobremesas",
+    star: 4,    
+    ativo: 0,
+    usuario_id: 2,
   },
   {
     id: 11,
@@ -706,7 +736,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 11,
     category: "sopas",
-    categoryTitle: "Sopas"
+    categoryTitle: "Sopas",
+    star: 5,    
+    ativo: 1,
+    usuario_id: 3,
   },
   {
     id: 12,
@@ -769,7 +802,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 2,
     category: "carnes",
-    categoryTitle: "Carnes"
+    categoryTitle: "Carnes",
+    star: 5,    
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 13,
@@ -835,7 +871,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 1,
     category: "bolosetortas",
-    categoryTitle: "Bolos e Tortas"
+    categoryTitle: "Bolos e Tortas",
+    star: 5,    
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 14,
@@ -907,7 +946,10 @@ export const Recipes = [
     usuario: "Siva Silva",
     id_category: 1,
     category: "bolosetortas",
-    categoryTitle: "Bolos e Tortas"
+    categoryTitle: "Bolos e Tortas",
+    star: 5,    
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 15,
@@ -965,7 +1007,10 @@ export const Recipes = [
     usuario: "Chef Marco",
     id_category: 6,
     category: "massas",
-    categoryTitle: "Massas"
+    categoryTitle: "Massas",
+    star: 5,    
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 16,
@@ -1023,7 +1068,10 @@ export const Recipes = [
     usuario: "Chef Bahia",
     id_category: 4,
     category: "peixesefrutosdomar",
-    categoryTitle: "Peixes e Frutos do Mar"
+    categoryTitle: "Peixes e Frutos do Mar",
+    star: 5,    
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 17,
@@ -1093,7 +1141,10 @@ export const Recipes = [
     usuario: "Chef Saúde",
     id_category: 5,
     category: "saladasemolhos",
-    categoryTitle: "Saladas e Molhos"
+    categoryTitle: "Saladas e Molhos",
+    star: 4,    
+    ativo: 1,
+    usuario_id: 2,
   },
   {
     id: 18,
@@ -1145,7 +1196,10 @@ export const Recipes = [
     usuario: "Chef Doces",
     id_category: 10,
     category: "docesesobremesas",
-    categoryTitle: "Doces e Sobremesas"
+    categoryTitle: "Doces e Sobremesas",
+    star: 5,    
+    ativo: 1,
+    usuario_id: 3,
   },
   {
     id: 19,
@@ -1200,7 +1254,10 @@ export const Recipes = [
     usuario: "Chef Mineiro",
     id_category: 9,
     category: "lanches",
-    categoryTitle: "Lanches"
+    categoryTitle: "Lanches",
+    star: 5,
+    ativo: 0,
+    usuario_id: 3,
   },
   {
     id: 20,
@@ -1274,7 +1331,10 @@ export const Recipes = [
     usuario: "Chef Francês",
     id_category: 7,
     category: "vegetarianoseveganos",
-    categoryTitle: "Vegetarianos e Veganos"
+    categoryTitle: "Vegetarianos e Veganos",
+    star: 4,
+    ativo: 1,
+    usuario_id: 4,
   },
   {
     id: 21,
@@ -1343,7 +1403,8 @@ export const Recipes = [
     usuario: "Chef Churrasco",
     id_category: 2,
     category: "carnes",
-    categoryTitle: "Carnes"
+    categoryTitle: "Carnes",
+    star: 5,
   },
   {
     id: 22,
@@ -1404,7 +1465,10 @@ export const Recipes = [
     usuario: "Chef Peruano",
     id_category: 4,
     category: "peixesefrutosdomar",
-    categoryTitle: "Peixes e Frutos do Mar"
+    categoryTitle: "Peixes e Frutos do Mar",
+    star: 3,    
+    ativo: 1,
+    usuario_id: 4,
   },
 
 ];

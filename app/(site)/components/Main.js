@@ -3,8 +3,9 @@ import { useMemo, useState, useEffect } from 'react';
 import styles from "../styles/Main.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { Recipes, recipesByCategory } from "../data/RecipesData.js";
+import { Recipes} from "../data/RecipesData.js";
 import { categorias } from "../data/CategoriaData.js";
+import MaisReceitasComponente from './MaisReceita';
 
 
 import { TbCoin } from "react-icons/tb";
@@ -25,9 +26,9 @@ const getDifficultyIcon = (level) => {
 
 export default function MainContent() {
   //receitas aleatorias do mais receita
-  const receitasAleatorias = useMemo(() => {
+  /*const receitasAleatorias = useMemo(() => {
     return [...Recipes].sort(() => Math.random() - 0.5).slice(0, 8);
-  }, []);
+  }, []);*/
 
   //categorias aleatorias
   const [categoriasAleatorias, setCategoriasAleatorias] = useState([]);
@@ -58,6 +59,7 @@ export default function MainContent() {
 
 
   return (
+
 
     <div className={styles.mainContainer}>
       {/* categorias aleatorias*/}
@@ -97,10 +99,10 @@ export default function MainContent() {
                       {receita.custo || "R$00,00"}
                     </span>
                     {receita.categoryTitle && (
-                    <span>
-                      <FiBookmark size={20} className={styles.Icon} aria-hidden="true" />
-                      {receita.categoryTitle}
-                    </span>
+                      <span>
+                        <FiBookmark size={20} className={styles.Icon} aria-hidden="true" />
+                        {receita.categoryTitle}
+                      </span>
                     )}
                     {receita.dificuldade && (
                       <span>
@@ -118,37 +120,10 @@ export default function MainContent() {
 
 
       {/* Seção Mais Receitas */}
-      <section className={styles.recipesMoreSection}>
-        <h1 className={styles.categoryTitle}>Mais Receitas</h1>
-        <div className={styles.recipeMoreList}>
-          {/* ordenado pelos ultimos */}
-          {receitasAleatorias.map((recipe) => (
-            <div key={recipe.id} className={styles.recipeMoreItem}>
-              <Link href={`/pages/receita/${recipe.id}`} passHref>
-                <Image
-                  src={recipe.image || "/images/layout/recipe/image-not-found.png"}
-                  alt={recipe.nome || 'Imagem da receita'}
-                  width={250}
-                  height={200}
-                  className={styles.recipeMoreImg}
-                  priority={recipe.id < 4}
-                />
-              </Link>
-              <p className={styles.recipeMoreTitle}>{recipe.nome}</p>
-              <div className={styles.recipeMoreDetails}>
-                <p className={styles.recipeMoreIncos}>
-                  <FaRegClock size={20} className={styles.TimeLineIcon} aria-hidden="true" />
-                  {recipe.preparo || "00:00h"}
-                </p>
-                <p>
-                  <TbCoin size={23} className={styles.CoinIcon} aria-hidden="true" />
-                  {recipe.custo || "R$00,00"}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+
+      {/* Componente com limit de 8 exibições */}
+      <MaisReceitasComponente limit={8} />
+
     </div>
   );
 }

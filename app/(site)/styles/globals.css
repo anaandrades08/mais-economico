@@ -52,6 +52,10 @@ body {
   background-color: var(--background-verde-claro);
   color: #555;
 }
+input, textarea, select, button {
+  background-color: var(--background-ligth);
+  border: 1px solid #555;
+}
 
 a {
   color: inherit;

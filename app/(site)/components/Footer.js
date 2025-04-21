@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect} from "react";
+import { useSession } from "next-auth/react";
 import styles from '../styles/Footer.module.css';
 import Image from "next/image";
 import Link from "next/link";
@@ -7,19 +7,11 @@ import { FiMail, FiPhone, FiBookOpen, FiGlobe } from 'react-icons/fi'
 
 
 export default function Footer() {
-    //seta null para sem login
-    const [userId, setUserId] = useState(null);
-    const [userEmail, setUserEmail] = useState(null);
-     useEffect(() => {
-        const storedUserId = localStorage.getItem('usuarioId');
-        const storedEmail = localStorage.getItem('usuarioEmail');
-        if (storedUserId) {
-          setUserId(storedUserId);
-          setUserEmail(storedEmail);
-          console.log('Usuário logado com ID:', storedUserId, 'E-mail:', storedEmail);
-        }
-      }, []);
-
+  const userId = null;
+   const { data: session, status } = useSession();
+   if(session) {
+     userId = session.user.id;
+   }
 
   return (
     <footer className={styles.footer}>
@@ -46,7 +38,7 @@ export default function Footer() {
             <li><Link href="/" className={styles.footerLink} passHref>Inicio</Link></li>
             <li><Link href="/pages/sobre/" className={styles.footerLink}>Sobre Nós</Link></li>
             <li>{userId ? (
-              <Link href={`/dashboard/envie-receita/${userId}`} className={styles.footerLink} passHref>
+              <Link href={`/dashboard/envie-receita/`} className={styles.footerLink} passHref>
                 Envie sua Receita
               </Link>
             ) : (

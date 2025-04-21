@@ -1,8 +1,9 @@
+
 import './styles/globals.css';
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
-
 import { Montserrat } from 'next/font/google'
+import { AuthProvider } from '../providers/AuthProvider';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -31,11 +32,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body className={montserrat.variable}>
-        <Header />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

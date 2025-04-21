@@ -98,6 +98,7 @@
   padding: 0.5rem 1rem;
   padding-right: 40px; /* Espaço para o ícone */
   border: 1px solid var(--border-grey);
+  background-color: white;
   border-radius: 6px;
   outline: none;
   width: 100%;

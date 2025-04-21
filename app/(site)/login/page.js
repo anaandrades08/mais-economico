@@ -6,16 +6,18 @@ import Image from "next/image";
 import Link from "next/link";
 import '../styles/Login.css'
 import { validarEmail, validarSenha, validarLogin } from '../utils/validarLogin';
+import { signIn } from "next-auth/react";
+
 
 export default function Login() {
-  const router = useRouter();
-
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [erro, setErro] = useState('');
+  const [erro, setErro] = useState('');  
+  const router = useRouter();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     const erroValidacao = validarLogin(email, senha);
     if (erroValidacao) {
       setErro(erroValidacao);
@@ -24,25 +26,28 @@ export default function Login() {
         setSenha('');
         setErro('');
       }, 1500);
+      return; // Sai da função se houver erro
     }
 
-    if (email === 'teste@teste.com' && senha === 'a1234567') {
-      const usuarioId = 1; // Suponha que esse ID veio do backen
-      setErro('');
-      setTimeout(() => {
-      localStorage.setItem('usuarioId', usuarioId); // Grava o ID do usuário
-      localStorage.setItem('usuarioEmail', email); 
-      window.location.href = `/dashboard/${usuarioId}`;
-      }, 1000);
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      senha: senha
+    });
+
+    if (res.ok) {
+      router.push("/dashboard/");
     } else {
-      setErro('E-mail ou senha incorretos!');
+      setErro("E-mail ou senha inválidos.");
       setTimeout(() => {
         setEmail('');
         setSenha('');
         setErro('');
       }, 1500);
+      return;
     }
   };
+
 
   return (
     <div className="login-container">

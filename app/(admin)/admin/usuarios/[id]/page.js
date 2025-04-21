@@ -2,6 +2,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
 import '../../styles/UsuariosPage.css';
 import { Users } from '../../data/UserData';
@@ -32,7 +33,7 @@ export default function UsuariosAdmin() {
         <div className="usuario-admin-container">
             <MenuLateral/>
             <div className="usuario-details-admin">
-                <img src={usuario.image} alt={usuario.name} className="usuario-image" />
+                <Image src={usuario.image} alt={usuario.name} className="usuario-image" width={100} height={100} />
                 <p className="usuario-nome">Nome: {usuario.nome}</p>                
                 <p className="usuario-data-nascimento">Data de Nascimento: {formatarData(usuario.datanascimento)}</p>
                 <p className="usuario-email">Email: {usuario.email}</p>
@@ -57,7 +58,7 @@ export default function UsuariosAdmin() {
                 </p>
                 <div className="usuario-actions">
                     <Link href="/admin/usuarios">Voltar</Link>
-                    <Link href={`/admin/usuarios/atualizar/${usuario.id}`}>Alterar</Link>
+                    <Link href={`/admin/usuarios/alterar/${usuario.id}`}>Alterar</Link>
                     <Link href={`/admin/usuarios/deletar/${usuario.id}`}>Excluir</Link>
                 </div>
             </div>

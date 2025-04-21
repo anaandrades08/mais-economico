@@ -3,15 +3,16 @@ import { useMemo, useState, useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { Recipes} from "../data/RecipesData.js";
+import styles from "../styles/Main.module.css";
 //icones
 import { TbCoin } from "react-icons/tb";
 import { FaRegClock } from "react-icons/fa";
 
 
-export default function MaisReceitasComponente() {
+export default function MaisReceitasComponente({limit}) {
     //receitas aleatorias do mais receita
     const receitasAleatorias = useMemo(() => {
-      return [...Recipes].sort(() => Math.random() - 0.5).slice(0, 8);
+      return [...Recipes].sort(() => Math.random() - 0.5).slice(0, limit);
     }, []);
 
     return(

@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useSession } from "next-auth/react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,15 +14,14 @@ import { BsSendPlus } from "react-icons/bs";
 import { MdFavoriteBorder } from "react-icons/md";
 import { BiUserCircle } from "react-icons/bi";
 import { FiLogOut } from 'react-icons/fi';
+//admin
+import { MdAdminPanelSettings } from 'react-icons/md'; 
 //usuario publico
 import { BiUserPlus, BiLogIn } from "react-icons/bi"
 import { AiFillStar } from "react-icons/ai";
 
 
-export default function Header() {
-  const [userId, setUserId] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
-
+export default function Header() { 
   //função Busca
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
@@ -50,17 +50,13 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-
-  useEffect(() => {
-    const storedUserId = localStorage.getItem('usuarioId');
-    const storedEmail = localStorage.getItem('usuarioEmail');
-    if (storedUserId) {
-      setUserId(storedUserId);
-      setUserEmail(storedEmail);
-      console.log('Usuário logado com ID:', storedUserId, 'E-mail:', storedEmail);
-    }
-  }, []);
-
+  const userId = null;
+  const userTipo= null;
+  const { data: session, status } = useSession();
+  if(session) {
+    userId = session.user.id;
+    userTipo = session.user.tipo;
+  }
   return (
     <>
       <header className={styles.header}>
@@ -115,11 +111,20 @@ export default function Header() {
         </div>
         {/* Menu de navegação do usuário logado */}
         {userId ? (
-
           <nav className={styles.nav}>
-            <ul className={styles.navList}>              
+            <ul className={styles.navList}>   
+            {userTipo === 1 && ( //admin
+                <li className={`${styles.navItem} ${styles.navLink}`}>
+                  <Link href={`/admin/`} passHref>
+                    <div className={styles.iconContainer}>
+                      <MdAdminPanelSettings size={24} className={styles.navIcon} />
+                    </div>
+                    <span>Admin</span>
+                  </Link>
+                </li>  
+            )}         
             <li className={`${styles.navItem} ${styles.navLink}`}>
-                <Link href={`/dashboard/envie-receita/${userId}`} passHref>
+                <Link href={`/dashboard/envie-receita/`} passHref>
                   <div className={styles.iconContainer}>
                     <BsSendPlus size={24} className={styles.navIcon} />
                   </div>
@@ -127,7 +132,7 @@ export default function Header() {
                 </Link>
               </li>              
               <li className={`${styles.navItem} ${styles.navLink}`}>
-                <Link href={`/dashboard/favoritos/${userId}`}  passHref>
+                <Link href={`/dashboard/favoritos/`}  passHref>
                   <div className={styles.iconContainer}>
                     <MdFavoriteBorder size={24} className={styles.navIcon} />
                   </div>
@@ -135,7 +140,7 @@ export default function Header() {
                 </Link>
               </li>
               <li className={`${styles.navItem} ${styles.navLink}`}>
-                <Link href={`/dashboard/perfil-usuario/${userId}`}  passHref>
+                <Link href={`/dashboard/perfil-usuario/`}  passHref>
                   <div className={styles.iconContainer}>
                     <BiUserCircle size={24} className={styles.navIcon} />
                   </div>
@@ -143,7 +148,7 @@ export default function Header() {
                 </Link>
               </li>              
               <li className={`${styles.navItem} ${styles.navLink}`}>
-                <Link href={`/dashboard/logout/${userId}`} passHref>
+                <Link href={`/dashboard/logout/`} passHref>
                   <div className={styles.iconContainer} >
                     <FiLogOut size={24} className={styles.navIcon} />
                   </div>
@@ -154,7 +159,7 @@ export default function Header() {
           </nav>
 
 
-        ) : (
+        ) : ( //usuario nao logado
 
           <nav className={styles.nav}>
             <ul className={styles.navList}>              

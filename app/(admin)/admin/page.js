@@ -1,4 +1,6 @@
+
 import AdminMain from './components/Main';
+
 
 export const metadata = {
   title: {
@@ -8,5 +10,7 @@ export const metadata = {
 };
 
 export default function AdminPage() {
+
+
   return <AdminMain />;
 }

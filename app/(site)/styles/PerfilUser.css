@@ -1,31 +1,30 @@
 /*perfil do usuario abaixo do css do dashboard*/
 
 
-.container-perfil-user{  
+.container-perfil-user {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 20px;
   background-color: #E9E9E9;
   color: #333;
   width: 100%;
-  justify-content: center;  /* Alinha os containers ao centro */
-  gap: 5px; /* Espaço entre os dois blocos */
-  flex-wrap: wrap;  /* Quebra em telas pequenas */
-  padding: 20px;  
   border-radius: 6px;
 }
-.perfil-container,
-.form-container {
-  padding: 10px;
-  border-radius: 6px;
-  width: 45%; /* Ajuste para os dois containers ficarem próximos */
-  display: flex;
-  flex-direction: column; /* Conteúdo em coluna */
-  justify-content: center; /* Opcional: centraliza o conteúdo dentro de cada container */
+
+.perfil-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  place-items: center; 
 }
 
 .info-pessoais {
   padding: 20px;
   width: 100%;
-  max-width: 350px;
+  max-width: 100%;
   border-radius: 10px;
   color: #333;
 }
@@ -36,7 +35,7 @@
 .foto-perfil {  
   display: flex;
   align-items: flex-start; /* alinha no topo */
-  gap: 16px; /* espaço entre imagem e texto */
+  gap: 16px; /* espaço entre imagem e texto */  
 }
 
 .foto-perfil .foto {  
@@ -52,7 +51,8 @@
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  margin-bottom: 4px;
+  margin-bottom: 4px;  
+  max-width: 40%;
 }
 .btn-upload:hover, .btn-excluir:hover {
   background-color: var(--color-botao-cadastro);
@@ -240,7 +240,7 @@
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
-  max-width: 250px;
+  max-width: 200px;
 }
 
 .btn-salvar:hover,
@@ -258,11 +258,15 @@
     align-items: center;
     padding: 10px;
   }
+  .btn-upload {
+    max-width: 100%;
+  } 
 
-  .perfil-container,
-  .form-container {
+  .perfil-container {
     width: 100%; /* Ocupa toda a largura em telas pequenas */
-    padding: 10px;
+    padding: 5px;
+    display: flex;    
+    flex-direction: column;
   }
 
   .dados-pessoais {
@@ -287,7 +291,6 @@
 
   .group-btn {
     flex-direction: column;
-    gap: 10px;
   }
 
   .btn-salvar,
