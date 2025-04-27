@@ -39,6 +39,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Projeto de [breve descrição].  
 
+## versão site estatico
+1. version: "0.1.0"
 ## Como Executar  
 1. Clone o repositório:  
    ```bash  
@@ -48,3 +50,46 @@ Projeto de [breve descrição].
    git add README.md
    git commit -m "Edita README inicial"
    git push  
+
+## 🔄 Atualização para versão dinâmica
+
+Este projeto foi atualizado para utilizar banco de dados PostgreSQL. 
+Scripts de criação de tabelas e dados iniciais estão na pasta `/database`.
+
+### ✅ Como rodar o banco
+1. Crie um banco de dados local
+2. Execute o script `estrutura.sql`
+3. Popule com `dados_iniciais.sql` (opcional)
+
+### GIT
+1. Atualize no git
+git status
+git add .
+git commit -m "feat: adiciona suporte a banco de dados com scripts SQL e api"
+git remote add origin https://github.com/anaandrades08/mais-economico.git
+# use a branch de desenvolvimento:
+git checkout3 -b dev-banco-dados
+git push -u origin dev-banco-dados
+
+## versão site com banco de dados
+1. version: "1.1.0"
+
+
+## para usar o prisma
+1. No seu projeto (na raiz), abra o arquivo .env e atualize a variável assim:
+DATABASE_URL="cole_aqui_a_sua_url"
+2. depois inicie o prisma
+npx prisma generate
+npx prisma migrate dev
+# para ver as tabelas e registros
+npx prisma studio
+# para atualizar tabelas no prisma 
+npx prisma migrate dev --name schema.prisma     
+
+# executar esses comandos para criar exemplos de dados
+node prisma/exemplos/usuario.js 
+node prisma/exemplos/categoria.js 
+node prisma/exemplos/unidade.js 
+node prisma/exemplos/receita.js 
+node prisma/exemplos/ingrediente.js
+node prisma/exemplos/dica.js

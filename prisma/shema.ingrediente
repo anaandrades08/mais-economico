@@ -1,0 +1,12 @@
+model Ingrediente {
+  id_ingrediente        Int       @id @default(autoincrement())
+  id_tipo_ingrediente   Int
+  descricao_ingrediente String?
+  valor                 Float?
+  quantidade            Float?
+  id_uni_medida         Int?
+  unidadeMedida         UnidadeMedida? @relation(fields: [id_uni_medida], references: [id_uni_medida])
+  tipoIngrediente       TipoIngrediente @relation(fields: [id_tipo_ingrediente], references: [id_tipo_ingrediente])
+  ingredientesReceita   IngredienteReceita[]
+  substituicoes         Substituicao[]
+}

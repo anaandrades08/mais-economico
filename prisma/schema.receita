@@ -1,0 +1,22 @@
+model Receita {
+  id_receita         Int                   @id @default(autoincrement())
+  id_categoria       Int
+  id_usuario         Int
+  titulo_receita     String?
+  descricao_receita  String?
+  tempo_preparo      String?
+  tempo_total        String?
+  rendimento         String?
+  custo              Float?
+  dificuldade        String?
+  img_receita        String?
+  ativo              Int?
+  data_cadastro      DateTime              @default(now())
+  usuario            Usuario               @relation(fields: [id_usuario], references: [id])
+  categoria          Categoria             @relation(fields: [id_categoria], references: [id_categoria])
+  titulosIngrediente TituloIngredientesReceita[]
+  titulosPreparo     TituloPreparo[]
+  favoritos          Favorito[]
+  feedbacks          Feedback[]
+  substituicoes      Substituicao[]
+}

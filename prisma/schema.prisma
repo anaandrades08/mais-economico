@@ -1,0 +1,185 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id             Int           @id @default(autoincrement())
+  nome           String
+  email          String        @unique
+  senha          String?
+  cep            String?
+  endereco       String?
+  numero         String?
+  cidade         String?
+  estado         String?
+  img_usuario    String?
+  data_cadastro  DateTime      @default(now())
+  tipo           Int?
+  ativo          Int?
+  logs           LogUser[]
+  receitas       Receita[]
+  dicas          Dica[]
+  feedbacks      Feedback[]
+  substituicoes  Substituicao[]
+  favoritos      Favorito[]
+}
+
+model LogUser {
+  id_log                    Int      @id @default(autoincrement())
+  id_usuario                Int
+  ip_usuario_log            String?
+  descricao_atividade_log   String?
+  data_hora_inicio_log      DateTime?
+  data_hora_fim_log         DateTime?
+  usuario                   Usuario  @relation(fields: [id_usuario], references: [id])
+}
+
+model Categoria {
+  id_categoria     Int       @id @default(autoincrement())
+  nome             String?
+  link_categoria   String?
+  receitas         Receita[]
+  dicas            Dica[]
+}
+
+model Receita {
+  id_receita         Int                   @id @default(autoincrement())
+  id_categoria       Int
+  id_usuario         Int
+  titulo_receita     String?
+  descricao_receita  String?
+  tempo_preparo      String?
+  tempo_total        String?
+  rendimento         String?
+  custo              Float?
+  dificuldade        String?
+  img_receita        String?
+  ativo              Int?
+  data_cadastro      DateTime              @default(now())
+  usuario            Usuario               @relation(fields: [id_usuario], references: [id])
+  categoria          Categoria             @relation(fields: [id_categoria], references: [id_categoria])
+  titulosIngrediente TituloIngredientesReceita[]
+  titulosPreparo     TituloPreparo[]
+  favoritos          Favorito[]
+  feedbacks          Feedback[]
+  substituicoes      Substituicao[]
+}
+
+model UnidadeMedida {
+  id_uni_medida   Int      @id @default(autoincrement())
+  unidade_medida  String
+  sigla           String?
+  ingrediente     Ingrediente[]
+  ingredientes    IngredienteReceita[]
+  substituicoes   Substituicao[]
+}
+
+model TipoIngrediente {
+  id_tipo_ingrediente  Int            @id @default(autoincrement())
+  tipo_ingrediente     String
+  ingredientes         Ingrediente[]
+}
+
+model Ingrediente {
+  id_ingrediente        Int       @id @default(autoincrement())
+  id_tipo_ingrediente   Int
+  descricao_ingrediente String?
+  valor                 Float?
+  quantidade            Float?
+  id_uni_medida         Int?
+  unidadeMedida         UnidadeMedida? @relation(fields: [id_uni_medida], references: [id_uni_medida])
+  tipoIngrediente       TipoIngrediente @relation(fields: [id_tipo_ingrediente], references: [id_tipo_ingrediente])
+  ingredientesReceita   IngredienteReceita[]
+  substituicoes         Substituicao[]
+}
+
+model TituloIngredientesReceita {
+  id_titulo_ingrediente_receita  Int       @id @default(autoincrement())
+  titulo_ingrediente_receita     String?
+  id_receita                      Int
+  receita                         Receita   @relation(fields: [id_receita], references: [id_receita])
+  ingredientes                   IngredienteReceita[]
+}
+
+model IngredienteReceita {
+  id_ingrediente_receita        Int                   @id @default(autoincrement())
+  id_ingrediente                Int
+  id_titulo_ingrediente_receita Int
+  quantidade                    Int
+  id_uni_medida                 Int
+  data_cadastro                 DateTime              @default(now())
+  ingrediente                  Ingrediente           @relation(fields: [id_ingrediente], references: [id_ingrediente])
+  tituloIngrediente            TituloIngredientesReceita @relation(fields: [id_titulo_ingrediente_receita], references: [id_titulo_ingrediente_receita])
+  unidadeMedida                UnidadeMedida        @relation(fields: [id_uni_medida], references: [id_uni_medida])
+}
+
+model TituloPreparo {
+  id_titulo_preparo Int       @id @default(autoincrement())
+  titulo_preparo    String?
+  id_receita        Int
+  receita           Receita   @relation(fields: [id_receita], references: [id_receita])
+  modosPreparo      ModoPreparo[]
+}
+
+model ModoPreparo {
+  id_preparo        Int       @id @default(autoincrement())
+  id_titulo_preparo Int
+  descricao_preparo String?
+  data_cadastro     DateTime  @default(now())
+  tituloPreparo     TituloPreparo @relation(fields: [id_titulo_preparo], references: [id_titulo_preparo])
+}
+
+model Favorito {
+  id_favorito    Int      @id @default(autoincrement())
+  id_receita     Int
+  id_usuario     Int
+  data_cadastro  DateTime  @default(now())
+  receita        Receita   @relation(fields: [id_receita], references: [id_receita])
+  usuario        Usuario   @relation(fields: [id_usuario], references: [id])
+}
+
+model Feedback {
+  id_feedback    Int      @id @default(autoincrement())
+  id_receita     Int
+  id_usuario     Int
+  feedback       String?
+  total_estrela  Int
+  data_cadastro  DateTime @default(now())
+  receita        Receita  @relation(fields: [id_receita], references: [id_receita])
+  usuario        Usuario  @relation(fields: [id_usuario], references: [id])
+}
+
+model Substituicao {
+  id_substituicao     Int      @id @default(autoincrement())
+  id_receita          Int
+  id_ingrediente      Int
+  id_usuario          Int
+  descricao_preparo   String?
+  quantidade          Int
+  id_uni_medida       Int
+  data_cadastro       DateTime @default(now())
+  receita             Receita  @relation(fields: [id_receita], references: [id_receita])
+  ingrediente         Ingrediente @relation(fields: [id_ingrediente], references: [id_ingrediente])
+  usuario             Usuario  @relation(fields: [id_usuario], references: [id])
+  unidadeMedida       UnidadeMedida @relation(fields: [id_uni_medida], references: [id_uni_medida])
+}
+
+model Dica {
+  id_dica         Int       @id @default(autoincrement())
+  id_categoria    Int
+  titulo          String?
+  descricao       String?
+  cta_text        String?
+  img_dica        String?
+  id_usuario      Int
+  ativo           Int?
+  data_cadastro   DateTime  @default(now())
+  categoria       Categoria @relation(fields: [id_categoria], references: [id_categoria])
+  usuario         Usuario   @relation(fields: [id_usuario], references: [id])
+}
