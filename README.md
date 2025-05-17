@@ -108,3 +108,24 @@ npm install next-auth @prisma/client prisma bcryptjs
 RUN mkdir -p /app/public/uploads/usuarios && \
     chown -R node:node /app/public/uploads && \
     chmod -R 755 /app/public/uploads
+
+
+
+# 1. Verifique em qual branch você está
+git status
+
+# 2. Mude para o branch desejado (se necessário)
+git checkout dev-banco-dados
+
+# 3. Adicione as alterações
+git add .
+
+# 4. Faça o commit
+git commit -m "feat: adiciona novas funcionalidades de banco de dados"
+
+# 5. Envie para o repositório remoto
+git push origin dev-banco-dados
+
+
+# branch 
+https://github.com/anaandrades08/mais-economico/tree/dev-banco-dados
