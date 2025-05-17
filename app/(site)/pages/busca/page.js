@@ -198,7 +198,7 @@ function SearchContent() {
         ) : query ? (
           <div className="noResults">
             <FiMeh size={48} className='Icon' />
-            <p>Nenhuma receita encontrada para &quot;{busca}&quot;</p>
+            <p>Nenhuma receita encontrada para {busca}</p>
             <Link href="/" className="backLink" passHref>
               Voltar para a página inicial
             </Link>
