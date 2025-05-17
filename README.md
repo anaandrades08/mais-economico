@@ -129,3 +129,11 @@ git push origin dev-banco-dados
 
 # branch 
 https://github.com/anaandrades08/mais-economico/tree/dev-banco-dados
+
+
+# depois dos dados raiway
+
+npx prisma generate
+npx prisma migrate deploy
+# ou
+npx prisma migrate dev
