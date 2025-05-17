@@ -23,17 +23,24 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   padding: 10px;
+  min-height: 500px; /* ajuste conforme sua necessidade */
+  align-content: start; /* ou center, se quiser centralizar verticalmente */
 }
 
+
 .recipeCard {
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  color: #333;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
+    background-color: #fff;
+    justify-content: center; /* centraliza horizontalmente */
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    color: #34495e;
+    text-align: center;
+    transition: transform 0.3s ease;
+    max-width: 400px; /* Limita a largura máxima */
+    margin: 0 auto;/* Centraliza horizontalmente */
+    width: 100%;
+  } 
 
 .recipeCard h2{
   overflow: hidden;
@@ -62,6 +69,7 @@
 
 .recipeDetails {
   display: grid;
+  align-items: center;
   grid-template-columns: repeat(2, 1fr); /* 2 colunas */
   grid-template-rows: repeat(2, 1fr);/* 2 linhas */
   gap: 1rem;

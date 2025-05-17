@@ -1,5 +1,24 @@
 /** @type {import('next').NextConfig} */
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Cria o equivalente a __dirname em ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const nextConfig = {
+    webpack: (config) => {
+      // Adiciona aliases ao Webpack
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': path.resolve(__dirname),
+        '@components': path.resolve(__dirname, 'components'),
+        '@lib': path.resolve(__dirname, 'lib'),
+        '@api': path.resolve(__dirname, 'api'),
+        '@styles': path.resolve(__dirname, 'styles'),
+        '@app': path.resolve(__dirname, 'app'),
+      };
+      return config;
+    },
   reactStrictMode: true,
   experimental: {
     // Adicione aqui os experimentos que quiser

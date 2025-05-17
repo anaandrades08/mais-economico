@@ -2,10 +2,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@styles/*": ["./styles/*"],
-      "@data/*": ["./data/*"],
+      "@styles/*": ["./app/styles/*"],
+      "@data/*": ["./app/data/*"],
       "@/*": ["./*"],
-      "@/app/*": ["./app/*"]
+      "@/app/*": ["./app/*"],
+      "@/lib/*": ["./app/lib/*"],
+      "@/api/*": ["./app/api*"],
+
     }
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "exclude": ["node_modules"]
 }

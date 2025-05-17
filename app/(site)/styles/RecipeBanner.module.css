@@ -89,6 +89,7 @@
   }
   
   .bannerbtnsalvar,
+  .bannerbtndeletar,
   .bannerbtncompartilhar {
     background-color: var(--color-icon-receita); /* Corrigido: era 'var(color-icon-receita)' */
     color: #fff;
@@ -105,10 +106,14 @@
   
   .bannerbtnsalvar:hover,
   .bannerbtncompartilhar:hover {
-    background-color: var(--color-icon-receita);
+    background-color: var(--color-botao-login);
+  }
+  .bannerbtndeletar:hover{
+    background-color: var(--color-botao-cadastro);
   }
   
   .bannerbtnsalvar svg,
+  .bannerbtndeletar svg,
   .bannerbtncompartilhar svg {
     margin-right: 0.5rem;
   }

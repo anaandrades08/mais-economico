@@ -1,12 +1,9 @@
 "use client";
-import { useMemo, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from "../styles/Main.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { Recipes} from "../data/RecipesData.js";
-import { categorias } from "../data/CategoriaData.js";
 import MaisReceitasComponente from './MaisReceita';
-
 
 import { TbCoin } from "react-icons/tb";
 import { FaRegClock } from "react-icons/fa";
@@ -25,105 +22,158 @@ const getDifficultyIcon = (level) => {
 };
 
 export default function MainContent() {
-  //receitas aleatorias do mais receita
-  /*const receitasAleatorias = useMemo(() => {
-    return [...Recipes].sort(() => Math.random() - 0.5).slice(0, 8);
-  }, []);*/
-
-  //categorias aleatorias
+  const [categorias, setCategorias] = useState([]);
+  const [Recipes, setRecipes] = useState([]);
   const [categoriasAleatorias, setCategoriasAleatorias] = useState([]);
   const [receitasPorCategoria, setReceitasPorCategoria] = useState([]);
+  const [error, setError] = useState(null);
 
+  // Carregar categorias da API
   useEffect(() => {
-    const categoriasEmbaralhadas = [...categorias].sort(() => Math.random() - 0.5);
-    const qtdCategorias = Math.floor(Math.random() * 2) + 2; // entre 2 e 3
-    const selecionadas = categoriasEmbaralhadas.slice(0, qtdCategorias);
+    const fetchCategorias = async () => {
+      try {
+        const response = await fetch('/api/categorias/');
+        const data = await response.json();
+        if (response.ok) {
+          setCategorias(data);
+        } else {
+          setError('Erro ao carregar as categorias do header');
+        }
+      } catch (error) {
+        setError('Erro ao tentar carregar as categorias do header');
+        console.error(error);
+      }
+    };
 
-    setCategoriasAleatorias(selecionadas);
-
-    const receitasAgrupadas = selecionadas.map((categoria) => {
-      const receitas = Recipes
-        .filter((r) => r.id_category === categoria.id)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3); // receitas aleatórias
-
-      return receitas.length > 0 ? { categoria, receitas } : null;
-    }).filter(Boolean); // só mantém categorias com pelo menos 1 receita
-
-    setReceitasPorCategoria(receitasAgrupadas);
+    fetchCategorias();
   }, []);
 
-  if (!categoriasAleatorias || receitasPorCategoria.length === 0) {
-    return null;
+  // Carregar receitas ativas da API
+  useEffect(() => {
+    const fetchReceitasAtivas = async () => {
+      try {
+        const response = await fetch('/api/receitas/receitas-ativas/');
+        const data = await response.json();
+        if (response.ok) {
+          setRecipes(data);
+        } else {
+          setError('Erro ao carregar as receitas ativas');
+        }
+      } catch (error) {
+        setError('Erro ao tentar carregar as receitas ativas');
+        console.error(error);
+      }
+    };
+
+    fetchReceitasAtivas();
+  }, []);
+
+  // Quando categorias e receitas forem carregadas, gerar as categorias aleatórias
+  useEffect(() => {
+    if (categorias.length > 0 && Recipes.length > 0) {
+      const categoriasEmbaralhadas = [...categorias].sort(() => Math.random() - 0.5);
+      const qtdCategorias = Math.floor(Math.random() * 2) + 2; // entre 2 e 3
+      const selecionadas = categoriasEmbaralhadas.slice(0, qtdCategorias);
+
+      setCategoriasAleatorias(selecionadas);
+
+      const receitasAgrupadas = selecionadas.map((categoria) => {
+        const receitas = Recipes
+          .filter((r) => r.id_categoria === categoria.id_categoria)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3);
+
+        return receitas.length > 0 ? { categoria, receitas } : null;
+      }).filter(Boolean);
+
+      setReceitasPorCategoria(receitasAgrupadas);
+    }
+  }, [categorias, Recipes]); // <- adicionamos dependências
+
+  function formatMinutesToHours(minutes) {
+    if (!minutes && minutes !== 0) return "00:00h";
+    
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    
+    if (hours > 0 && mins > 0) {
+      return `${hours}h ${mins}min`;
+    } else if (hours > 0) {
+      return `${hours}h`;
+    } else {
+      return `${mins}min`;
+    }
   }
 
+  if (error) {
+    return <p style={{ color: 'red' }}>{error}</p>;
+  }
+
+  if (!receitasPorCategoria || receitasPorCategoria.length === 0) {
+    return <p>Carregando receitas...</p>;
+  }
 
   return (
-
-
     <div className={styles.mainContainer}>
-      {/* categorias aleatorias*/}
-      {receitasPorCategoria.map(({ categoria, receitas }) => {
-        return (
-          <section key={categoria.id} className={styles.recipesSection}>
-            <h1 className={styles.categoryTitle}>{categoria.name}</h1>
-            <div className={styles.recipeGrid}>
-              {receitas.map((receita) => (
-                <div key={receita.id} className={styles.recipeBox}>
-                  <Link href={`/pages/receita/${receita.id}`} passHref>
-                    <Image
-                      src={receita.image || "/images/layout/recipe/image-not-found.png"}
-                      alt={receita.nome || 'Imagem da receita'}
-                      width={350}
-                      height={240}
-                      className={styles.recipeImg}
-                      priority={receita.id < 4}
-                    />
-                  </Link>
-                  <h2 className={styles.recipeTitle}>{receita.nome}</h2>
-                  <div className={styles.recipeDetails}>
+      {/* Categorias aleatórias */}
+      {receitasPorCategoria.map(({ categoria, receitas }) => (
+        <section key={categoria.id_categoria} className={styles.recipesSection}>
+          <h1 className={styles.categoryTitle}>{categoria.nome}</h1>
+          <div className={styles.recipeGrid}>
+            {receitas.map((receita) => (
+              <div key={receita.id_receita} className={styles.recipeBox}>
+                <Link href={`/pages/receita/${receita.id_receita}`} passHref>
+                  <Image
+                    src={receita.img_receita || "/images/layout/recipe/image-not-found.png"}
+                    alt={receita.titulo_receita || 'Imagem da receita'}
+                    width={350}
+                    height={240}
+                    className={styles.recipeImg}
+                    priority
+                  />
+                </Link>
+                <h2 className={styles.recipeTitle}>{receita.titulo_receita}</h2>
+                <div className={styles.recipeDetails}>
+                  <span>
+                    <PiUserCircleFill size={24} className={styles.userIcon} aria-hidden="true" />
+                    {receita.usuario.nome || "Nome do usuário"}
+                  </span>
+                  <span>
+                    <TbCalendarTime size={24} className={styles.dateTimeIcon} aria-hidden="true" />{" "}
+                    {formatMinutesToHours(receita.tempo_total)}
+                  </span>
+                  <span>
+                    <FaRegClock size={20} className={styles.TimeLineIcon} aria-hidden="true" />
+                    {formatMinutesToHours(receita.tempo_preparo)}
+                  </span>
+                  <span>
+                    <TbCoin size={24} className={styles.CoinIcon} aria-hidden="true" />
+                    {receita.custo ? new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(receita.custo) : "R$00,00"}
+                  </span>
+                  {receita.categoria && (
                     <span>
-                      <PiUserCircleFill size={24} className={styles.userIcon} aria-hidden="true" />
-                      {receita.usuario || "Nome do usuário"}
+                      <FiBookmark size={20} className={styles.Icon} aria-hidden="true" />
+                      {receita.categoria.nome}
                     </span>
+                  )}
+                  {receita.dificuldade && (
                     <span>
-                      <TbCalendarTime size={24} className={styles.dateTimeIcon} aria-hidden="true" />{" "}
-                      {receita.tempo || "00:00h"}
+                      {getDifficultyIcon(receita.dificuldade)}
+                      {receita.dificuldade}
                     </span>
-                    <span>
-                      <FaRegClock size={20} className={styles.TimeLineIcon} aria-hidden="true" />
-                      {receita.preparo || "00:00h"}
-                    </span>
-                    <span>
-                      <TbCoin size={24} className={styles.CoinIcon} aria-hidden="true" />
-                      {receita.custo || "R$00,00"}
-                    </span>
-                    {receita.categoryTitle && (
-                      <span>
-                        <FiBookmark size={20} className={styles.Icon} aria-hidden="true" />
-                        {receita.categoryTitle}
-                      </span>
-                    )}
-                    {receita.dificuldade && (
-                      <span>
-                        {getDifficultyIcon(receita.dificuldade)}
-                        {receita.dificuldade}
-                      </span>
-                    )}
-                  </div>
+                  )}
                 </div>
-              ))}
-            </div>
-          </section>
-        );
-      })}
-
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
 
       {/* Seção Mais Receitas */}
-
-      {/* Componente com limit de 8 exibições */}
       <MaisReceitasComponente limit={8} />
-
     </div>
   );
 }

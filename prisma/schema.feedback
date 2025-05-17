@@ -1,0 +1,11 @@
+model Feedback {
+  id_feedback    Int      @id @default(autoincrement())
+  id_receita     Int
+  id_usuario     Int
+  feedback       String?
+  total_estrela  Int
+  ativo          Int?
+  data_cadastro  DateTime @default(now())
+  receita        Receita  @relation(fields: [id_receita], references: [id_receita])
+  usuario        Usuario  @relation(fields: [id_usuario], references: [id])
+}

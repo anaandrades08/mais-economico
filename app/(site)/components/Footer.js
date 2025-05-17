@@ -7,11 +7,8 @@ import { FiMail, FiPhone, FiBookOpen, FiGlobe } from 'react-icons/fi'
 
 
 export default function Footer() {
-  const userId = null;
-   const { data: session, status } = useSession();
-   if(session) {
-     userId = session.user.id;
-   }
+
+  const { data: session, status } = useSession();
 
   return (
     <footer className={styles.footer}>
@@ -37,7 +34,7 @@ export default function Footer() {
           <ul className={styles.footerLinks}>
             <li><Link href="/" className={styles.footerLink} passHref>Inicio</Link></li>
             <li><Link href="/pages/sobre/" className={styles.footerLink}>Sobre Nós</Link></li>
-            <li>{userId ? (
+            <li>{session?.user?.id ? (
               <Link href={`/dashboard/envie-receita/`} className={styles.footerLink} passHref>
                 Envie sua Receita
               </Link>

@@ -10,3 +10,5 @@ model Ingrediente {
   ingredientesReceita   IngredienteReceita[]
   substituicoes         Substituicao[]
 }
+
+

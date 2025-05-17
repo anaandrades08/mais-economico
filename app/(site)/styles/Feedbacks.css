@@ -1,0 +1,162 @@
+.container-feedbacks {
+    background-color: #E9E9E9;;
+    padding: 20px;
+    border-radius: 6px;      
+  }
+  .container-feedbacks h3 {    
+    color: #d24e22;  
+  }
+  .feedbacks-content {
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column; 
+    letter-spacing: 0.01rem;
+    gap: 1rem; 
+  }
+/* Estilos para a lista de feedbacks */
+.feedback-list {
+    display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(280px, 320px);
+        /* Largura fixa para cards */
+        gap: 1.5rem;
+        padding: 1.5rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;    
+        /* Esconde scrollbar no Firefox */
+        &::-webkit-scrollbar {
+            display: none;
+            /* Esconde scrollbar no Chrome/Safari */
+        }
+    }
+
+
+.feedback-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+
+.recipeImg {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+
+.feedback-card:hover {
+    transform: translateY(-5px);
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.feedback-header h4 {
+    margin: 0;
+    color: #333;
+}
+
+.feedback-content {
+    margin-bottom: 15px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.feedback-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.feedback-date {
+    font-style: italic;
+}
+
+.feedback-status {
+    font-weight: bold;
+}
+
+.feedback-status.approved {
+    color: #4CAF50;
+}
+
+.feedback-status.rejected {
+    color: #F44336;
+}
+
+.feedback-status.pending {
+    color: #FFC107;
+}
+
+.feedback-status.inactive {
+    color: #9E9E9E;
+}
+
+.feedback-status.undefined {
+    color: #607D8B;
+}
+
+.error-message {
+    color: #F44336;
+    background: #FFEBEE;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+
+/* Botão de remover */
+.remove-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: Var(--background-orange);
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+  
+  .remove-btn:hover {
+    background: Var(--background-orange);
+    transform: scale(1.1);
+  }
+
+  /* Responsividade */
+@media (max-width: 768px) {
+    .feedback-list {
+      grid-auto-columns: minmax(240px, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .recipeImg {
+      height: 160px;
+    }
+  }

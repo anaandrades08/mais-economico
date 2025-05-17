@@ -313,7 +313,7 @@ export const Recipes = [
   },
   {
     id: 4,
-    nome: "Macarrão alho e óleo",
+    nome: "",
     descricao: "Macarrão al dente envolvido em um molho cremoso e saboroso. Massa leve e bem cozida, combinando o toque clássico do trigo com o tempero caseiro marcante. Camadas de sabor que abraçam o paladar e trazem conforto a cada garfada. Ideal para almoços especiais, jantares em família ou momentos de puro prazer. Uma explosão de sabor que une tradição e simplicidade na medida certa.",
     image: "/images/receitas/massas/massas1.png",
     width: "293",

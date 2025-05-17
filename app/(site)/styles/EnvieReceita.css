@@ -116,6 +116,16 @@
   cursor: pointer;
 }
 
+.btn-inativo {
+  background-color: #9E9E9E;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
 
 
 /*cadastro da receita*/
@@ -161,7 +171,7 @@
   }
   
   
-  .form-top {
+  .form-top, .form-ingrediente-preparo {
     display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
@@ -223,8 +233,60 @@
     color: #fff;
   }
   
+  .foto-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+  
+  .btn-upload {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-upload:hover {
+    background-color: #45a049;
+  }
+  
+  .upload-error {
+    color: #d32f2f;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+  
+  .info-foto {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 10px;
+  }
+
+
+
   /*outros campos do form*/
-  textarea, input[type="text"] {
+  textarea, input, select {
     padding: 0.75rem;
     border: 1px solid #555;
     border-radius: 6px;
@@ -234,25 +296,56 @@
   }
 
   textarea {
-  min-height: 200px; /* novo valor aqui */
-}
-.form-left input{
-    max-width: 200px;
+  min-height: 165px; /* novo valor aqui */
 }
 
   .form-right label, 
-  .form-left h3,
-  .custo{
+  .form-left label, 
+  .form-left h3 {
     font-weight: 600;
     color: var(--color-botao-login);
   }
   h4 {
     color: var(--color-botao-login);
   }
+
+  .ingredient-step,
+  .prepare-step {
+    margin-top: 2rem;
+  }
   
-  .prepare-section h3 {
+  .prepare-section h3,
+  .ingredientes-section h3 {
+    font-weight: 700;
     color: var(--color-botao-cadastro);
     margin-bottom: 0.5rem;
+  }
+
+  .prepare-step input,
+  .prepare-step textarea {
+    padding: 0.75rem;
+    border: 1px solid #555;
+    border-radius: 6px;
+    resize: vertical;
+    font-size: 0.95rem;
+    max-width: 400px;
+    min-width: 400px;
+  }
+  .prepare-step textarea,
+  .ingredient-step textarea {
+    min-height: 200px; /* novo valor aqui */
+  }
+  .ingredient-step-itens {
+    display: flex;
+    gap: 10px; /* espaço entre os itens */
+    flex-direction: row;
+  }
+
+  .ingredient-step-itens select {
+    max-width: 150px;
+  }
+  .ingredient-step-itens input {
+    max-width: 70px;
   }
 
   
@@ -273,11 +366,11 @@
     display: flex;
     gap: 0.75rem;
     font-size: 0.9rem;
-    margin-top: 2rem; /* Espaço acima da checkbox-section */
+    margin-top: 2rem; 
     max-width: 80%;
     align-items: center;
-    margin-left: auto;  /* Centraliza a div */
-    margin-right: auto; /* Centraliza a div */
+    margin-left: auto;  
+    margin-right: auto;
   }
   /* Esconde o checkbox padrão */
   .checkbox-aceito {
@@ -302,7 +395,7 @@
   /* Quando estiver marcado */
   .checkbox-aceito:checked + label::before {
     background-color: var(--color-botao-login); /* cor preenchida */
-    box-shadow: inset 0 0 0 4px white; /* efeito de "ponto branco" no meio */
+    box-shadow: inset 0 0 0 1px white; /* efeito de "ponto branco" no meio */
   }
   
   .group-btn {
@@ -331,9 +424,307 @@
   .btn-button:hover {
     background-color: var(--color-botao-login);
   }
+
+  /* Estilos para a seção de ingredientes */
+.ingredientes-section {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Botão principal para adicionar nova seção */
+.btn-add-section {
+  background-color: var(--color-botao-cadastro);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-add-section:hover {
+  background-color: var(--color-botao-login);
+  transform: translateY(-2px);
+}
+
+/* Container do grupo de ingredientes */
+.ingredient-group {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Container do título dos ingredientes */
+.ingredient-title-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.ingredient-title-container input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  max-width: 100%;
+}
+
+/* Botões de adicionar ingrediente */
+.btn-add-item {
+  background-color: var(--color-botencia);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.btn-add-item:hover {
+  background-color: var(--color-botao-cadastro);
+}
+
+/* Botões de remover */
+.btn-remove-item {
+  background-color: #f44336;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.btn-remove-item:hover {
+  background-color: #d32f2f;
+}
+
+/* Ajustes para os itens de ingrediente */
+.ingredient-step {
+  margin-top: 1rem;
+}
+
+.ingredient-step-itens {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ingredient-step-itens select,
+.ingredient-step-itens input {
+  padding: 0.5rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.ingredient-step-itens select {
+  flex: 2;
+  min-width: 150px;
+}
+
+.ingredient-step-itens input {
+  flex: 1;
+  min-width: 80px;
+  max-width: 100px;
+}
+
+/* Ícones para os botões (opcional) */
+.btn-add-section::before {
+  content: "+";
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.btn-add-item::before {
+  content: "+";
+  font-weight: bold;
+}
+
+.btn-remove-item::before {
+  content: "×";
+  font-weight: bold;
+}
+/* Estilos para a seção de preparo */
+.prepare-section {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Container do grupo de preparo */
+.prepare-group {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Container do título do preparo */
+.prepare-title-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.prepare-title-container input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  max-width: 100%;
+}
+
+/* Estilos para cada passo de preparo */
+.prepare-step {
+  margin-top: 1.5rem;
+}
+
+.prepare-step .step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prepare-step label {
+  font-weight: 600;
+  color: var(--color-botao-login);
+  font-size: 0.95rem;
+}
+
+.step-content {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+.step-content input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  min-width: 0; /* Permite que o input encolha */
+}
+
+
+/* Ajustes específicos para mobile */
+@media (max-width: 768px) {
+  .prepare-title-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .step-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .step-content input,
+  .step-content button {
+    width: 100%;
+  }
+  
+  .prepare-step .btn-remove-item {
+    align-self: flex-end;
+  }
+}
+
+/* Efeitos de hover e focus para melhor usabilidade */
+.prepare-title-container input:focus,
+.step-content input:focus {
+  outline: none;
+  border-color: var(--color-botao-cadastro);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+/* Estilo para o contador de passos */
+.prepare-step label::after {
+  content: ":";
+  margin-left: 0.25rem;
+}
+
+/* Espaçamento entre grupos de preparo */
+.prepare-group + .prepare-group {
+  margin-top: 2rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .ingredient-title-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .ingredient-step-itens {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .ingredient-step-itens select,
+  .ingredient-step-itens input,
+  .ingredient-step-itens button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
   
 
+  @media (max-width: 768px) {
+    .form-top, .form-ingrediente-preparo {
+        flex-direction: column;
+    }
 
+    .ingredient-step-itens {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .ingredient-step-itens select,
+    .ingredient-step-itens input {
+        max-width: 100%;
+    }
+
+    .steps {
+        flex-direction: column;
+    }
+
+    .image-placeholder {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .btn-img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .btn-button {
+        max-width: 100%;
+    }
+}
 
 
 

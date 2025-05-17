@@ -203,21 +203,23 @@ label {
 
 /* Estilos para o checkbox personalizado */
 .checkbox-termo + .checkmark {
-  position: relative;
+  content: "";
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--color-botao-login-hover);;
-  border-radius: 4px;
-  background-color: white;
-  transition: all 0.3s ease;  
-  gap: 16px;  
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--color-botao-login); /* borda colorida */
+  border-radius: 50%; /* formato redondo */
+  background-color: #fff;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+  cursor: pointer; 
 }
 
 /* Quando o checkbox estiver "checked" */
 .checkbox-termo:checked + .checkmark {
-  background-color: var(--color-botao-login-hover);/* Cor do fundo quando checked */
-  border-color: var(--color-botao-login-hover); /* Cor da borda quando checked */
+  background-color: var(--color-botao-login); /* cor preenchida */
+  box-shadow: inset 0 0 0 1px white; /* efeito de "ponto branco" no meio */
 }
 
 /* Estilo da marca de check quando o checkbox é marcado */
@@ -232,7 +234,20 @@ label {
   border-radius: 2px;
 }
 
+.input-error {
+  border-color: #ff0000;
+}
 
+.erro-checkbox {
+  color: #ff0000;
+}
+
+.erro-campo {
+  color: #ff0000;
+  font-size: 0.8rem;
+  display: block;
+  margin-top: 0.3rem;
+}
 /****************  RESPONSIVIDADE   ***************************/
 
 @media (max-width: 768px) {

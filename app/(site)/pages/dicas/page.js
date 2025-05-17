@@ -1,12 +1,39 @@
-'use client'
+'use client'; 
+
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import Image from "next/image";
-import Link from "next/link";
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import '../../styles/Dicas.css'
-import { banners } from "../../data/DicasEspeciaisData.js";
+//import { banners } from "../../data/DicasEspeciaisData.js";
 
 export default function DicasEspeciais() {
+  const [dicas, setDicas] = useState([]); // Para armazenar as dicas ativas
+  const [error, setError] = useState(null); // Para capturar erros da requisição
+
+// Carregar dicas ativas da API
+    useEffect(() => {
+        const fetchDicasAtivas = async () => {
+            try {
+                const response = await fetch('/api/dicas/dicas-ativas/'); // URL da API para buscar dicas ativas
+                const data = await response.json();
+
+                if (response.ok) {
+                    setDicas(data); // Atualiza o estado com as dicas
+                } else {
+                    setError('Erro ao carregar dicas especiais');
+                }
+            } catch (error) {
+                setError('Erro ao tentar carregar dicas especiais');
+                console.error(error);
+            }
+        };
+
+        fetchDicasAtivas(); // Chama a função assim que o componente monta
+    }, []);
+
+
+
   //valores de paginação
   const [paginaAtual, setPaginaAtual] = useState(1)
   const dicasPorPagina = 3
@@ -14,8 +41,8 @@ export default function DicasEspeciais() {
   // Paginação lógica
   const indexInicial = (paginaAtual - 1) * dicasPorPagina
   const indexFinal = indexInicial + dicasPorPagina
-  const dicasPaginadas = banners.slice(indexInicial, indexFinal)
-  const totalPaginas = Math.ceil(banners.length / dicasPorPagina)
+  const dicasPaginadas = dicas.slice(indexInicial, indexFinal)
+  const totalPaginas = Math.ceil(dicas.length / dicasPorPagina)
 
   const mudarPagina = (novaPagina) => {
     setPaginaAtual(novaPagina)
@@ -24,35 +51,36 @@ export default function DicasEspeciais() {
 
   return (
     <div className="dicas-container">
+      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Exibe erro caso haja */}
       < div className="dicas-container-text">
         <h2 className="dicas-title">Dicas Especiais</h2>
         <div className="dicasGrid">
-          {dicasPaginadas.length > 0 && dicasPaginadas.map((dicas) => (
+          {dicasPaginadas.length > 0 && dicasPaginadas.map((dica) => (
             <>
-              <div key={dicas.id} className='dicasBox'>
-                <Link href={`/pages/categoria/${dicas.categoria_id}`} passHref>
+              <div key={dica.id_dica} className='dicasBox'>
+                <Link href={`/pages/categoria/${dica.id_categoria}`} passHref>
                   <Image
-                    src={dicas.image}
-                    alt={dicas.title}
+                    src={dica.img_dica}
+                    alt={dica.titulo}
                     width={350}
                     height={240}
                     className='dicasImg'
-                    priority={dicas.id < 4}
+                    priority
                   />
                 </Link>
-                <p className='dicas-description'>{dicas.title} : {dicas.description}</p>
+                <p className='dicas-description'>{dica.titulo} - {dica.descricao}</p>
                 <p className='dicas-description'>
-                  <Link href={`/pages/categoria/${dicas.categoria_id}`} className='link-dica' passHref>
-                    {dicas.ctaText}
+                  <Link href={`/pages/categoria/${dica.id_categoria}`} className='link-dica' passHref>
+                    {dica.cta_text}
                   </Link>
                 </p>
               </div>
             </>
           ))}          
         </div>
-        {banners.length > 0 && (
+        {dicas.length > 0 && (
           <p className='total-dicas'>
-            {banners.length} {banners.length === 1 ? 'dica' : 'dicas'} encontrada{banners.length > 1 ? 's' : ''}
+            {dicas.length} {dicas.length === 1 ? 'dica' : 'dicas'} encontrada{dicas.length > 1 ? 's' : ''}
           </p>
         )}
         {totalPaginas > 1 && (

@@ -1,0 +1,18 @@
+model Substituicao {
+  id_substituicao      Int           @id @default(autoincrement())
+  id_receita           Int
+  id_ingrediente_original Int       // Novo campo para o ingrediente original
+  id_ingrediente_substituto Int     // Renomeado para ficar claro que é o substituto
+  id_usuario           Int
+  descricao_preparo    String?
+  quantidade           Int
+  id_uni_medida        Int
+  ativo                Int?
+  data_cadastro        DateTime      @default(now())
+  
+  receita              Receita       @relation(fields: [id_receita], references: [id_receita])
+  ingrediente_original Ingrediente   @relation("IngredienteOriginal", fields: [id_ingrediente_original], references: [id_ingrediente])
+  ingrediente_substituto Ingrediente @relation("IngredienteSubstituto", fields: [id_ingrediente_substituto], references: [id_ingrediente])
+  usuario              Usuario       @relation(fields: [id_usuario], references: [id])
+  unidadeMedida        UnidadeMedida @relation(fields: [id_uni_medida], references: [id_uni_medida])
+}

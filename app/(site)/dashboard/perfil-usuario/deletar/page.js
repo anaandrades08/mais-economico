@@ -1,7 +1,9 @@
+// app/dashboard/perfil-usuario/deletar/page.js
 "use client";
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import Link from "next/link";
 import Image from "next/image";
 import "../../../styles/PerfilUser.css";
@@ -14,31 +16,78 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { BiUserCircle, BiMessageDetail } from "react-icons/bi";
 //import { MdSwapHoriz } from "react-icons/md";
 
-export default function UserDetail() {    
-  const [user, setUser] = useState(null);
+export default function DeleteAccount() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmText, setConfirmText] = useState('');
+  const userId = session?.user?.id;
+  const userNome = session?.user?.nome;
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
+  const handleDeleteAccount = async () => {
+    if (confirmText !== "CONFIRMAR EXCLUSÃO") {
+      setError('Por favor, digite exatamente "CONFIRMAR EXCLUSÃO" para confirmar');
+      return;
     }
-  }, [status, router]);
 
-  useEffect(() => {
-    if (session?.user) {
-      const { id, nome, email } = session.user;
-      console.log('Usuário logado:', id, nome, email);
+    setIsDeleting(true);
+    setError('');
 
-      const foundUser = Users.find((u) => u.id.toString() === id.toString());
-      if (foundUser) {
-        setUser(foundUser);
+    try {
+      // 1. Verificar a senha
+      const verifyRes = await axios.post('/api/auth/verify-password',
+        { password },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
+
+      if (!verifyRes.data.valid) {
+        throw new Error(verifyRes.data.error || 'Senha incorreta');
       }
-    }
-  }, [session]);
 
-  if (status === 'loading' || !user) {
-    return <div className="loading">Carregando dados do usuário...</div>;
+      // 2. Excluir a conta
+      const deleteRes = await axios.delete(`/api/usuarios/${session.user.id}`, {
+        withCredentials: true
+      });
+
+      if (deleteRes.data.success) {
+        setSuccess(true);
+        setTimeout(() => signOut({ callbackUrl: '/' }), 2000);
+      } else {
+        throw new Error(deleteRes.data.error || 'Falha ao excluir conta');
+      }
+    } catch (error) {
+      console.error('Erro:', {
+        message: error.message,
+        response: error.response?.data
+      });
+      setError(error.response?.data?.error || error.message);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  if (status === 'unauthenticated') {
+    router.push('/login');
+    return null;
+  }
+
+  if (status === 'loading') {
+    return <div className="loading">Carregando...</div>;
+  }
+
+  if (success) {
+    return (
+      <div className="delete-success">
+        <h2>Conta Excluída com Sucesso</h2>
+        <p>Redirecionando para a página inicial...</p>
+      </div>
+    );
   }
 
   return (
@@ -52,7 +101,7 @@ export default function UserDetail() {
         {/* informações básicas */}
         < div className="name-page" >
           <div className="name-title">
-            <h2 className="nomeação">Bem vindo (ª) {user.nome}</h2>
+            <h2 className="nomeação">Bem vindo (ª) {userNome}</h2>
           </div>
           <div className="descrição">
             Nessa área você poderá mudar suas informações pessoais,
@@ -75,7 +124,7 @@ export default function UserDetail() {
             <Link href={`/dashboard/favoritos/`} passHref><button className="aba"><MdFavoriteBorder size={20} className="Icon" />Receitas Favoritas</button></Link>
             <Link href={`/dashboard/perfil-usuario/`} passHref><button className="aba ativa"><BiUserCircle size={20} className="Icon" />Dados Pessoais</button></Link>
             <Link href={`/dashboard/feedback/`} passHref><button className="aba"><BiMessageDetail size={20} className="Icon" />Feedbacks</button></Link>
-            </div>
+          </div>
         </div>
 
         {/* seção do que abre na pagina */}
@@ -83,41 +132,56 @@ export default function UserDetail() {
         <section className="container-perfil-user">
           <div className="perfil-container">
             <div className="info-pessoais">
-              <div className="foto-perfil">
-                <Image
-                  src={user.image}
-                  alt={user.nome}
-                  width={100}
-                  height={100}
-                  className="foto"
-                />
-              </div>
 
-              <div className="dados-pessoais">
-                <h3>Informações Pessoais</h3>
-                <div className="info-container">
-                  <div className="info-left">
-                    <p className="font-bold">Nome de Usuário:</p>
-                    <p>{user.nome}</p>
-                    <p className="font-bold">Endereço:</p>
-                    <p>{user.endereco}  n° {user.numero}</p>
-                    <p className="font-bold">Cidade/UF:</p>
-                    <p>{user.cidade}/{user.uf}</p>
-                    <p className="font-bold">CEP:</p>
-                    <p>{user.cep}</p>
-                  </div>
-                  <div className="info-rigth">
-                    <p className="font-bold">E-mail:</p>
-                    <p>{user.email}</p>
-                    <p className="font-bold">Telefone:</p>
-                    <p>{user.telefone}</p>
+              <div className="delete-account-container">
+                <h2>Excluir Conta Permanentemente</h2>
+
+                <div className="warning-box">
+                  <h3>⚠️ Atenção!</h3>
+                  <p>Ao excluir sua conta:</p>
+                  <ul>
+                    <li>Todos os seus dados serão removidos permanentemente</li>
+                    <li>Inclusive receitas, feedbacks e receitas favoritas.</li>
+                    <li>Esta ação não pode ser desfeita</li>
+                  </ul>
+                </div>
+
+                <div className="confirmation-form">
+                  <p>Para confirmar digite <strong>CONFIRMAR EXCLUSÃO</strong> para confirmar:</p>
+
+                  <input
+                    type="text"
+                    value={confirmText}
+                    onChange={(e) => setConfirmText(e.target.value.toUpperCase())}
+                    placeholder="CONFIRMAR EXCLUSÃO"
+                    className="confirmation-input"
+                  />
+
+                  <p>Digite sua senha atual:</p>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Sua senha"
+                    className="password-input"
+                  />
+
+                  {error && <div className="error-message">{error}</div>}
+
+                  <div className="buttons-container">
+                    <button
+                      onClick={handleDeleteAccount}
+                      disabled={isDeleting || confirmText !== "CONFIRMAR EXCLUSÃO"}
+                      className="delete-button"
+                    >
+                      {isDeleting ? 'Excluindo...' : 'Confirmar Exclusão'}
+                    </button>
+
+                    <Link href="/dashboard/perfil-usuario" className="cancel-link">
+                      Cancelar
+                    </Link>
                   </div>
                 </div>
-              </div>
-              <div className="excluir-conta">
-                <h4>Excluir conta:</h4>
-                <p>Para confirmar a exclusão da conta clique:</p>
-                <button className="btn-excluir">Excluir Conta</button>
               </div>
             </div>
           </div>

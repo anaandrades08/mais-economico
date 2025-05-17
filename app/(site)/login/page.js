@@ -9,15 +9,17 @@ import { validarEmail, validarSenha, validarLogin } from '../utils/validarLogin'
 import { signIn } from "next-auth/react";
 
 
-export default function Login() {
+export default function Login() {  
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');  
   const router = useRouter();
-
+  const [error, setError] = useState('');
+  const [usuario, setUsuario] = useState([]); 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     const erroValidacao = validarLogin(email, senha);
     if (erroValidacao) {
       setErro(erroValidacao);
@@ -26,28 +28,47 @@ export default function Login() {
         setSenha('');
         setErro('');
       }, 1500);
-      return; // Sai da função se houver erro
-    }
-
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      senha: senha
-    });
-
-    if (res.ok) {
-      router.push("/dashboard/");
-    } else {
-      setErro("E-mail ou senha inválidos.");
-      setTimeout(() => {
-        setEmail('');
-        setSenha('');
-        setErro('');
-      }, 1500);
       return;
     }
+  
+    try {
+      setIsLoading(true);
+      
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        senha,
+        callbackUrl: "/dashboard/"
+      });
+      
+      if (result?.error) {
+        // Tratamento genérico para não revelar detalhes de segurança
+        setErro("E-mail ou senha incorretos");
+      } else {
+        router.push(result?.url || "/dashboard/");
+      }
+  
+      if (result?.error) {
+        // Tratamento específico de erros do NextAuth
+        if (result.error === "CredentialsSignin") {
+          setErro("E-mail ou senha inválidos.");
+        } else if (result.error.includes("inativa")) {
+          setErro("Cadastro inativo, fale com o adm do site.");
+        } else {
+          setErro(result.error);
+        }
+      } else {
+        // Login bem-sucedido
+        setErro('');
+        router.push(result?.url || "/dashboard/");
+      }
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setErro("Ocorreu um erro durante o login. Tente novamente.");
+    } finally {
+      setIsLoading(false);
+    }
   };
-
 
   return (
     <div className="login-container">
@@ -93,9 +114,12 @@ export default function Login() {
               required
             />
           </div>
-          {erro && <div className="erro-msg">{erro}</div>}
+          {erro && <div className="erro-mensagem">{erro}</div>}
+          {error && <div className="erro-mensagem">{error}</div>}
           <div className="group-btn">
-            <button type="submit" className="btn-entrar">Entrar</button>
+            <button type="submit" className="btn-entrar" disabled={isLoading}
+            >
+              {isLoading ? 'Logando...' : 'Entrar'}</button>
           </div>
         </form>
 

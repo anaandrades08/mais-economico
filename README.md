@@ -68,7 +68,7 @@ git add .
 git commit -m "feat: adiciona suporte a banco de dados com scripts SQL e api"
 git remote add origin https://github.com/anaandrades08/mais-economico.git
 # use a branch de desenvolvimento:
-git checkout3 -b dev-banco-dados
+git checkout -b dev-banco-dados
 git push -u origin dev-banco-dados
 
 ## versão site com banco de dados
@@ -77,7 +77,7 @@ git push -u origin dev-banco-dados
 
 ## para usar o prisma
 1. No seu projeto (na raiz), abra o arquivo .env e atualize a variável assim:
-DATABASE_URL="cole_aqui_a_sua_url"
+DATABASE_URL="postgresql://postgres:suasenha@localhost:5432/mais-economico"
 2. depois inicie o prisma
 npx prisma generate
 npx prisma migrate dev
@@ -93,3 +93,18 @@ node prisma/exemplos/unidade.js
 node prisma/exemplos/receita.js 
 node prisma/exemplos/ingrediente.js
 node prisma/exemplos/dica.js
+
+# desenvolvimento dos itens do api/
+api/auth/
+api/dicas
+api/usuarios
+
+# uso de bcrypt para comparar senhas no login
+npm install next-auth @prisma/client prisma bcryptjs
+
+
+
+# No seu Dockerfile ou script de deploy
+RUN mkdir -p /app/public/uploads/usuarios && \
+    chown -R node:node /app/public/uploads && \
+    chmod -R 755 /app/public/uploads

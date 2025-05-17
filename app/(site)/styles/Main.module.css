@@ -24,11 +24,14 @@
   }
 
   .recipeGrid{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
+  display: grid;
+  justify-content: center; /* centraliza horizontalmente */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 10px;
+  min-height: 500px; /* ajuste conforme sua necessidade */
+  align-content: start; /* ou center, se quiser centralizar verticalmente */
+}
   .recipeTitle {
     font-size: 1.5rem;
     color: var(--color-title);

@@ -4,9 +4,7 @@ import { useParams } from 'next/navigation'
 import Image from "next/image";
 import Link from 'next/link'
 import '../../../styles/RecipeDetail.css'
-
-
-
+import MaisReceitasComponente from '../../../components/MaisReceita';
 //importa dados
 import { Recipes, moreRecipes } from '../../../data/RecipesData'
 import { FeedBacks } from '../../../data/FeedbackData'
@@ -314,39 +312,9 @@ export default function RecipeDetail() {
         </div>
 
         {/* Mais Receitas----------------------------------------------------------------------------- */}
-        <div className="more-recipes-container">
-          <h3>Mais Receitas</h3>
-          <div className="recipes-grid">
-            {moreRecipes.slice(0, 4).map((recipe) => (
-              <div key={recipe.id} className="recipe-item">
-                <Link href={`/pages/receita/${recipe.id}`} passHref >
-                  <Image
-                    src={recipe.image}
-                    alt={recipe.nome}
-                    width={300}
-                    height={200}
-                    className="recipe-more-img"
-                    priority={recipe.id < 4}
-                  />
-                </Link>
-                <p className="recipe-more-title">{recipe.nome}</p>
-                <div className="recipe-more-details">
-                  <div className="detail-line">
-                    <p className="recipe-more-icons">
-                      <FaRegClock size={20} className="timeline-icon" /> Preparo:
-                    </p>
-                    <p>{recipe.preparo || "00:00h"}</p>
-                  </div>
-                  <div className="detail-line">
-                    <p className="recipe-more-icons">
-                      <TbCoin size={23} className="coin-icon" /> Custo:
-                    </p>
-                    <p>{recipe.custo || "R$00,00"}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div>
+          {/* Mais Receitas Componentes */}
+          <MaisReceitasComponente limit={4} />
         </div>
 
         {/* Fecha ultimo div */}

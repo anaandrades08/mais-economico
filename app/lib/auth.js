@@ -8,5 +8,13 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
-  // callbacks, pages etc.
+  pages: {
+    signIn: '/login',  // Página de login personalizada
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Redireciona para a página inicial após login
+      return baseUrl;
+    },
+  },
 };

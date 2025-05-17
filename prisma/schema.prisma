@@ -21,6 +21,7 @@ model Usuario {
   img_usuario    String?
   data_cadastro  DateTime      @default(now())
   tipo           Int?
+  aceito_termo   Int?
   ativo          Int?
   logs           LogUser[]
   receitas       Receita[]
@@ -61,6 +62,7 @@ model Receita {
   dificuldade        String?
   img_receita        String?
   ativo              Int?
+  aceito_termo       Int?
   data_cadastro      DateTime              @default(now())
   usuario            Usuario               @relation(fields: [id_usuario], references: [id])
   categoria          Categoria             @relation(fields: [id_categoria], references: [id_categoria])
@@ -92,7 +94,7 @@ model Ingrediente {
   descricao_ingrediente String?
   valor                 Float?
   quantidade            Float?
-  id_uni_medida         Int?
+  id_uni_medida         Int
   unidadeMedida         UnidadeMedida? @relation(fields: [id_uni_medida], references: [id_uni_medida])
   tipoIngrediente       TipoIngrediente @relation(fields: [id_tipo_ingrediente], references: [id_tipo_ingrediente])
   ingredientesReceita   IngredienteReceita[]
@@ -111,7 +113,7 @@ model IngredienteReceita {
   id_ingrediente_receita        Int                   @id @default(autoincrement())
   id_ingrediente                Int
   id_titulo_ingrediente_receita Int
-  quantidade                    Int
+  quantidade                    Float?
   id_uni_medida                 Int
   data_cadastro                 DateTime              @default(now())
   ingrediente                  Ingrediente           @relation(fields: [id_ingrediente], references: [id_ingrediente])
@@ -150,6 +152,7 @@ model Feedback {
   id_usuario     Int
   feedback       String?
   total_estrela  Int
+  ativo          Int?
   data_cadastro  DateTime @default(now())
   receita        Receita  @relation(fields: [id_receita], references: [id_receita])
   usuario        Usuario  @relation(fields: [id_usuario], references: [id])
@@ -161,8 +164,9 @@ model Substituicao {
   id_ingrediente      Int
   id_usuario          Int
   descricao_preparo   String?
-  quantidade          Int
+  quantidade          Float?
   id_uni_medida       Int
+  ativo               Int?
   data_cadastro       DateTime @default(now())
   receita             Receita  @relation(fields: [id_receita], references: [id_receita])
   ingrediente         Ingrediente @relation(fields: [id_ingrediente], references: [id_ingrediente])

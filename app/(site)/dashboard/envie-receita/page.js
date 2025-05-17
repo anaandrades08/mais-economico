@@ -1,12 +1,11 @@
 "use client";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import "../../styles/dashboard.css";
 import "../../styles/EnvieReceita.css";
-import { Recipes } from "../../data/RecipesData.js";
 
 //icone aba
 import { BsSendPlus } from "react-icons/bs";
@@ -17,31 +16,49 @@ import { BiUserCircle, BiMessageDetail } from "react-icons/bi";
 export default function UserDetail() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [receitas, setReceitas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const userId = session?.user?.id || session?.user?.id;
+  const userNome = session?.user?.nome || session?.user?.name;
+
   useEffect(() => {
     if (session?.user) {
       const { id, nome, email } = session.user;
       console.log('Usuário logado:', id, nome, email);
-      // Aqui você pode setar um estado, fazer fetch, etc.
+      fetchReceitas();
     }
   }, [session]);
-
+  
   
   if (status === 'unauthenticated') {
     router.push('/login');
+    return null;
   }
+//carrega o api de receitas
+  const fetchReceitas = async () => {
+    try {
+        setLoading(true);
+        const response = await fetch(`/api/receitas/usuario/${session.user.id}/`);
+        
+        if (!response.ok) {
+            throw new Error('Erro ao carregar receitas do usuário');
+        }
 
-  if (status === 'loading') {
-    return <div className="loading">Carregando sessão...</div>;
+        const data = await response.json();
+        setReceitas(data.receitas);
+    } catch (error) {
+        console.error('Erro ao buscar receitas do usuário:', error);
+        setError(error.message);
+    } finally {
+        setLoading(false);
+    }
+};
+const totalReceitas = Array.isArray(receitas) ? receitas.length : 0;
+
+  if (status === 'loading' || loading) {
+    return <div className="loading">Carregando receitas do usuário...</div>;
   }
-  const userId = session?.user?.id || session?.user?.id;
-  const userNome = session?.user?.nome || session?.user?.name;
-
-  const getReceitasDoUsuario = (recipes, userId) => {
-    return recipes.filter((receita) => receita.usuario_id === userId);
-  };
-
-  // No seu componente:
-  const receitasDoUsuario = getReceitasDoUsuario(Recipes, userId);
 
   return (
     <div className="dashboard-container">
@@ -79,12 +96,17 @@ export default function UserDetail() {
         </div>
       </div>
 
-      {/* seção do que abre na pagina */}
+      {/* seção de receitas que abre na página*/}
 
       <section className="container-send-recipe">
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
 
 
-        {receitasDoUsuario.length === 0 ? (
+        {receitas.length === 0 ? (
           <>
             <h3 className="send-recipe-title">0.
               <span className="cont-receitas"> Receitas enviadas</span>
@@ -96,28 +118,33 @@ export default function UserDetail() {
         ) : (
           <>
             <h3 className="send-recipe-title">
-              {`${receitasDoUsuario.length.toString().padStart(2, '0')}.`}
+            {`${totalReceitas.toString().padStart(2, '0')}.`}
               <span className="cont-receitas"> Receitas enviadas</span>
             </h3>
             <div className="recipe-grid">
-              {receitasDoUsuario.map((receita) => (
-                <div key={receita.id} className="recipe-card">
-                  <Image src={receita.image}
-                    alt={receita.nome}
+              {receitas.map((receita) => (
+                <div key={receita.id_receita} className="recipe-card">
+                  <Image src={receita.img_receita || "/images/layout/recipe/image-not-found.png"}
+                    alt={receita.titulo_receita || "Titulo da receita"}
                     className="recipe-image"
                     width={250}
-                    height={100} />
-                  <h4 className="recipe-name">{receita.nome}</h4>
+                    height={100} 
+                    priority
+                    />
+                  <h4 className="recipe-name">{receita.titulo_receita}</h4>
                   <div className="btn-group-status-receita">
+                  {receita.ativo === null && (
+                  <button className="btn-nao-avaliado">Aguardando aprovação</button>
+                  )}
                   {receita.ativo === 0 && (
-                  <button className="btn-nao-avaliado">Não avaliado</button>
+                  <button className="btn-inativo">Desativado</button>
                   )}
                   {receita.ativo === 1 && (
                     <button className="btn-aprovado">Aprovado</button>
                   )}
                   {receita.ativo === 2 && (
-                    <Link href={`/dashboard/envie-receita/alterar/${receita.id}`} passHref>
-                    <button className="btn-reprovado">Reprovado</button>
+                    <Link href={`/dashboard/envie-receita/alterar/${receita.id_receita}`} passHref>
+                    <button className="btn-reprovado">Não aprovado</button>
                     </Link>
                   )}
 

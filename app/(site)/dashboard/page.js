@@ -15,22 +15,37 @@ import { BiUserCircle, BiMessageDetail } from "react-icons/bi";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
-  const router = useRouter();
+  const router = useRouter();  
+  const userId = session?.user?.id;
+  const userNome = session?.user?.nome;
+  
+
   useEffect(() => {
     if (session?.user) {
       const { id, nome, email } = session.user;
       console.log('Usuário logado:', id, nome, email);
-      // Aqui você pode setar um estado, fazer fetch, etc.
     }
   }, [session]);
 
-  
   if (status === 'unauthenticated') {
     router.push('/login');
+    return null;
+  }
+
+
+  if (!userId) {
+    return (
+      <div className="notFound">
+        <h2>Usuário não encontrado</h2>
+        <Link href="/login" className="backLink">
+          Voltar para login
+        </Link>
+      </div>
+    );
   }
 
   if (status === 'loading') {
-    return <div className="loading">Carregando sessão...</div>;
+    return <div className="loading">Carregando...</div>;
   }
 
   return (
@@ -44,7 +59,7 @@ export default function Dashboard() {
         {/* informações básicas */ }
         < div className = "name-page" >
          <div className="name-title">
-           <h2 className="nomeação">Bem vindo (ª) {session?.user?.nome || session?.user?.name}</h2>
+           <h2 className="nomeação">Bem vindo (ª) {userNome}</h2>
          </div>
          <div className="descrição">
            Nessa área você poderá mudar suas informações pessoais,
@@ -72,7 +87,7 @@ export default function Dashboard() {
         
         {/* seção do que abre na pagina */}
           <section className="container-send-recipe">
-            <h3 className="send-recipe-title "><span className="cont-receitas">{session?.user?.nome || session?.user?.name}</span></h3>
+            <h3 className="send-recipe-title "><span className="cont-receitas">{userNome}</span></h3>
             <div className="content-recipe">
               <p>Bem-Vindo ao Painel de usuário!!!</p>
             </div>

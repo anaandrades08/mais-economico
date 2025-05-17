@@ -5,8 +5,6 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from '../../../styles/Categoria.module.css'
-import { Recipes } from '../../../data/RecipesData'
-import { categorias } from '../../../data/CategoriaData'
 
 import { GiCookingPot, GiSaucepan, GiCampCookingPot } from 'react-icons/gi'
 import { FiArrowLeft, FiBookmark } from 'react-icons/fi'
@@ -20,55 +18,63 @@ export default function CategoriaDetail() {
   const [receitas, setReceitas] = useState([])
   const [loading, setLoading] = useState(true)
   const [categoriaInvalida, setCategoriaInvalida] = useState(false)
-  let nomeCategoria = "Todas as Receitas"
 
-  //valores de paginação
   const [paginaAtual, setPaginaAtual] = useState(1)
   const receitasPorPagina = 6
 
-  //grau de dificuldade da receita
   const getDifficultyIcon = (level) => {
     switch (level?.toLowerCase()) {
-      case 'fácil': return <GiCookingPot size={22} className={styles.Icon} aria-hidden="true" />
-      case 'médio': return <GiSaucepan size={22} className={styles.Icon} aria-hidden="true" />
-      case 'difícil': return <GiCampCookingPot size={22} className={styles.Icon} aria-hidden="true" />
-      default: return <GiCookingPot size={22} className={styles.Icon} aria-hidden="true" />
+      case 'fácil': return <GiCookingPot size={22} className={styles.Icon} />
+      case 'médio': return <GiSaucepan size={22} className={styles.Icon} />
+      case 'difícil': return <GiCampCookingPot size={22} className={styles.Icon} />
+      default: return <GiCookingPot size={22} className={styles.Icon} />
     }
   }
 
   useEffect(() => {
-    const foundCategoria = categorias.find(
-      (r) => r.id === params.id || r.id.toString() === params.id
-    )
+    const fetchCategoria = async () => {
+      try {
+        let res;
+        if (params.id === '0') {
+          // Consulta todas as receitas
+          res = await fetch('/api/categorias/todasasreceitas/');
+        } else {
+          // Consulta receitas por categoria
+          res = await fetch(`/api/categorias/receitas-ativas/${params.id}`);
+        }
 
-    if (!foundCategoria) {
-      setReceitas(Recipes)
-      //se categoria nao existe e não é exibe todas as receitas
-      if (params.id != 0 && params.id != null) {
-        setCategoriaInvalida(true)
+        if (!res.ok) {
+          setCategoriaInvalida(true);
+          setLoading(false);
+          return;
+        }
+
+        const data = await res.json();
+
+        if (params.id === '0') {
+          setCategoria({ nome: 'Todas as Receitas' });
+          setReceitas(data.receitas || []);
+        } else {
+          setCategoria(data.categoria);
+          setReceitas(data.receitas || []);
+        }
+      } catch (err) {
+        console.error('Erro ao carregar categoria:', err);
+        setCategoriaInvalida(true);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false)
-      return
-    }
-    //se tem categoria a receita
-    setCategoria(foundCategoria)
-    const receitasDaCategoria = Recipes.filter(
-      recipe => recipe.id_category === foundCategoria.id
-    )
-    setReceitas(receitasDaCategoria)
-    setLoading(false)
-  }, [params.id])
+    };
+
+    fetchCategoria();
+  }, [params.id]);
 
   if (loading) {
     return <div className={styles.loading}>Carregando...</div>
   }
 
-  //nome da categoria da receita
-  if (categoria && categoria.name) {
-    nomeCategoria = categoria.name
-  }
+  const nomeCategoria = categoria?.nome || "Todas as Receitas!"
 
-  // Paginação lógica
   const indexInicial = (paginaAtual - 1) * receitasPorPagina
   const indexFinal = indexInicial + receitasPorPagina
   const receitasPaginadas = receitas.slice(indexInicial, indexFinal)
@@ -98,28 +104,33 @@ export default function CategoriaDetail() {
         <div className={styles.recipeGrid}>
           {receitasPaginadas.length > 0 ? (
             receitasPaginadas.map((recipe) => (
-              <div key={recipe.id} className={styles.recipeBox}>
-                <Link href={`/pages/receita/${recipe.id}`}>
+              <div key={recipe.id_receita} className={styles.recipeBox}>
+                <Link href={`/pages/receita/${recipe.id_receita}`}>
                   <Image
-                    src={recipe.image || "/images/layout/recipe/image-not-found.png"}
-                    alt={recipe.nome || 'Imagem da receita'}
+                    src={recipe.img_receita || "/images/layout/recipe/image-not-found.png"}
+                    alt={recipe.titulo_receita || 'Imagem da receita'}
                     width={350}
                     height={240}
                     className={styles.recipeImg}
-                    priority={recipe.id < 4}
                   />
                 </Link>
-                <h2 className={styles.recipeTitle}>{recipe.nome || "Titulo da Receita"}</h2>
+                <h2 className={styles.recipeTitle}>{recipe.titulo_receita || "Titulo da Receita"}</h2>
                 <div className={styles.recipeDetails}>
-                  <span><PiUserCircleFill size={24} className={styles.userIcon} />{recipe.usuario}</span>
-                  <span><TbCalendarTime size={24} className={styles.dateTimeIcon} /> {recipe.tempo}</span>
-                  <span><FaRegClock size={20} className={styles.TimeLineIcon} />{recipe.preparo}</span>
-                  <span><TbCoin size={24} className={styles.CoinIcon} />{recipe.custo}</span>
-                  {recipe.categoryTitle && (
-                    <span><FiBookmark size={20} className={styles.Icon} />{recipe.categoryTitle}</span>
+                  <span><PiUserCircleFill size={24} className={styles.userIcon} />{recipe.usuario?.nome || "Nome do usuário"}</span>
+                  <span><TbCalendarTime size={24} className={styles.dateTimeIcon} />{recipe.tempo_total || "00:00h"}</span>
+                  <span><FaRegClock size={20} className={styles.TimeLineIcon} />{recipe.tempo_preparo || "00:00h"}</span>
+                  <span>
+                    <TbCoin size={24} className={styles.CoinIcon} />
+                    {recipe.custo ? new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(recipe.custo): "R$00,00"}
+                  </span>
+                  {recipe.categoria?.nome && (
+                  <span><FiBookmark size={24} className={styles.CoinIcon} />{recipe.categoria?.nome}</span>
                   )}
                   {recipe.dificuldade && (
-                    <span>{getDifficultyIcon(recipe.dificuldade)}{recipe.dificuldade}</span>
+                  <span>{getDifficultyIcon(recipe.dificuldade)}{recipe.dificuldade}</span>
                   )}
                 </div>
               </div>
@@ -134,7 +145,6 @@ export default function CategoriaDetail() {
           )}
         </div>
 
-        {/* Paginação */}
         {totalPaginas > 1 && (
           <div className={styles.pagination}>
             {[...Array(totalPaginas)].map((_, i) => (

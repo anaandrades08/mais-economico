@@ -1,11 +1,11 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Header.module.css";
-import { categorias } from "../data/CategoriaData.js";
+//import { categorias } from "../data/CategoriaData.js"; 
 
 //Importando os icones do react-icon
 import { CiSearch } from "react-icons/ci";
@@ -22,6 +22,36 @@ import { AiFillStar } from "react-icons/ai";
 
 
 export default function Header() { 
+  const [categorias, setCategorias] = useState([]); // Para armazenar as categorias
+  const [error, setError] = useState(null); // Para capturar erros da requisição
+
+  const { data: session, status } = useSession();
+
+
+
+  const idUser =  session?.user?.id;
+  const tipoUser = session?.user?.tipo;
+
+    // Carregar categorias da API
+    useEffect(() => {
+      const fetchCategorias = async () => {
+          try {
+              const response = await fetch('/api/categorias/'); // URL da API para buscar categorias
+              const data = await response.json();
+
+              if (response.ok) {
+                  setCategorias(data); // Atualiza o estado com as categorias
+              } else {
+                  setError('Erro ao carregar as categorias do header');
+              }
+          } catch (error) {
+              setError('Erro ao tentar carregar as categorias do header');
+              console.error(error);
+          }
+      };
+
+      fetchCategorias();
+  }, []);
   //função Busca
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
@@ -50,13 +80,6 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const userId = null;
-  const userTipo= null;
-  const { data: session, status } = useSession();
-  if(session) {
-    userId = session.user.id;
-    userTipo = session.user.tipo;
-  }
   return (
     <>
       <header className={styles.header}>
@@ -110,10 +133,10 @@ export default function Header() {
           </form>
         </div>
         {/* Menu de navegação do usuário logado */}
-        {userId ? (
+        {idUser ? (
           <nav className={styles.nav}>
             <ul className={styles.navList}>   
-            {userTipo === 1 && ( //admin
+            {tipoUser === 1 && ( //admin
                 <li className={`${styles.navItem} ${styles.navLink}`}>
                   <Link href={`/admin/`} passHref>
                     <div className={styles.iconContainer}>
@@ -201,11 +224,12 @@ export default function Header() {
       <div
         className={`${styles.categoryMenu} ${isMenuOpen ? styles.show : ""}`}
       >
+        {error && <p style={{ color: 'red' }}>{error}</p>} {/* Exibe erro caso haja */}
         <div className={styles.menuContent}>
           <ul className={styles.categoryList}>
             {categorias.map((categoria) => (
-              <li key={categoria.id}>
-                <Link href={`/pages/categoria/${categoria.id}`} passHref>{categoria.name}</Link>
+              <li key={categoria.id_categoria}>
+                <Link href={`/pages/categoria/${categoria.id_categoria}`} passHref>{categoria.nome}</Link>
               </li>
             ))}
             <li key="0">
