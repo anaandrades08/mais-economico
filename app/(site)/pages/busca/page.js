@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
@@ -211,4 +211,14 @@ function SearchContent() {
   );
 }
 
-export default SearchContent;
+export default function SearchResults() {
+  return (
+    <Suspense fallback={
+      <div className="searchResultsContainer">
+        <p>Carregando resultados da busca...</p>
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
+  );
+}
