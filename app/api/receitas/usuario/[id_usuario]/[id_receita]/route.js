@@ -4,17 +4,16 @@ import { prisma } from '../../../../../lib/prisma';
 
 
 // Função para obter receita pelo ID da receita e ID do usuário
-export const GET = async (req, { params }) => {
-  const { id_receita, id_usuario } = params;
-
-  if (!id_receita) {
-    return NextResponse.json({ error: 'ID da receita não encontrado' }, { status: 400 });
-  }
-  if (!id_usuario) {
-    return NextResponse.json({ error: 'ID do usuário não encontrado' }, { status: 400 });
-  }
-
+export const GET = async (request, { params }) => {
   try {
+    const { id_receita, id_usuario } = await params;
+
+    if (!id_receita) {
+      return NextResponse.json({ error: 'ID da receita não encontrado' }, { status: 400 });
+    }
+    if (!id_usuario) {
+      return NextResponse.json({ error: 'ID do usuário não encontrado' }, { status: 400 });
+    }
     const receita = await prisma.receita.findUnique({
       where: {
         id_receita: parseInt(id_receita),
@@ -57,18 +56,17 @@ export const GET = async (req, { params }) => {
   }
 };
 // Função para alterar receita pelo ID da receita e ID do usuário
-export const PUT = async (req, { params }) => {
-  const { id_receita, id_usuario } = params;
-
-  if (!id_receita) {
-    return NextResponse.json({ error: 'ID da receita não encontrada' }, { status: 400 });
-  }
-  if (!id_usuario) {
-    return NextResponse.json({ error: 'ID do usuário não encontrado' }, { status: 400 });
-  }
-
+export const PUT = async (request, { params }) => {
   try {
-    const data = await req.json();
+    const { id_receita, id_usuario } = await params;
+    if (!id_receita) {
+      return NextResponse.json({ error: 'ID da receita não encontrada' }, { status: 400 });
+    }
+    if (!id_usuario) {
+      return NextResponse.json({ error: 'ID do usuário não encontrado' }, { status: 400 });
+    }
+
+    const data = await request.json();
 
     const {
       id_categoria,
@@ -80,7 +78,7 @@ export const PUT = async (req, { params }) => {
       custo,
       dificuldade,
       img_receita,
-      ativo
+      ativo,
     } = data;
 
     const receitaAtualizada = await prisma.receita.update({
@@ -99,7 +97,7 @@ export const PUT = async (req, { params }) => {
         dificuldade,
         img_receita,
         ativo,
-        data_atualizacao: new Date(), // supondo que você tenha esse campo no banco
+        //data_atualizacao: new Date(), // supondo que você tenha esse campo no banco
       },
     });
 

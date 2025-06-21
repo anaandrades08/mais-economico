@@ -1,7 +1,42 @@
 // app/api/usuarios/route.js
 import { NextResponse } from 'next/server';
-import { prisma } from '../../lib/prisma';
+import { prisma } from '@app/lib/prisma';
 
+export async function GET() {
+    try {
+        const usuarios = await prisma.usuario.findMany({
+            orderBy: {
+                data_cadastro: 'desc',
+            },
+            select: {
+                id: true,
+                nome: true,
+                email: true,
+                senha: true,
+                telefone: true,
+                endereco: true,
+                numero: true,
+                cidade: true,
+                estado: true,
+                cep: true,
+                img_usuario: true,
+                data_cadastro: true,
+                tipo: true,
+                ativo: true
+            }
+        })
+
+        return NextResponse.json(usuarios)
+    } catch (error) {
+        console.error('Erro ao buscar usuários:', error)
+        return NextResponse.json(
+            { error: 'Erro ao buscar usuários' },
+            { status: 500 }
+        )
+    } finally {
+        await prisma.$disconnect()
+    }
+}
 
 ///////////////////////////////////////// POST - CADASTRAR USUÁRIO /////////////////////////////////////////////
 // Função para criar um novo usuario
@@ -51,7 +86,7 @@ export const POST = async (request) => {
 };
 
 ////////////////////////////// POR ID //////////////////////////////////////////////////////
-export const GET = async (request) => {
+/*export const GET = async (request) => {
   try {
     const data = await request.json(); // Lê o corpo da requisição
     const { id } = data; // Extrai o id do corpo
@@ -216,7 +251,7 @@ export const GET = async (request) => {
     console.error('Erro ao buscar usuário:', error);
     return NextResponse.json({ error: 'Erro ao buscar usuário' }, { status: 500 });
   }
-};
+};*/
 
 
 ////////////////////////////// ALTERAR POR ID //////////////////////////////////////////////////////

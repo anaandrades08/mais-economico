@@ -5,12 +5,8 @@ export function MenuLateral() {
     return(
             <div className="usuario-admin-nav">
                 <nav className="usuario-admin-nav-bar">
-                    <Link href="/admin/substituicoes">Substituições</Link>
-                    <Link href="/admin/substituicoes/cadastrar/">Cadastrar</Link>
-                    <Link href="/admin/substituicoes/alterar/">Atualizar</Link>
-                    <Link href="/admin/substituicoes/deletar/">Deletar</Link>
-                    <Link href="/admin/substituicoes?novo">Substituições novos</Link>
-                    <Link href="/admin/substituicoes?inativo">Substituições inativos</Link>
+                    <Link href="/admin/substituicoes">Todas as Substituições</Link>
+                    <Link href="/admin/substituicoes/cadastrar/">Cadastrar Substituições</Link>
                 </nav>
             </div>
     )

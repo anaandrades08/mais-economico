@@ -41,22 +41,22 @@ export default function CreateRecipe() {
       const loadData = async () => {
         try {
           setLoading(true);
-          
+
           // Carrega categorias
           const resCategorias = await fetch('/api/categorias/');
           if (!resCategorias.ok) throw new Error('Erro ao carregar categorias');
           setCategorias(await resCategorias.json());
-          
+
           // Carrega ingredientes
           const resIngredientes = await fetch('/api/ingredientes/');
           if (!resIngredientes.ok) throw new Error('Erro ao carregar ingredientes');
           setTodosIngredientes(await resIngredientes.json());
-          
+
           // Carrega unidades de medida
           const resUnidades = await fetch('/api/unidadeMedida/');
           if (!resUnidades.ok) throw new Error('Erro ao carregar unidades');
           setUnidades(await resUnidades.json());
-          
+
         } catch (error) {
           console.error(error);
           setError(error.message);
@@ -142,12 +142,12 @@ export default function CreateRecipe() {
     setIngredientesReceita(prev => {
       const updated = [...prev];
       updated[tituloIndex].ingredientes.splice(ingredienteIndex, 1);
-      
+
       // Remove o título se não houver mais ingredientes
       if (updated[tituloIndex].ingredientes.length === 0) {
         updated.splice(tituloIndex, 1);
       }
-      
+
       return updated;
     });
   };
@@ -182,30 +182,30 @@ export default function CreateRecipe() {
     setModopreparoReceita(prev => {
       const updated = [...prev];
       updated[tituloIndex].modosPreparo.splice(passoIndex, 1);
-      
+
       // Remove o título se não houver mais passos
       if (updated[tituloIndex].modosPreparo.length === 0) {
         updated.splice(tituloIndex, 1);
       }
-      
+
       return updated;
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validação básica
     if (!receita.aceito_termo) {
       setError('Você deve aceitar os termos e condições');
       return;
     }
-    
+
     if (ingredientesReceita.length === 0) {
       setError('Adicione pelo menos um ingrediente');
       return;
     }
-    
+
     if (modopreparoReceita.length === 0) {
       setError('Adicione pelo menos um passo de preparo');
       return;
@@ -214,7 +214,7 @@ export default function CreateRecipe() {
     try {
       setLoading(true);
       setError('');
-      
+
       // 1. Envia os dados básicos da receita
       const formData = new FormData();
       formData.append('titulo_receita', receita.titulo_receita);
@@ -226,7 +226,7 @@ export default function CreateRecipe() {
       formData.append('tempo_total', receita.tempo_total);
       formData.append('id_categoria', receita.id_categoria);
       formData.append('aceito_termo', receita.aceito_termo);
-      
+
       const imageFile = document.getElementById('recipeImage').files[0];
       if (imageFile) {
         formData.append('img_receita', imageFile);
@@ -276,7 +276,7 @@ export default function CreateRecipe() {
 
       // Redireciona para a lista de receitas após sucesso
       router.push('/dashboard/envie-receita');
-      
+
     } catch (error) {
       console.error('Erro ao cadastrar receita:', error);
       setError(error.message);
@@ -314,7 +314,7 @@ export default function CreateRecipe() {
           />
         </div>
       </div>
-      
+
       {/* menu de links */}
       < div className="container-abas" >
         <div className="abas">
@@ -332,7 +332,7 @@ export default function CreateRecipe() {
             {error}
           </div>
         )}
-        
+
         <div className="receita-container">
           <h2 className='receita-container-title'>Cadastre sua nova receita</h2>
           <div className="receita-container-cinza">
@@ -371,33 +371,42 @@ export default function CreateRecipe() {
                         Formato aceito: JPEG ou PNG<br />Tamanho menor que 10MB
                       </small>
                     </div>
-                    
+
                     <label>Custo da Receita: <span className='erro-msg'>*</span></label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="number"
                       name="custo"
-                      value={receita.custo} 
-                      onChange={handleInputChange} 
-                      required 
+                      value={receita.custo || 0}
+                      onChange={handleInputChange}
+                      required
+                      min="0"
+                      step="0.10"
+                      placeholder="0,00"
+                      onFocus={(e) => e.target.select()}
                     />
 
                     <label>Rendimento da Receita: <span className='erro-msg'>*</span></label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="rendimento"
-                      value={receita.rendimento} 
-                      onChange={handleInputChange} 
-                      required 
+                      value={receita.rendimento}
+                      onChange={handleInputChange}
+                      required
                     />
 
                     <label>Dificuldade da Receita: <span className='erro-msg'>*</span></label>
-                    <input 
-                      type="text" 
+                    <select
                       name="dificuldade"
-                      value={receita.dificuldade} 
-                      onChange={handleInputChange} 
-                      required 
-                    />
+                      value={receita.dificuldade}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Selecione a dificuldade</option>
+                      <option value="Fácil">Fácil</option>
+                      <option value="Média">Média</option>
+                      <option value="Difícil">Difícil</option>
+                    </select>
+
                   </div>
 
                   <div className="form-right">
@@ -417,19 +426,19 @@ export default function CreateRecipe() {
                     </select>
 
                     <label>Título da Receita: <span className='erro-msg'>*</span></label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="titulo_receita"
-                      value={receita.titulo_receita} 
-                      onChange={handleInputChange} 
+                      value={receita.titulo_receita}
+                      onChange={handleInputChange}
                       required
                     />
 
                     <label>Descrição: <span className='erro-msg'>*</span></label>
-                    <textarea 
+                    <textarea
                       name="descricao"
-                      value={receita.descricao} 
-                      onChange={handleInputChange} 
+                      value={receita.descricao}
+                      onChange={handleInputChange}
                       required
                     ></textarea>
 
@@ -437,7 +446,7 @@ export default function CreateRecipe() {
                     <input
                       type="number"
                       name="tempo_preparo"
-                      value={receita.tempo_preparo}
+                      value={receita.tempo_preparo || 0}
                       onChange={handleInputChange}
                       required
                       min="0"
@@ -445,17 +454,20 @@ export default function CreateRecipe() {
                       placeholder="Digite o tempo em minutos"
                     />
 
-                    <label>Tempo Total de Preparo: <span className='erro-msg'>*</span></label>
-                    <input 
-                      type="text" 
+                    <label>Tempo Total de Preparo (minutos): <span className='erro-msg'>*</span></label>
+                    <input
+                      type="number"
                       name="tempo_total"
-                      value={receita.tempo_total} 
-                      onChange={handleInputChange} 
-                      required 
+                      value={receita.tempo_total || 0}
+                      onChange={handleInputChange}
+                      required
+                      min="0"
+                      step="1"
+                      placeholder="Digite o tempo em minutos"
                     />
                   </div>
                 </div>
-                
+
                 {/* Seções de Ingredientes e Modo de Preparo (mantidas iguais) */}
                 <div className="form-ingrediente-preparo">
                   <div className="form-left">

@@ -1,27 +1,73 @@
 // app/api/usuarios/aprovar/[id]/route.js
-import { NextResponse } from 'next/server'
-import { prisma } from '../../../../lib/prisma'
+import { NextResponse } from 'next/server';
+import { prisma } from '@app/lib/prisma';
 
-// PUT - Aprovar usuárop para acessar o site
-export async function PUT(request) {
-    try {
-      const { id } = await request.json();
-  
-      if (!id) {
-        return NextResponse.json({ error: 'id do usuário é obrigatório' }, { status: 400 });
-      }
-  
-      const Aprovar = await prisma.usuario.update({
-        where: { id: Number(id) },
-        data: { ativo: 1 }
-      });
-  
-      return NextResponse.json({
-        message: 'Status "ativo" do usuário atualizado com sucesso!',
-        usuario: Aprovar
-      });
-    } catch (error) {
-      console.error('Erro ao atualizar status do usuário:', error);
-      return NextResponse.json({ error: 'Erro ao atualizar status do usuário' }, { status: 500 });
+// Helper function to validate ID
+function validateId(id) {
+  if (!id) return { valid: false, error: 'ID do usuário não fornecido' };
+  const parsedId = parseInt(id);
+  if (isNaN(parsedId)) return { valid: false, error: 'ID inválido' };
+  return { valid: true, id: parsedId };
+}
+
+export async function PUT(request, { params }) {
+  try {
+    const validation = validateId(params?.id);
+    if (!validation.valid) {
+      return NextResponse.json(
+        { success: false, error: validation.error },
+        { status: 400 }
+      );
     }
+
+    const body = await request.json();
+    const ativo = parseInt(body.ativo);
+    
+    // Validate ativo value
+    if (![0, 1, 2].includes(ativo)) {
+      return NextResponse.json(
+        { success: false, error: 'Valor de ativo inválido. Deve ser 0, 1 ou 2' },
+        { status: 400 }
+      );
+    }
+
+     // checa se usuario existe
+    const existingUser = await prisma.usuario.findUnique({
+      where: { id: validation.id },
+      select: { id: true }
+    });
+
+    if (!existingUser) {
+      return NextResponse.json(
+        { success: false, error: 'Usuário não encontrado' },
+        { status: 404 }
+      );
+    }
+
+    const updated = await prisma.usuario.update({
+      where: { id: validation.id },
+      data: { ativo },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        ativo: true
+      }
+    });
+
+    return NextResponse.json(
+      { success: true, data: updated },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Erro ao aprovar usuário:', error);
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: 'Erro ao atualizar status do usuário',
+        details: process.env.NODE_ENV === 'development' ? error.message : null
+      },
+      { status: 500 }
+    );
   }
+}

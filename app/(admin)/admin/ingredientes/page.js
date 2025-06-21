@@ -5,82 +5,130 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import '../styles/UsuariosPage.css';
 import { MenuLateral } from './menu_lateral.js';
-import { tipodeIngredientes, Ingredientes, UnidadesdeMedida } from '../data/IngredientesData.js';
+import { FiArrowLeft, FiLoader } from 'react-icons/fi';
 
-export default function IngredientesAdmin() {
-  const [loading, setLoading] = useState(true);     
-  const [tipos, setTipos] = useState([]);
-  const [unidades, SetUnidades] = useState([]);
+export default function ReceitasAdmin() {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [ingredientes, setIngredientes] = useState([]);
+  const [totalIngredientes, setTotalIngredientes] = useState(0);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    perPage: 15,
+    total: 0,
+    totalPages: 1
+  });
+
+  const fetchIngredientes = async (page = 1) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/admin/ingredientes?page=${page}&perPage=${pagination.perPage}`);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || response.statusText);
+      }
+
+      const result = await response.json();
+      setIngredientes(result.data || []);
+      setTotalIngredientes(result.pagination.total);
+      setPagination({
+        page: result.pagination.page,
+        perPage: result.pagination.perPage,
+        total: result.pagination.total,
+        totalPages: result.pagination.totalPages
+      });
+      setError(null);
+    } catch (err) {
+      console.error('Erro detalhado:', err);
+      setError(err.message.includes('Failed to fetch')
+        ? 'Erro de conexão com o servidor'
+        : err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setTipos(tipodeIngredientes || []);
-    SetUnidades(UnidadesdeMedida || []);
-    setIngredientes(Ingredientes || []);
-    setLoading(false);
+    fetchIngredientes(pagination.page);
   }, []);
 
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > pagination.totalPages) return;
+
+    setPagination(prev => ({ ...prev, page: newPage }));
+    fetchIngredientes(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   if (loading) {
-    return <div className="admin-loading">Carregando...</div>
+    return (
+      <div className="loading-container">
+        <FiLoader className="loading-spinner" size={24} />
+        <p>Carregando todos os ingredientes...</p>
+      </div>
+    );
   }
 
+  if (error) {
+    return (
+      <div className="error-container">
+        <p className="error-message">{error}</p>
+        <button onClick={() => fetchIngredientes(pagination.page)}>Tentar novamente</button>
+      </div>
+    );
+  }
 
   return (
     <div className="usuario-admin-container">
-      <MenuLateral/>
+      <MenuLateral />
       <div className="usuario-lista-admin">
-        <h1>Lista de Ingredientes</h1>
+        <h1>Lista de Ingredientes- Todos ({totalIngredientes})</h1>
 
-          
-          <div className="usuario-admin-box">
+        <div className="usuario-admin-box">
+          {ingredientes.length > 0 ? (
+            ingredientes.map(ingrediente => (
+              <div key={ingrediente.id_ingrediente} className="usuario-admin-card">
+                <p className="usuario-nome">{ingrediente.id_ingrediente} - {ingrediente.descricao_ingrediente}</p>
+                <p className="usuario-tipo">Tipo:{ingrediente.tipoIngrediente?.tipo_ingrediente}</p>
+                <Link href={`/admin/receitas/${ingrediente.id_ingrediente}`}>Visualizar |</Link>
+                <Link href={`/admin/receitas/alterar/${ingrediente.id_ingrediente}`}>Alterar</Link>
+                <Link href={`/admin/receitas/deletar/${ingrediente.id_ingrediente}`}>Excluir</Link>
+              </div>
+            ))
+          ) : (
+            <p className="usuario-empty">Nenhum ingrediente cadastrado.</p>
+          )}
 
-            {/* Ingredientes */}
-            <h2>Ingredientes</h2>
-            {ingredientes.length > 0 ? (
-              ingredientes.map(ingredientes => (
-                <div key={ingredientes.id} className="usuario-admin-card usuario-novo">
-                  <p className="usuario-nome">{ingredientes.titulo}</p>
-                  <p className="usuario-ativo">{ingredientes.tipo}</p>
-                  <Link href={`/admin/ingredientes/${ingredientes.id}`}>Visualizar |</Link>                  
-                  <Link href={`/admin/ingredientes/atualizar/${ingredientes.id}`}>Alterar |</Link>
-                  <Link href={`/admin/ingredientes/deletar/${ingredientes.id}`}>Excluir</Link>
-                </div>
-              ))
-            ) : (
-              <p className="usuario-empty">Nenhum ingrediente encontrado.</p>
-            )}
+        </div>
 
-            {/* Tipos de ingredientes */}
-            <h2>Tipos de Ingredientes</h2>
-            {tipos.length > 0 ? (
-              tipos.map(tipo => (
-                <div key={tipo.id} className="usuario-admin-card usuario-novo">
-                  <p className="usuario-nome">{tipo.id} - {tipo.titulo}</p>
-                  <Link href={`/admin/ingredientes/tipos/${tipo.id}`}>Visualizar |</Link>
-                  <Link href={`/admin/ingredientes/tipos/atualizar/${tipo.id}`}>Alterar |</Link>
-                  <Link href={`/admin/ingredientes/tipos/deletar/${tipo.id}`}>Excluir</Link>
-                </div>
-              ))
-            ) : (
-              <p className="usuario-empty">Nenhum tipo de ingrediente encontrado.</p>
-            )}
+        {pagination.totalPages > 1 && (
+          <div className="pagination">
+            <button
+              onClick={() => handlePageChange(pagination.page - 1)}
+              disabled={pagination.page === 1}
+            >
+              Anterior
+            </button>
 
-             {/* Unidades */}
-             <h2>Unidades de Medidas</h2>
-            {unidades.length > 0 ? (
-              unidades.map(unidade => (
-                <div key={unidade.id} className="usuario-admin-card usuario-novo">
-                  <p className="usuario-nome">{unidade.titulo}</p>
-                  <p className="usuario-ativo">{unidade.sigla}</p>
-                  <Link href={`/admin/ingredientes/unidades/${unidade.id}`}>Visualizar |</Link>
-                  <Link href={`/admin/ingredientes/unidades/atualizar/${unidade.id}`}>Alterar |</Link>
-                  <Link href={`/admin/ingredientes/unidades/deletar/${unidade.id}`}>Excluir</Link>
-                </div>
-              ))
-            ) : (
-              <p className="usuario-empty">Nenhuma unidade de medida encontrada.</p>
-            )}
+            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={pagination.page === page ? 'active' : ''}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              onClick={() => handlePageChange(pagination.page + 1)}
+              disabled={pagination.page === pagination.totalPages}
+            >
+              Próxima
+            </button>
           </div>
+        )}
       </div>
     </div>
   )

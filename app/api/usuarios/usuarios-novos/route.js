@@ -1,14 +1,12 @@
 
 // app/api/usuarios/usuarios-novos/route.js
 import { NextResponse } from 'next/server'
-import { prisma } from '../../../lib/prisma'
+import { prisma } from '@app/lib/prisma';
 
 export async function GET() {
     try {
         const usuariosNovos = await prisma.usuario.findMany({
-            where: {
-                ativo: null // filtrar apenas usuários novos
-            },
+            where: { ativo: null },
             orderBy: {
                 data_cadastro: 'desc' //ordenar por data de cadastro descrescente
             },
@@ -17,7 +15,6 @@ export async function GET() {
                 nome: true,
                 email: true,
                 senha: true,
-                telefone: true,
                 endereco: true,
                 numero: true,
                 cidade: true,

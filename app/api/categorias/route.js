@@ -1,6 +1,6 @@
 // app/api/categorias/route.js
 import { NextResponse } from 'next/server'
-import { prisma } from '../../lib/prisma'
+import { prisma } from '@app/lib/prisma'
 //função para exibir todas as categorias
 export async function GET() {
   try {

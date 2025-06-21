@@ -91,6 +91,7 @@ node prisma/exemplos/usuario.js
 node prisma/exemplos/categoria.js 
 node prisma/exemplos/unidade.js 
 node prisma/exemplos/receita.js 
+node prisma/exemplos/tipo_ingrediente.js
 node prisma/exemplos/ingrediente.js
 node prisma/exemplos/dica.js
 
@@ -137,3 +138,7 @@ npx prisma generate
 npx prisma migrate deploy
 # ou
 npx prisma migrate dev
+
+
+# para atualizar os cadastros
+npm install react-modal

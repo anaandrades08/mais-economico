@@ -1,0 +1,95 @@
+/* Dica Details Specific Styles */
+.dica-image-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dica-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.dica-titulo {
+  font-size: 24px;
+  color: #6f42c1;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dica-meta {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.dica-meta p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.dica-content {
+  margin-bottom: 30px;
+}
+
+.dica-content h2 {
+  color: #6f42c1;
+  font-size: 18px;
+  margin: 20px 0 10px;
+}
+
+.dica-descricao {
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.dica-cta {
+  background-color: #f0f0ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.dica-status.ativo {
+  color: #28a745;
+}
+
+.dica-status.inativo {
+  color: #dc3545;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button {
+  background-color: #6f42c1;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.edit-button:hover, .delete-button:hover {
+  opacity: 0.9;
+}

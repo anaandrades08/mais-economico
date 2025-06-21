@@ -1,83 +1,167 @@
 'use client'
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import '../../styles/UsuariosPage.css';
-import { Users } from '../../data/UserData';
 import { MenuLateral } from '../menu_lateral.js';
+import { FiArrowLeft, FiLoader } from 'react-icons/fi';
 
 export default function UsuariosAdmin() {
-  const [loading, setLoading] = useState(true);    
-  const [todosAdmins, setTodosAdmins] = useState([]);
-     //valores de paginação  
-    const [paginaAtual, setPaginaAtual] = useState(1);
-    const usuariosPorPagina = 15;
+  const [pagination, setPagination] = useState({
+    page: 1,
+    perPage: 15,
+    total: 0,
+    totalPages: 1
+  });
+  const [usuarios, setUsuarios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchUsuarios = async (page = 1) => {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `/api/usuarios/admin/admins/?page=${page}&perPage=${pagination.perPage}`
+      );
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
+      const data = await res.json();
+      
+      if (!data.success) {
+        throw new Error(data.error || 'Erro desconhecido ao carregar usuários');
+      }
+      
+      setUsuarios(data.data || []);
+      setPagination(data.pagination || {
+        page: 1,
+        perPage: 15,
+        total: 0,
+        totalPages: 1
+      });
+      setError(null);
+    } catch (err) {
+      console.error('Fetch error:', err);
+      setError(err.message);
+      setUsuarios([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (Users && Users.length > 0) {
-      const todosAdmins = Users.filter(u => u.tipo === 1);
-      setTodosAdmins(todosAdmins);
-    } else {
-      setTodosAdmins([]);
-    }  
-    setLoading(false);
-  }, []); 
+    fetchUsuarios(pagination.page);
+  }, [pagination.page, pagination.perPage]); // Added dependencies
 
- // Paginação lógica
- const indexInicial = (paginaAtual - 1) * usuariosPorPagina
- const indexFinal = indexInicial + usuariosPorPagina
- const usuariosPaginados = todosAdmins.slice(indexInicial, indexFinal)
- const totalPaginas = Math.ceil(todosAdmins.length / usuariosPorPagina)
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > pagination.totalPages) return;
+    setPagination(prev => ({ ...prev, page: newPage }));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
- const mudarPagina = (novaPagina) => {
-   setPaginaAtual(novaPagina)
-   window.scrollTo(0, 0)
- }
-  if (loading) {
-    return <div className="admin-loading">Carregando...</div>
+  if (loading && usuarios.length === 0) {
+    return (
+      <div className="loading-container">
+        <FiLoader className="loading-spinner" size={24} />
+        <p>Carregando usuários admins...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p className="error-message">Erro ao carregar usuários administrador: {error}</p>
+        <button 
+          onClick={() => fetchUsuarios(pagination.page)} 
+          className="retry-button"
+        >
+          Tentar novamente
+        </button>
+        <Link href="/admin/" className="back-button">
+          <FiArrowLeft size={20} /> Voltar
+        </Link>
+      </div>
+    );
   }
 
   return (
-    
-    <>
     <div className="usuario-admin-container">
-      <MenuLateral/>
+      <MenuLateral />
       <div className="usuario-lista-admin">
-        <h1>Lista de Usuários Admins</h1>     
-          
-          <div className="usuario-admin-box">
-
-          <h2>Admins</h2>
-          {usuariosPaginados.length > 0 ? (
-            usuariosPaginados.map(usuario => (
-                <div key={usuario.id} className={`usuario-admin-card ${usuario.tipo === 1 ? 'admin' : ''}`}>
-                  <p className="usuario-nome">{usuario.nome}</p>
-                  <p className="usuario-tipo">Tipo: Admin</p>
-                  <p className="usuario-ativo">Ativo: {usuario.ativo === 1 ? 'Ativo' : 'Inativo'}</p>
-                  <Link href={`/admin/usuarios/${usuario.id}`}>Visualizar |</Link>
-                  <Link href={`/admin/usuarios/alterar/${usuario.id}`}>Alterar |</Link>
+        <h1>Lista de Usuários - Admins</h1>
+        
+        <div className="usuario-admin-box">
+          {usuarios.length > 0 ? (
+            usuarios.map(usuario => (
+              <div
+                key={usuario.id}
+                className={`usuario-admin-card ${usuario.tipo === 1 ? 'admin' : 
+                            usuario.tipo === 2 ? 'basico' : 
+                            usuario.tipo === 3 ? 'premium' : ''}
+                            ${usuario.ativo === 2 ? 'usuario-reprovado' :
+                            usuario.ativo === 1 ? 'usuario-aprovado' : 
+                            usuario.ativo === 0 ? 'usuario-inativo' : 'usuario-novo'}`}
+              > 
+                <p className="usuario-nome">{usuario.nome}</p>
+                <p className="usuario-tipo">
+                  Tipo: {usuario.tipo === 1 ? "Admin" :
+                        usuario.tipo === 2 ? "Usuário Básico" :
+                        usuario.tipo === 3 ? "Usuário Premium" : "Não Definido"}
+                </p>
+                <p className="usuario-ativo">
+                  Status: {usuario.ativo === 2 ? "Reprovado" :
+                         usuario.ativo === 1 ? "Aprovado" :
+                         usuario.ativo === 0 ? "Inativo" :
+                         "(Aguardando aprovação)"}
+                </p>
+                 <div className="usuario-actions">                  
+                  <Link href={`/admin/usuarios/${usuario.id}`}>Visualizar</Link>
+                  {usuario.ativo === null ? (
+                    <Link href={`/admin/usuarios/aprovar/${usuario.id}`}>Aprovar cadastro</Link>
+                  ) : (
+                  <>
+                  <Link href={`/admin/usuarios/alterar/${usuario.id}`}>Alterar</Link>
                   <Link href={`/admin/usuarios/deletar/${usuario.id}`}>Excluir</Link>
+                 </>
+                 )}
                 </div>
-              ))
-            ) : (
-              <p className="usuario-empty">Nenhum admin encontrado.</p>
-            )}
+              </div>
+            ))
+          ) : (
+            <p className="usuario-empty">Nenhum usuário admin encontrado.</p>
+          )}
+        </div>
+        
+        {pagination.totalPages > 1 && (
+          <div className="pagination">
+            <button
+              onClick={() => handlePageChange(pagination.page - 1)}
+              disabled={pagination.page === 1}
+            >
+              Anterior
+            </button>
+            
+            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={pagination.page === page ? 'active' : ''}
+              >
+                {page}
+              </button>
+            ))}
+            
+            <button
+              onClick={() => handlePageChange(pagination.page + 1)}
+              disabled={pagination.page === pagination.totalPages}
+            >
+              Próxima
+            </button>
           </div>
-          {totalPaginas > 1 && (
-                <div className="pagination">
-                  {[...Array(totalPaginas)].map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => mudarPagina(i + 1)}
-                      className={`page-button ${paginaAtual === i + 1 ? 'pagina-ativa' : ''}`}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
-                </div>
-              )}
-      </div>  
-    </div>     
-    </>  
-  )
+        )}
+      </div>
+    </div>
+  );
 }
