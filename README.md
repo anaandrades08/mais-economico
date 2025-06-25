@@ -71,6 +71,10 @@ git remote add origin https://github.com/anaandrades08/mais-economico.git
 git checkout -b dev-banco-dados
 git push -u origin dev-banco-dados
 
+# outra branch admin
+git checkout -b admin  
+git push -u origin admin   
+ 
 ## versão site com banco de dados
 1. version: "1.1.0"
 

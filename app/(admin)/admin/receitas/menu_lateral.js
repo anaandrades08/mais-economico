@@ -11,6 +11,8 @@ export function MenuLateral() {
                     <Link href="/admin/receitas/inativas">Receitas Inativas</Link>
                     <Link href="/admin/receitas/aprovadas">Receitas Aprovadas</Link>
                     <Link href="/admin/receitas/reprovadas">Receitas Reprovadas</Link>
+                    <Link href="/admin/ingredientes-receita">Ingredientes da Receita </Link>
+                    <Link href="/admin/modo-preparo-receita">Modo de preparo Receita</Link>     
                 </nav>
             </div>
     )

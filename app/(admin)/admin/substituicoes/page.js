@@ -138,8 +138,8 @@ export default function SubstituicoesAdmin() {
                   </p>
                   <p className="usuario-ativo">Ativo: Sim</p>
                   <Link href={`/admin/substituicoes/${substituicao.id_substituicao}`}>Visualizar |</Link>
-                  <Link href={`/admin/substituicoes/atualizar/${substituicao.id_substituicao}`}>Alterar |</Link>
-                  <Link href={`/admin/substituicoes/deletar/${substituicao.id_substituicao}`}>Excluir</Link>
+                  <Link href={`/admin/substituicoes/alterar/${substituicao.id_substituicao}`}>Alterar |</Link>
+                  <Link href={`/admin/substituicoes/excluir/${substituicao.id_substituicao}`}>Excluir</Link>
                 </div>
               ))
             )}
@@ -157,8 +157,8 @@ export default function SubstituicoesAdmin() {
                   </p>
                   <p className="usuario-ativo">Ativo: Não</p>
                   <Link href={`/admin/substituicoes/${substituicao.id_substituicao}`}>Visualizar |</Link>
-                  <Link href={`/admin/substituicoes/atualizar/${substituicao.id_substituicao}`}>Alterar |</Link>
-                  <Link href={`/admin/substituicoes/deletar/${substituicao.id_substituicao}`}>Excluir</Link>
+                  <Link href={`/admin/substituicoes/alterar/${substituicao.id_substituicao}`}>Alterar |</Link>
+                  <Link href={`/admin/substituicoes/excluir/${substituicao.id_substituicao}`}>Excluir</Link>
                 </div>
               ))
             )}
@@ -176,8 +176,8 @@ export default function SubstituicoesAdmin() {
                   </p>
                   <p className="usuario-ativo">Ativo: Não</p>
                   <Link href={`/admin/substituicoes/${substituicao.id_substituicao}`}>Visualizar |</Link>
-                  <Link href={`/admin/substituicoes/atualizar/${substituicao.id_substituicao}`}>Alterar |</Link>
-                  <Link href={`/admin/substituicoes/deletar/${substituicao.id_substituicao}`}>Excluir</Link>
+                  <Link href={`/admin/substituicoes/alterar/${substituicao.id_substituicao}`}>Alterar |</Link>
+                  <Link href={`/admin/substituicoes/excluir/${substituicao.id_substituicao}`}>Excluir</Link>
                 </div>
               ))
             )}

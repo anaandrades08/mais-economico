@@ -1,13 +1,12 @@
 'use client'
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import '../styles/UsuariosPage.css';
 import { MenuLateral } from './menu_lateral.js';
-import { FiArrowLeft, FiLoader } from 'react-icons/fi';
+import { FiLoader } from 'react-icons/fi';
 
-export default function ReceitasAdmin() {
+export default function TipoIngredienteAdmin() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tiposIngredientes, setTiposIngredientes] = useState([]);
@@ -90,9 +89,9 @@ export default function ReceitasAdmin() {
             tiposIngredientes.map(tipoIngrediente => (
               <div key={tipoIngrediente.id_tipo_ingrediente} className="usuario-admin-card">
                 <p className="usuario-nome">{tipoIngrediente.id_tipo_ingrediente} - {tipoIngrediente.tipo_ingrediente}</p>
-                <Link href={`/admin/receitas/${tipoIngrediente.id_tipo_ingrediente}`}>Visualizar |</Link>
-                <Link href={`/admin/receitas/alterar/${tipoIngrediente.id_tipo_ingrediente}`}>Alterar</Link>
-                <Link href={`/admin/receitas/deletar/${tipoIngrediente.id_tipo_ingrediente}`}>Excluir</Link>
+                <Link href={`/admin/tipo-ingrediente/${tipoIngrediente.id_tipo_ingrediente}`}>Visualizar |</Link>
+                <Link href={`/admin/tipo-ingrediente/alterar/${tipoIngrediente.id_tipo_ingrediente}`}>Alterar |</Link>
+                <Link href={`/admin/tipo-ingrediente/excluir/${tipoIngrediente.id_tipo_ingrediente}`}>Excluir</Link>
               </div>
             ))
           ) : (

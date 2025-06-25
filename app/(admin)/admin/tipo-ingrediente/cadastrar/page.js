@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import '../../styles/UsuariosPage.css';
 import { MenuLateral } from '../menu_lateral.js';
-import { FiAlertCircle, FiCheckCircle, FiLoader } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiLoader, FiTrash2, FiEdit, FiArrowLeft, FiRefreshCw } from 'react-icons/fi';
 import { useSession } from "next-auth/react";
 
 export default function CadastrarTipoIngredienteAdmin() {
@@ -72,6 +72,10 @@ export default function CadastrarTipoIngredienteAdmin() {
             }
 
             setSuccess('Ingrediente cadastrada com sucesso!');
+             setTimeout(() => {
+                setSuccess(null);
+                router.push('/admin/tipo-ingrediente');
+            }, 2000);
             limparFormulario();
         } catch (err) {
             console.error('Erro ao cadastrar ingrediente:', err);
@@ -151,7 +155,9 @@ export default function CadastrarTipoIngredienteAdmin() {
                                     <FiLoader className="spin" /> Cadastrando...
                                 </>
                             ) : (
-                                'Cadastrar Tipo de Ingrediente'
+                                <>
+                                    <FiEdit size={18} /> Cadastrar Tipo de Ingrediente
+                                </>
                             )}
                         </button>
                         <button
@@ -160,8 +166,17 @@ export default function CadastrarTipoIngredienteAdmin() {
                             disabled={loading}
                             className="secondary"
                         >
-                            Limpar
+                           <FiRefreshCw size={18} />  Limpar
                         </button>
+                        <Link href="/admin/tipo-ingrediente" className="back-button">
+                            <button
+                                type="button"
+                                disabled={loading}
+                                className="secondary"
+                            >
+                                <FiArrowLeft size={20} /> Voltar
+                            </button>
+                        </Link>
                     </div>
                 </form>
             </section>

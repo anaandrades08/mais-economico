@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import '../../../styles/UsuariosPage.css';
 import { MenuLateral } from '../../menu_lateral.js';
-import { FiAlertCircle, FiCheckCircle, FiLoader } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiLoader, FiTrash2, FiEdit, FiArrowLeft } from 'react-icons/fi';
 import { useSession } from "next-auth/react";
 
 export default function AlterarDicaAdmin() {
@@ -323,11 +323,17 @@ export default function AlterarDicaAdmin() {
                                     <FiLoader className="spin" /> Atualizando...
                                 </>
                             ) : (
-                                'Atualizar Dica'
+                                <><FiEdit size={16} /> Atualizar Dica</>
                             )}
                         </button>
-                        <Link href="/admin/dicas" className="secondary">
-                            Cancelar
+                        <Link href="/admin/dicas/" className="back-button">
+                            <button
+                                type="button"
+                                disabled={loading}
+                                className="secondary"
+                            >
+                                <FiArrowLeft size={20} /> Voltar
+                            </button>
                         </Link>
                     </div>
                 </form>

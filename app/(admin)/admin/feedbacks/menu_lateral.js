@@ -6,7 +6,7 @@ export function MenuLateral() {
             <div className="usuario-admin-nav">
                 <nav className="usuario-admin-nav-bar">
                     <Link href="/admin/feedbacks">Todos os Feedbacks</Link>
-                    <Link href="/admin/feedbacks/cadastrar/">Cadastrar Feedback</Link>
+                    <Link href="/admin/feedbacks/receitas/">Buscar por Receita</Link>
                 </nav>
             </div>
     )

@@ -5,9 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import '../../styles/UsuariosPage.css';
 import '../../styles/DicasPage.css';
-import { formatarDataeHora } from '../../funcoes/Usuarios';
+import { formatarDataeHora, Status } from '../../funcoes/Usuarios';
 import { MenuLateral } from '../menu_lateral.js';
-import { FiArrowLeft, FiEdit2, FiTrash2, FiLoader } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiLoader, FiTrash2, FiEdit, FiArrowLeft } from 'react-icons/fi';
 
 export default function DetalhesDicaAdmin() {
   const params = useParams();
@@ -128,7 +128,7 @@ export default function DetalhesDicaAdmin() {
             <strong>Autor:</strong> {dica.usuario?.nome || 'Autor desconhecido'}
           </p>
           <p className={`dica-status ${dica.ativo === 1 ? 'ativo' : 'inativo'}`}>
-            <strong>Status:</strong> {dica.ativo === 1 ? 'Ativo' : 'Inativo'}
+            <strong>Status:</strong> {Status(dica.ativo)}
           </p>
         </div>
 
@@ -138,7 +138,7 @@ export default function DetalhesDicaAdmin() {
           
           {dica.cta_text && (
             <div className="dica-cta">
-              <h2>Call to Action</h2>
+              <h2>Texto do botão</h2>
               <p>{dica.cta_text}</p>
             </div>
           )}
@@ -151,10 +151,10 @@ export default function DetalhesDicaAdmin() {
           
           <div className="action-buttons">
             <Link href={`/admin/dicas/alterar/${dica.id_dica}`} className="edit-button">
-              <FiEdit2 size={16} /> Editar
+              <FiEdit size={16} /> Atualizar Dica
             </Link>
             <button onClick={handleDelete} className="delete-button">
-              <FiTrash2 size={16} /> Excluir
+              <FiTrash2 size={16} /> Excluir Dica
             </button>
           </div>
         </div>

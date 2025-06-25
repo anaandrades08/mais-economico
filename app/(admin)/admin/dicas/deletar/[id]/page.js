@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import '../../../styles/UsuariosPage.css';
 import { MenuLateral } from '../../menu_lateral.js';
-import { FiAlertCircle, FiCheckCircle, FiLoader, FiTrash2 } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiLoader, FiTrash2, FiArrowLeft } from 'react-icons/fi';
 import { useSession } from "next-auth/react";
 
 export default function DeletarDicaAdmin() {
@@ -160,8 +160,14 @@ export default function DeletarDicaAdmin() {
                                     </>
                                 )}
                             </button>
-                            <Link href="/admin/dicas" className="secondary">
-                                Cancelar
+                             <Link href="/admin/dicas/" className="back-button">
+                                <button
+                                    type="button"
+                                    disabled={loading}
+                                    className="secondary"
+                                >
+                                    <FiArrowLeft size={20} /> Voltar
+                                </button>
                             </Link>
                         </div>
                     </div>

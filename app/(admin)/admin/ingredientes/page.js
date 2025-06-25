@@ -91,9 +91,9 @@ export default function ReceitasAdmin() {
               <div key={ingrediente.id_ingrediente} className="usuario-admin-card">
                 <p className="usuario-nome">{ingrediente.id_ingrediente} - {ingrediente.descricao_ingrediente}</p>
                 <p className="usuario-tipo">Tipo:{ingrediente.tipoIngrediente?.tipo_ingrediente}</p>
-                <Link href={`/admin/receitas/${ingrediente.id_ingrediente}`}>Visualizar |</Link>
-                <Link href={`/admin/receitas/alterar/${ingrediente.id_ingrediente}`}>Alterar</Link>
-                <Link href={`/admin/receitas/deletar/${ingrediente.id_ingrediente}`}>Excluir</Link>
+                <Link href={`/admin/ingredientes/${ingrediente.id_ingrediente}`}>Visualizar |</Link>
+                <Link href={`/admin/ingredientes/alterar/${ingrediente.id_ingrediente}`}>Alterar |</Link>
+                <Link href={`/admin/ingredientes/excluir/${ingrediente.id_ingrediente}`}>Excluir</Link>
               </div>
             ))
           ) : (

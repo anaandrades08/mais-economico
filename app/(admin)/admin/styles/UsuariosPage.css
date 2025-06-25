@@ -709,9 +709,12 @@
     font-style: italic;
 }
 
+
 /* Estilos para o botão desabilitado */
+
+.button-delete,
 .action-button.delete{
-        background: #dc3545;
+    background: #dc3545;
     color: white;
     border: 1px solid #dc3545;
     padding: 8px 16px;

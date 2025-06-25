@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import '../../styles/UsuariosPage.css';
 import { MenuLateral } from '../menu_lateral.js';
-import { FiAlertCircle, FiCheckCircle, FiLoader } from 'react-icons/fi';
+import { FiAlertCircle, FiCheckCircle, FiLoader, FiTrash2, FiEdit, FiArrowLeft, FiRefreshCw } from 'react-icons/fi';
 import { useSession } from "next-auth/react";
 
 export default function CadastrarIngredienteAdmin() {
@@ -273,8 +273,17 @@ export default function CadastrarIngredienteAdmin() {
                             disabled={loading}
                             className="secondary"
                         >
-                            Limpar
+                             <FiRefreshCw size={18} />  Limpar
                         </button>
+                        <Link href="/admin/ingredientes" className="back-button">
+                            <button
+                                type="button"
+                                disabled={loading}
+                                className="secondary"
+                            >
+                                <FiArrowLeft size={20} /> Voltar
+                            </button>
+                        </Link>
                     </div>
                 </form>
             </section>

@@ -139,7 +139,7 @@ export default function FeedbacksAdmin() {
                   </p>
                   <p className="usuario-ativo">Ativo: Sim</p>
                   <Link href={`/admin/feedbacks/${feedback.id_feedback}`}>Visualizar |</Link>
-                  <Link href={`/admin/feedbacks/atualizar/${feedback.id_feedback}`}>Alterar |</Link>
+                  <Link href={`/admin/feedbacks/alterar/${feedback.id_feedback}`}>Alterar |</Link>
                   <Link href={`/admin/feedbacks/deletar/${feedback.id_feedback}`}>Excluir</Link>
                 </div>
               ))
@@ -158,7 +158,7 @@ export default function FeedbacksAdmin() {
                   </p>
                   <p className="usuario-ativo">Ativo: Não</p>
                   <Link href={`/admin/feedbacks/${feedback.id_feedback}`}>Visualizar |</Link>
-                  <Link href={`/admin/feedbacks/atualizar/${feedback.id_feedback}`}>Alterar |</Link>
+                  <Link href={`/admin/feedbacks/alterar/${feedback.id_feedback}`}>Alterar |</Link>
                   <Link href={`/admin/feedbacks/deletar/${feedback.id_feedback}`}>Excluir</Link>
                 </div>
               ))
@@ -177,7 +177,7 @@ export default function FeedbacksAdmin() {
                   </p>
                   <p className="usuario-ativo">Ativo: Não</p>
                   <Link href={`/admin/feedbacks/${feedback.id_feedback}`}>Visualizar |</Link>
-                  <Link href={`/admin/feedbacks/atualizar/${feedback.id_feedback}`}>Alterar |</Link>
+                  <Link href={`/admin/feedbacks/alterar/${feedback.id_feedback}`}>Alterar |</Link>
                   <Link href={`/admin/feedbacks/deletar/${feedback.id_feedback}`}>Excluir</Link>
                 </div>
               ))

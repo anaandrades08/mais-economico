@@ -25,3 +25,35 @@ export function formatarData(data) {
   
     return `${dia}/${mes}/${ano}`;
   }
+
+
+  export function Status(data) {
+    if (data === null) {
+        return 'Novo (aguardando aprovação)';
+    }
+    else if (data === 1) {
+        return 'Aprovado';
+    } else if (data === 2) {
+        return 'Reprovado';
+    } else if (data === 0) {
+        return 'Inativo';
+    } else {
+        return 'Desconhecido';
+    }
+  }
+
+
+ export const formatTime = (minutes) => {
+  if (!minutes || isNaN(minutes)) return '0min';
+  
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  
+  return hours > 0 
+    ? `${hours}h ${mins > 0 ? `${mins}min` : ''}`.trim()
+    : `${mins}min`;
+};
+
+export const getTimesText = (count) => {
+  return Math.abs(count || 0) === 1 ? 'vez' : 'vezes';
+};
